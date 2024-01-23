@@ -1,0 +1,183 @@
+@import url("https://fonts.googleapis.com/css2?family=Noto+Sans+Thai:wght@400;500;700&display=swap");
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --foreground-rgb: 0, 0, 0;
+  --background-start-rgb: 214, 219, 220;
+  --background-end-rgb: 255, 255, 255;
+}
+
+@media (prefers-color-scheme: white) {
+  :root {
+    --foreground-rgb: 255, 255, 255;
+    --background-start-rgb: 0, 0, 0;
+    --background-end-rgb: 0, 0, 0;
+  }
+}
+
+body {
+  font-family: "Noto Sans Thai", sans-serif;
+  /* color: rgb(var(--foreground-rgb));
+  background: linear-gradient(
+      to bottom,
+      transparent,
+      rgb(var(--background-end-rgb))
+    )
+    rgb(var(--background-start-rgb)); */
+}
+
+.ant-input.PhoneInput {
+  display: flex;
+}
+
+.PhoneInputInput:focus {
+  outline: none;
+}
+
+.slick-prev:before,
+.slick-next:before {
+  color: black !important;
+}
+
+.ant-btn-primary,
+/* button, */
+[type="button"] {
+  background-color: #2a4d69;
+  @media screen and (max-width: 431px) {
+    font-size: 8px !important;
+    height: 20px !important;
+    padding-left: 5px !important;
+    padding-right: 5px !important;
+    padding-bottom: 3px !important;
+    padding-top: 3px !important;
+  }
+}
+
+.ant-select {
+  /* background-color: #2a4d69; */
+  @media screen and (max-width: 431px) {
+    width: 80px !important;
+    padding-left: 5px !important;
+    padding-right: 5px !important;
+    padding-bottom: 3px !important;
+    padding-top: 3px !important;
+  }
+}
+
+.price-select {
+  @media screen and (max-width: 431px) {
+    width: 150px !important;
+  }
+}
+
+.ant-picker {
+  @media screen and (max-width: 431px) {
+    width: 250px !important;
+  }
+}
+
+.ant-picker-input input {
+  @media screen and (max-width: 431px) {
+    font-size: 12px !important;
+  }
+}
+
+.ant-input-number-input-wrap input {
+  @media screen and (max-width: 431px) {
+    font-size: 12px !important;
+  }
+}
+
+.ant-input {
+  @media screen and (max-width: 431px) {
+    font-size: 12px !important;
+  }
+}
+
+.ant-select-selection-item {
+  @media screen and (max-width: 431px) {
+    font-size: 8px !important;
+  }
+}
+
+.ant-select-item-option-content {
+  @media screen and (max-width: 431px) {
+    font-size: 8px !important;
+  }
+}
+
+.ant-select-selection-placeholder {
+  @media screen and (max-width: 431px) {
+    font-size: 12px !important;
+  }
+}
+
+.ant-modal-title {
+  font-size: 24px !important;
+  font-weight: bold !important;
+  @media screen and (max-width: 431px) {
+    font-size: 16px !important;
+  }
+}
+
+li {
+  display: flex;
+  gap: 0.8rem;
+  align-items: center;
+}
+
+.ant-drawer-title {
+  font-size: 24px !important;
+  padding-left: 1rem !important;
+  @media screen and (max-width: 431px) {
+    font-size: 20px !important;
+  }
+}
+
+::placeholder {
+  color: rgba(0, 0, 0, 0.25) !important;
+}
+
+.slick-next {
+  right: -15px !important;
+}
+
+.anticon-calendar svg {
+  @media screen and (max-width: 431px) {
+    font-size: 18px !important;
+  }
+}
+
+.anticon-user svg {
+  @media screen and (max-width: 431px) {
+    font-size: 18px !important;
+  }
+}
+
+.input-n {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 4px 11px;
+  color: rgba(0, 0, 0, 0.88);
+  font-size: 14px;
+  line-height: 1.5714285714285714;
+  list-style: none;
+  font-family: "Noto Sans Thai", sans-serif;
+  position: relative;
+  display: inline-block;
+  width: 100%;
+  min-width: 0;
+  background-color: #ffffff;
+  background-image: none;
+  border-width: 1px;
+  border-style: solid;
+  border-color: #d9d9d9;
+  border-radius: 6px;
+  transition: all 0.2s;
+}
+.input-n::placeholder {
+  text-overflow: ellipsis;
+}
