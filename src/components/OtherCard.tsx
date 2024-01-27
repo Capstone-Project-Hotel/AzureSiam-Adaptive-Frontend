@@ -1,5 +1,6 @@
 import { Button, Card, Modal } from "antd";
 import React, { Children, useState } from "react";
+import { useMediaQuery } from "react-responsive";
 import styled from "styled-components";
 
 const { Meta } = Card;
@@ -23,6 +24,7 @@ const Othercard: React.FC<React.PropsWithChildren<OthercardProps>> = ({
   onButtonClick = () => {},
 }) => {
   const [isModalOpen, setIsModalOpen] = useState(false);
+  const isMobile = useMediaQuery({ query: "(max-width: 431px)" });
 
   const showModal = () => {
     if (hoverable) setIsModalOpen(true);
@@ -39,14 +41,36 @@ const Othercard: React.FC<React.PropsWithChildren<OthercardProps>> = ({
 
   return (
     <>
-      <StyledCard
-        style={hoverable ? { cursor: "pointer" } : {}}
-        hoverable={hoverable ? true : false}
-        onClick={showModal}
-        cover={<img width={400} height={300} alt="example" src={src} />}
-      >
-        <Meta title={title} description={description} />
-      </StyledCard>
+      {!isMobile && (
+        <StyledCard
+          style={hoverable ? { cursor: "pointer" } : {}}
+          hoverable={hoverable ? true : false}
+          onClick={showModal}
+          cover={<img width={400} height={300} alt={title} src={src} />}
+        >
+          <Meta title={title} description={description} />
+        </StyledCard>
+      )}
+      {isMobile && (
+        <div
+          style={hoverable ? { cursor: "pointer" } : {}}
+          onClick={showModal}
+          className="w-full h-[88px] flex"
+          id={hoverable ? "roomDiv" : ""}
+        >
+          <div className="w-1/3">
+            <img src={src} alt={title} className="w-full h-full object-cover" />
+          </div>
+          <div className="w-2/3 h-full">
+            <div className="h-1/3 text-h3-mobile px-3 flex items-center bg-adaptiveBg">
+              {title}
+            </div>
+            <div className="h-2/3 text-h5-mobile px-3 py-2 opacity-[0.45]">
+              {description}
+            </div>
+          </div>
+        </div>
+      )}
       <Modal
         title={title}
         open={isModalOpen}
