@@ -1000,7 +1000,7 @@ export default function SummaryBar({
             {t("total")}
           </div>
           <div className="text-body mobile:text-h4-mobile text-white">
-            {totalRooms} {t("room")}{" "}
+            {totalRooms} {t("total_room")}{" "}
             {bookingDetail.adultNumber + bookingDetail.childrenNumber}{" "}
             {t("guest")}
             <button onClick={showDrawer}>
