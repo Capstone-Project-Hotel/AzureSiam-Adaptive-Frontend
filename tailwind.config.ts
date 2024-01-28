@@ -12,6 +12,7 @@ const config: Config = {
         primary: "#2A4D69",
         secondary: "#4B86B4",
         thrid: "#1890FF",
+        adaptiveBg: "#E6F7FF",
         background: "#E7EFF6",
         "darker-background": "#D1E2EF",
       },

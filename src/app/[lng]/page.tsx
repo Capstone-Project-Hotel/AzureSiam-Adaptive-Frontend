@@ -40,7 +40,7 @@ const CustomDateRange = dynamic(() => import("@/components/CustomDateRange"), {
 const ContentStyle = styled.div<{ src: string }>`
   height: 543px;
   width: 100%;
-  background-image: ${(p) => `url(${p.src})`};
+  background-image: ${(p: any) => `url(${p.src})`};
   background-repeat: no-repeat;
   background-size: cover;
   background-position: center;
@@ -60,26 +60,6 @@ const Home = ({ params: { lng } }: { params: { lng: any } }) => {
     new Date("2024-01-28"),
   ];
 
-  const settings = {
-    dots: true,
-    infinite: false,
-    speed: 300,
-    slidesToShow: 3,
-    slidesToScroll: 3,
-    arrows: true,
-    swipe: false,
-    responsive: [
-      {
-        breakpoint: 431,
-        settings: {
-          slidesToShow: 2,
-          slidesToScroll: 2,
-          infinite: false,
-          dots: true,
-        },
-      },
-    ],
-  };
   const [open, setOpen] = useState<boolean>(false);
   const [startDate, setStartDate] = useState<Date>(new Date());
   const [endDate, setEndDate] = useState<Date>(addDays(new Date(), 1));
@@ -389,7 +369,7 @@ const Home = ({ params: { lng } }: { params: { lng: any } }) => {
               {t("room_type")}
             </div>
 
-            <Slider {...settings}>
+            <CardContainer>
               {/* Standard Room */}
               <OtherCard
                 t={t}
@@ -863,7 +843,7 @@ const Home = ({ params: { lng } }: { params: { lng: any } }) => {
                   />
                 </div>
               </OtherCard>
-            </Slider>
+            </CardContainer>
           </div>
 
           {/* Spa Container */}
@@ -904,7 +884,7 @@ const Home = ({ params: { lng } }: { params: { lng: any } }) => {
               {t("promotions")}
             </div>
 
-            <Slider {...settings}>
+            <CardContainer>
               <OtherCard
                 t={t}
                 title={t("fifty_title")}
@@ -923,7 +903,7 @@ const Home = ({ params: { lng } }: { params: { lng: any } }) => {
                 description={t("friday_description")}
                 src="https://cdn.discordapp.com/attachments/457166097230069773/1186562459604090920/cover_4.jpg?ex=6593b367&is=65813e67&hm=069041e55fe6d46f3a85f69c7600a40a3334b8feac9e86b19cd7068bb9a0e284&"
               />
-            </Slider>
+            </CardContainer>
           </div>
 
           {/* Activity Schedule   Container */}
@@ -933,7 +913,7 @@ const Home = ({ params: { lng } }: { params: { lng: any } }) => {
               {t("activity_schedule")}
             </div>
 
-            <Slider {...settings}>
+            <CardContainer>
               <OtherCard
                 t={t}
                 title={t("swim_title")}
@@ -952,7 +932,7 @@ const Home = ({ params: { lng } }: { params: { lng: any } }) => {
                 description={t("rock_description")}
                 src="https://cdn.discordapp.com/attachments/457166097230069773/1186562753759039508/cover_7.jpg?ex=6593b3ad&is=65813ead&hm=5633be70c54972883cda392c9079e407c231622e3d304fc2f56c15bc3cf8dcaf&"
               />
-            </Slider>
+            </CardContainer>
           </div>
 
           {/* Gallery Container */}
@@ -986,7 +966,7 @@ const Home = ({ params: { lng } }: { params: { lng: any } }) => {
               {t("nearby_attraction")}
             </div>
 
-            <Slider {...settings}>
+            <CardContainer>
               <Link
                 href={
                   "https://www.google.com/maps/place/%E0%B8%AA%E0%B8%A2%E0%B8%B2%E0%B8%A1%E0%B8%9E%E0%B8%B2%E0%B8%A3%E0%B8%B2%E0%B8%81%E0%B8%AD%E0%B8%99/@13.7463371,100.5322779,17z/data=!4m10!1m2!2m1!1ssiam+paragon!3m6!1s0x30e29ecde3aee521:0x9f43939a2caf2963!8m2!3d13.7462411!4d100.5347402!15sCgxzaWFtIHBhcmFnb25aDiIMc2lhbSBwYXJhZ29ukgEPc2hvcHBpbmdfY2VudGVy4AEA!16zL20vMDltbWho?entry=ttu"
@@ -1023,7 +1003,7 @@ const Home = ({ params: { lng } }: { params: { lng: any } }) => {
                   src="https://cdn.discordapp.com/attachments/457166097230069773/1186563062765994074/cover_10.jpg?ex=6593b3f7&is=65813ef7&hm=f5f92e930efdb887607c71c735b500194e2c94122db327962c261c387538292b&"
                 />
               </Link>
-            </Slider>
+            </CardContainer>
           </div>
         </div>
       </div>
@@ -1069,5 +1049,36 @@ const StyledCard = styled(Card)`
     }
   }
 `;
+
+const CardContainer = ({ children }: any) => {
+  const isMobile = useMediaQuery({ query: "(max-width: 431px)" });
+
+  const settings = {
+    dots: true,
+    infinite: false,
+    speed: 300,
+    slidesToShow: 3,
+    slidesToScroll: 3,
+    arrows: true,
+    swipe: false,
+    responsive: [
+      {
+        breakpoint: 431,
+        settings: {
+          slidesToShow: 2,
+          slidesToScroll: 2,
+          infinite: false,
+          dots: true,
+        },
+      },
+    ],
+  };
+
+  if (isMobile) {
+    return <div className="flex flex-col gap-y-2 py-2">{children}</div>;
+  }
+
+  return <Slider {...settings}>{children}</Slider>;
+};
 
 export default Home;
