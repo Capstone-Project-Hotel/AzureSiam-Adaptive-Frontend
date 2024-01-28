@@ -350,42 +350,42 @@ const Home = ({ params: { lng } }: { params: { lng: any } }) => {
       {/* Hamburger menu */}
       <Drawer onClose={onCloseMenu} open={menu} placement="left" width={250}>
         <Menu style={{ display: 'flex', flexDirection: 'column', width:200 }}>
-          <Menu.Item key="1" onClick={scrollToRoom}>
+          <Menu.Item key="1" onClick={() => { scrollToRoom(); onCloseMenu(); }}>
             <p className="mobile:text-h3-mobile">
               {t("room_type")}
             </p>
           </Menu.Item>
-          <Menu.Item key="2" onClick={scrollToFacilities}>
+          <Menu.Item key="2" onClick={() => { scrollToFacilities(); onCloseMenu(); }}>
             <p className="mobile:text-h3-mobile">
               {t("facilities")}
             </p>
           </Menu.Item>
-          <Menu.Item key="3" onClick={scrollToPromotions}>
+          <Menu.Item key="3" onClick={()=>{ scrollToPromotions(); onCloseMenu(); }}>
             <p className="mobile:text-h3-mobile">
               {t("promotions")}
             </p>
           </Menu.Item>
-          <Menu.Item key="4" onClick={scrollToActivity}>
+          <Menu.Item key="4" onClick={()=>{ scrollToActivity(); onCloseMenu(); }}>
             <p className="mobile:text-h3-mobile">
               {t("activity_schedule")}
             </p>
           </Menu.Item>
-          <Menu.Item key="5" onClick={scrollToGallery}>
+          <Menu.Item key="5" onClick={() => { scrollToGallery(); onCloseMenu(); }}>
             <p className="mobile:text-h3-mobile">
               {t("gallery")}
             </p>
           </Menu.Item>
-          <Menu.Item key="6" onClick={scrollToNearby}>
+          <Menu.Item key="6" onClick={()=>{ scrollToNearby(); onCloseMenu(); }}>
             <p className="mobile:text-h3-mobile">
               {t("nearby_attraction")}
             </p>
           </Menu.Item>
-          <Menu.Item key="7" onClick={showDrawer}>
+          <Menu.Item key="7" onClick={()=>{ showDrawer(); onCloseMenu(); }}>
             <p className="mobile:text-h3-mobile">
               {t("language")}
             </p>
           </Menu.Item>
-          <Menu.Item key="8" onClick={showDrawer}>
+          <Menu.Item key="8" onClick={()=>{ showDrawer(); onCloseMenu(); }}>
             <p className="mobile:text-h3-mobile">
               {t("currency")}
             </p>
