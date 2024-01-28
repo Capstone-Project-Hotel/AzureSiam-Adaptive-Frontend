@@ -1,6 +1,7 @@
 "use client";
-import React, { useState } from "react";
+import React, { useState,useEffect } from "react";
 import { BlockOutlined } from "@ant-design/icons";
+import { MenuOutlined } from "@ant-design/icons";
 import { Anchor, Menu, Dropdown, Button, Select } from "antd";
 import DownOutlined from "@ant-design/icons/DownOutlined";
 import Link from "next/link";
@@ -20,6 +21,7 @@ interface LandingTopbarProps {
   scrollToGallery: () => void;
   scrollToNearby: () => void;
   onBookNow: () => void;
+  showMenu: () => void;
   t: any;
 }
 
@@ -32,6 +34,7 @@ export default function LandingTopbar({
   scrollToGallery,
   scrollToNearby,
   onBookNow,
+  showMenu,
   t,
 }: LandingTopbarProps) {
   // i18n
@@ -134,12 +137,34 @@ export default function LandingTopbar({
     onBookNow();
   };
 
+  const [isMobile, setIsMobile] = useState(false);
+
+  // Use useEffect to update the screen size state on mount and on window resize
+  useEffect(() => {
+    const handleResize = () => {
+      setIsMobile(window.innerWidth <= 431);
+    };
+
+    handleResize();
+    window.addEventListener("resize", handleResize);
+
+    return () => {
+      window.removeEventListener("resize", handleResize);
+    };
+  }, []);
+
   return (
     <div
-      className="sticky top-0 flex flex-row h-[110px] w-full px-[4.16vw] items-center justify-between"
+      className="sticky top-0 flex flex-row h-[110px] w-full px-[4.16vw] items-center justify-between mobile:h-[50px]"
       style={{ backgroundColor: "#2A4D69", color: "white" }}
     >
-      <div className="flex flex-row items-center mobile:flex-col">
+      <div className="flex flex-row items-center">
+        {/* hidden this section when view on desktop */}
+        {isMobile && (
+        <div className="mr-[10px]" onClick={showMenu}>
+          <MenuOutlined style={{ fontSize: "5vw", color: "white" }} />
+        </div>
+        )}
         <Link
           href={"/"}
           className="text-h2 mobile:text-h2-mobile cursor-pointer flex items-center"
@@ -148,7 +173,9 @@ export default function LandingTopbar({
           AzureSiam
         </Link>
       </div>
-      <div className="flex flex-row flex-wrap items-start gap-x-8 gap-y-1 mobile:flex-col ml-[2vw]">
+      {/* hidden this section when view on mobile */}
+      {!isMobile && (
+        <div className="flex flex-row flex-wrap items-start gap-x-8 gap-y-1 mobile:flex-col ml-[2vw]">
         <div
           className="text-h5 mobile:text-h5-mobile cursor-pointer"
           onClick={scrollToRoom}
@@ -186,6 +213,9 @@ export default function LandingTopbar({
           {t("nearby_attraction")}
         </div>
       </div>
+      )}
+      {/* hidden this section when view on mobile */}
+      {!isMobile && (
       <div className="flex flex-row items-center gap-x-4 gap-y-2 flex-wrap mobile:flex-col">
         <Select
           defaultValue={lng == "th" ? "ไทย" : "English"}
@@ -200,6 +230,7 @@ export default function LandingTopbar({
           style={{ width: "100px" }}
         />
       </div>
+      )}
       <div>
         <Button
           style={{

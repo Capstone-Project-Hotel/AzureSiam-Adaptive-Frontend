@@ -1,11 +1,11 @@
 "use client";
 
 import HistoryCard from "@/components/HistoryCard";
-import { addDays, format } from "date-fns";
+import { addDays, format, set } from "date-fns";
 import { useEffect, useRef, useState } from "react";
 import OtherCard from "@/components/OtherCard";
 import dynamic from "next/dynamic";
-import { Card, Carousel, Input } from "antd";
+import { Card, Carousel, Input, MenuProps } from "antd";
 import styled from "styled-components";
 import { CalendarOutlined } from "@ant-design/icons";
 import Slider from "react-slick";
@@ -17,6 +17,7 @@ import { Button, Drawer } from "antd";
 import { InputNumber } from "antd";
 import Link from "next/link";
 import { useMediaQuery } from "react-responsive";
+import { Menu, Modal } from "antd";
 
 import TvIcon from "@mui/icons-material/Tv";
 import BathtubIcon from "@mui/icons-material/Bathtub";
@@ -50,6 +51,9 @@ const ContentStyle = styled.div<{ src: string }>`
 `;
 
 import { useTranslation } from "../i18n/client";
+import { languages } from "@/app/i18n/settings";
+import { useRouter } from "next/navigation";
+import axios from "axios";
 
 const Home = ({ params: { lng } }: { params: { lng: any } }) => {
   const { t } = useTranslation(lng);
@@ -61,6 +65,7 @@ const Home = ({ params: { lng } }: { params: { lng: any } }) => {
   ];
 
   const [open, setOpen] = useState<boolean>(false);
+  const [menu, setShowMenu] = useState<boolean>(false);
   const [startDate, setStartDate] = useState<Date>(new Date());
   const [endDate, setEndDate] = useState<Date>(addDays(new Date(), 1));
   const [adults, setAdults] = useState<number | null>(1);
@@ -87,6 +92,16 @@ const Home = ({ params: { lng } }: { params: { lng: any } }) => {
 
   const onClose = () => {
     setOpen(false);
+  };
+
+  // fix this to menu bar
+  const showMenu = () => {
+    setShowMenu(true);
+    console.log("show menu");
+  };
+
+  const onCloseMenu = () => {
+    setShowMenu(false);
   };
 
   const roomRef = useRef<null | HTMLDivElement>(null);
@@ -217,6 +232,71 @@ const Home = ({ params: { lng } }: { params: { lng: any } }) => {
     handleNewBooking();
   }, []);
 
+  const router = useRouter();
+  const options = languages
+    .filter((l: any) => lng !== l)
+    .map((l: any) => {
+      return { label: l == "th" ? "ไทย" : "English", key: l };
+    });
+  const handleIntlChange = (e: any) => {
+    const currentPath = window.location.pathname;
+    router.push(`/${e.key}/${currentPath.slice(4)}`);
+  };
+
+  const listquotes = [
+    "SGD",
+    "MYR",
+    "EUR",
+    "USD",
+    "AUD",
+    "JPY",
+    "CNH",
+    "HKD",
+    "CAD",
+    "INR",
+    "DKK",
+    "GBP",
+    "RUB",
+    "NZD",
+    "MXN",
+    "IDR",
+    "TWD",
+    "THB",
+    "VND",
+  ].map((l: any) => {
+    return { label: l, key: l };
+  });
+  const handleExChange = async (e: any) => {
+    const value = e.key;
+    try {
+      if (value && value !== "THB") {
+        const response = await axios.get(
+          "https://currency-exchange.p.rapidapi.com/exchange",
+          {
+            params: {
+              from: "THB",
+              to: value,
+            },
+            headers: {
+              "X-RapidAPI-Key":
+                "32978adf6emsh766e865f3b81f21p11aafajsnb354410acc8c",
+              "X-RapidAPI-Host": "currency-exchange.p.rapidapi.com",
+            },
+          }
+        );
+        setCurrency(value);
+        setExchangeRate(response.data);
+        onCloseMenu();
+      } else {
+        setCurrency("THB");
+        setExchangeRate(1);
+        onCloseMenu();
+      }
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
   return (
     // Page Container
     <div>
@@ -230,10 +310,10 @@ const Home = ({ params: { lng } }: { params: { lng: any } }) => {
           scrollToGallery={scrollToGallery}
           scrollToNearby={scrollToNearby}
           onBookNow={showDrawer}
+          showMenu={showMenu}
           t={t}
         />
       </div>
-
       {/* Drawer */}
       <Drawer
         title={t("booking_detail")}
@@ -335,7 +415,105 @@ const Home = ({ params: { lng } }: { params: { lng: any } }) => {
         </div>
       </Drawer>
 
-      <div className="flex justify-center mt-[110px]">
+      {/* Hamburger menu */}
+      <Drawer onClose={onCloseMenu} open={menu} placement="left" width={250}>
+        <Menu style={{ display: "flex", flexDirection: "column", width: 200 }}>
+          <Menu.Item
+            key="1"
+            onClick={() => {
+              scrollToRoom();
+              onCloseMenu();
+            }}
+          >
+            <p className="mobile:text-h3-mobile">{t("room_type")}</p>
+          </Menu.Item>
+          <Menu.Item
+            key="2"
+            onClick={() => {
+              scrollToFacilities();
+              onCloseMenu();
+            }}
+          >
+            <p className="mobile:text-h3-mobile">{t("facilities")}</p>
+          </Menu.Item>
+          <Menu.Item
+            key="3"
+            onClick={() => {
+              scrollToPromotions();
+              onCloseMenu();
+            }}
+          >
+            <p className="mobile:text-h3-mobile">{t("promotions")}</p>
+          </Menu.Item>
+          <Menu.Item
+            key="4"
+            onClick={() => {
+              scrollToActivity();
+              onCloseMenu();
+            }}
+          >
+            <p className="mobile:text-h3-mobile">{t("activity_schedule")}</p>
+          </Menu.Item>
+          <Menu.Item
+            key="5"
+            onClick={() => {
+              scrollToGallery();
+              onCloseMenu();
+            }}
+          >
+            <p className="mobile:text-h3-mobile">{t("gallery")}</p>
+          </Menu.Item>
+          <Menu.Item
+            key="6"
+            onClick={() => {
+              scrollToNearby();
+              onCloseMenu();
+            }}
+          >
+            <p className="mobile:text-h3-mobile">{t("nearby_attraction")}</p>
+          </Menu.Item>
+
+          {/* Language */}
+          <Menu.SubMenu
+            key="7"
+            title={t("language")}
+            className="mobile:text-h3-mobile h-auto"
+          >
+            {options.map((op: any) => {
+              return (
+                <Menu.Item
+                  key={op.key}
+                  onClick={handleIntlChange}
+                  className="mobile:text-h3-mobile"
+                >
+                  {op.label}
+                </Menu.Item>
+              );
+            })}
+          </Menu.SubMenu>
+
+          {/* Currency */}
+          <Menu.SubMenu
+            key="8"
+            title={t("currency")}
+            className="mobile:text-h3-mobile"
+          >
+            {listquotes.map((op: any) => {
+              return (
+                <Menu.Item
+                  key={op.key}
+                  className="mobile:text-h3-mobile"
+                  onClick={handleExChange}
+                >
+                  {op.label}
+                </Menu.Item>
+              );
+            })}
+          </Menu.SubMenu>
+        </Menu>
+      </Drawer>
+
+      <div className="flex justify-center mt-[110px] mobile:mt-[50px]">
         {/* Main Container */}
         <div className="w-[1440px] mobile:w-full flex flex-col gap-10 mobile:gap-8 items-center pb-20">
           {/* Hotel Name Container */}
