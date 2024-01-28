@@ -267,6 +267,7 @@ const Home = ({ params: { lng } }: { params: { lng: any } }) => {
     return { label: l, key: l };
   });
   const handleExChange = async (e: any) => {
+    onCloseMenu();
     const value = e.key;
     try {
       if (value && value !== "THB") {
@@ -286,11 +287,9 @@ const Home = ({ params: { lng } }: { params: { lng: any } }) => {
         );
         setCurrency(value);
         setExchangeRate(response.data);
-        onCloseMenu();
       } else {
         setCurrency("THB");
         setExchangeRate(1);
-        onCloseMenu();
       }
     } catch (error) {
       console.error(error);
