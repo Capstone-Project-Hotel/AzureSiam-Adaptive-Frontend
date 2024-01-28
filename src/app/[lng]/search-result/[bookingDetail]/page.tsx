@@ -15,6 +15,8 @@ import { useEffect, useState } from "react";
 import { useTranslation } from "@/app/i18n/client";
 
 import type { DatePicker, DatePickerProps } from "antd";
+import { useMediaQuery } from "react-responsive";
+import SummaryBar from "@/components/SummaryBar";
 // type RangePickerProps = GetProps<typeof DatePicker.RangePicker>;
 
 export default function SearchResultPage({
@@ -29,6 +31,7 @@ export default function SearchResultPage({
   const params = useParams();
 
   const decodedParams = decodeURIComponent(params.bookingDetail as string);
+  const isMobile = useMediaQuery({ query: "(max-width: 431px)" });
 
   // Splitting the string into key-value pairs
   const keyValuePairs = decodedParams.split("&");
@@ -333,8 +336,12 @@ export default function SearchResultPage({
             ) : null
           )}
         </div>
-        <div className="flex sticky mobile:static mt-[5vh] w-[100vw] justify-center">
-          <SummaryCard page="search-result" isDisabledConfirm={false} t={t} />
+        <div className="flex sticky mt-[5vh] w-[100vw] justify-center mobile:fixed mobile:bottom-0">
+          {isMobile ? (
+            <SummaryBar page="search-result" isDisabledConfirm={false} t={t} />
+          ) : (
+            <SummaryCard page="search-result" isDisabledConfirm={false} t={t} />
+          )}
         </div>
       </div>
 

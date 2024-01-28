@@ -97,7 +97,7 @@ const BookingConfirmation: React.FC<ReservationAndGuestDetailProps> = ({
           {t("booking_id")}: {bookingDetail.bookingId}
         </div>
       </div>
-      <div className="flex justify-center mt-[15px] mobile:flex-col mobile:items-center overflow-hidden">
+      <div className="flex justify-center mt-[15px] mobile:flex-row-reverse mobile:items-center overflow-hidden">
         {/* Main Container */}
         <div className="w-[1440px] mobile:w-[330px] flex items-start flex-wrap gap-10 py-10 mobile:py-1 px-10 mobile:px-0">
           {/* Left Container */}

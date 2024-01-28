@@ -948,12 +948,6 @@ export default function SummaryCard({
               <div>{t("confirm")}</div>
             </Button>
           </Link>
-        ) : page === "summary-booking-detail" ? (
-          <Link href={"/booking-confirmation"}>
-            <Button style={{ background: "#2A4D69", color: "white" }}>
-              <div>{t("check_out")}</div>
-            </Button>
-          </Link>
         ) : null}
       </div>
     </div>
