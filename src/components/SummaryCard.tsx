@@ -145,12 +145,30 @@ export default function SummaryCard({
 
   let reducedRate = 1;
 
-  let mondayAndFridaySale = 200 * mondayAndFridayNightCount;
-  let saturdayAdditionalCost = 200 * saturdayNightCount;
-
   if (bookingDetail.codePromotion === "valid001") {
     reducedRate = 0.8;
   }
+
+  let mondayAndFridaySale =
+    200 *
+    mondayAndFridayNightCount *
+    (bookingDetail.standardRoomNumber +
+      bookingDetail.deluxeRoomNumber +
+      bookingDetail.familyRoomNumber +
+      bookingDetail.suiteRoomNumber +
+      bookingDetail.executiveRoomNumber) *
+    reducedRate *
+    exchangeRate;
+  let saturdayAdditionalCost =
+    200 *
+    saturdayNightCount *
+    (bookingDetail.standardRoomNumber +
+      bookingDetail.deluxeRoomNumber +
+      bookingDetail.familyRoomNumber +
+      bookingDetail.suiteRoomNumber +
+      bookingDetail.executiveRoomNumber) *
+    reducedRate *
+    exchangeRate;
 
   let subTotal =
     (1200 * bookingDetail.standardRoomNumber +
@@ -162,6 +180,7 @@ export default function SummaryCard({
       saturdayAdditionalCost) *
     dayDuration;
   reducedRate * exchangeRate;
+
   if (bookingDetail.packageOne === true)
     subTotal += 299 * reducedRate * exchangeRate;
   if (bookingDetail.packageTwo === true)
