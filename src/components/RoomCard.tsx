@@ -125,7 +125,7 @@ export default function RoomCard({
             }).format(roomPrice * exchangeRate)}
           </text>
           <Button type="primary" onClick={() => handleBookNowClick(roomType)}>
-            {t("book_now")}
+            {t("book")}
           </Button>
         </div>
       ) : (
