@@ -514,7 +514,7 @@ const Home = ({ params: { lng } }: { params: { lng: any } }) => {
 
       <div className="flex justify-center mt-[110px] mobile:mt-[50px]">
         {/* Main Container */}
-        <div className="w-[1440px] mobile:w-full flex flex-col gap-10 mobile:gap-8 items-center pb-20">
+        <div className="max-w-[1440px] w-full mobile:w-full flex flex-col gap-10 mobile:gap-8 items-center pb-20">
           {/* Hotel Name Container */}
           <div
             style={{
@@ -1030,7 +1030,7 @@ const Home = ({ params: { lng } }: { params: { lng: any } }) => {
               className="border-r-0"
               cover={
                 <img
-                  className="w-full h-[611px]"
+                  className="w-full h-[611px] object-cover"
                   alt="example"
                   src="https://cdn.discordapp.com/attachments/457166097230069773/1186388457875050618/image_22.jpg?ex=6593115a&is=65809c5a&hm=cf867db65fccb6562c196f0bea586dc9020607a9cd118e60f915961630861461&"
                 />
@@ -1045,6 +1045,7 @@ const Home = ({ params: { lng } }: { params: { lng: any } }) => {
             <StyledCard
               cover={
                 <img
+                  className="w-full h-[611px] object-cover"
                   alt="example"
                   src="https://cdn.discordapp.com/attachments/457166097230069773/1186536405954998322/image_22_1.jpg?ex=65939b23&is=65812623&hm=51c97a045a70919c4ca3cbd6b1f023311523f8a0c7399532f14f427478e44b06&"
                 />
