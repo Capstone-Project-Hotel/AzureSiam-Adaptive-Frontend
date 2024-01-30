@@ -1,5 +1,5 @@
 "use client";
-import React, { useState,useEffect } from "react";
+import React, { useState, useEffect } from "react";
 import { BlockOutlined } from "@ant-design/icons";
 import { MenuOutlined } from "@ant-design/icons";
 import { Anchor, Menu, Dropdown, Button, Select } from "antd";
@@ -161,9 +161,9 @@ export default function LandingTopbar({
       <div className="flex flex-row items-center">
         {/* hidden this section when view on desktop */}
         {isMobile && (
-        <div className="mr-[10px]" onClick={showMenu}>
-          <MenuOutlined style={{ fontSize: "5vw", color: "white" }} />
-        </div>
+          <div className="mr-[10px]" onClick={showMenu}>
+            <MenuOutlined style={{ fontSize: "5vw", color: "white" }} />
+          </div>
         )}
         <Link
           href={"/"}
@@ -175,61 +175,61 @@ export default function LandingTopbar({
       </div>
       {/* hidden this section when view on mobile */}
       {!isMobile && (
-        <div className="flex flex-row flex-wrap items-start gap-x-8 gap-y-1 mobile:flex-col ml-[2vw]">
-        <div
-          className="text-h5 mobile:text-h5-mobile cursor-pointer"
-          onClick={scrollToRoom}
-        >
-          {t("room_type")}
+        <div className="text-[.85vw] flex flex-row mobile:flex-wrap items-start gap-x-[2vw] gap-y-1 mobile:flex-col ml-[2vw]">
+          <div
+            className="mobile:text-h5-mobile cursor-pointer"
+            onClick={scrollToRoom}
+          >
+            {t("room_type")}
+          </div>
+          <div
+            className="mobile:text-h5-mobile cursor-pointer"
+            onClick={scrollToFacilities}
+          >
+            {t("facilities")}
+          </div>
+          <div
+            className="mobile:text-h5-mobile cursor-pointer"
+            onClick={scrollToPromotions}
+          >
+            {t("promotions")}
+          </div>
+          <div
+            className="mobile:text-h5-mobile cursor-pointer"
+            onClick={scrollToActivity}
+          >
+            {t("activity_schedule")}
+          </div>
+          <div
+            className="mobile:text-h5-mobile cursor-pointer"
+            onClick={scrollToGallery}
+          >
+            {t("gallery")}
+          </div>
+          <div
+            className="mobile:text-h5-mobile cursor-pointer"
+            onClick={scrollToNearby}
+          >
+            {t("nearby_attraction")}
+          </div>
         </div>
-        <div
-          className="text-h5 mobile:text-h5-mobile cursor-pointer"
-          onClick={scrollToFacilities}
-        >
-          {t("facilities")}
-        </div>
-        <div
-          className="text-h5 mobile:text-h5-mobile cursor-pointer"
-          onClick={scrollToPromotions}
-        >
-          {t("promotions")}
-        </div>
-        <div
-          className="text-h5 mobile:text-h5-mobile cursor-pointer"
-          onClick={scrollToActivity}
-        >
-          {t("activity_schedule")}
-        </div>
-        <div
-          className="text-h5 mobile:text-h5-mobile cursor-pointer"
-          onClick={scrollToGallery}
-        >
-          {t("gallery")}
-        </div>
-        <div
-          className="text-h5 mobile:text-h5-mobile cursor-pointer"
-          onClick={scrollToNearby}
-        >
-          {t("nearby_attraction")}
-        </div>
-      </div>
       )}
       {/* hidden this section when view on mobile */}
       {!isMobile && (
-      <div className="flex flex-row items-center gap-x-4 gap-y-2 flex-wrap mobile:flex-col">
-        <Select
-          defaultValue={lng == "th" ? "ไทย" : "English"}
-          options={options}
-          onChange={handleIntlChange}
-          style={{ width: "100px" }}
-        />
-        <Select
-          defaultValue={currency}
-          options={listquotes}
-          onChange={handleExChange}
-          style={{ width: "100px" }}
-        />
-      </div>
+        <div className="flex flex-row items-center gap-x-4 gap-y-2 flex-wrap mobile:flex-col">
+          <Select
+            defaultValue={lng == "th" ? "ไทย" : "English"}
+            options={options}
+            onChange={handleIntlChange}
+            style={{ width: "100px" }}
+          />
+          <Select
+            defaultValue={currency}
+            options={listquotes}
+            onChange={handleExChange}
+            style={{ width: "100px" }}
+          />
+        </div>
       )}
       <div>
         <Button
