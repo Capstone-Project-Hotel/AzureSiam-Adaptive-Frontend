@@ -85,6 +85,7 @@ export default function Filter({ t }: { t: any }) {
         </p>
         <div className="flex justify-between mobile:flex-wrap mobile:space-y-3 mobile:space-x-0 mobile:justify-start">
           <RangePicker
+            showTime
             value={[
               dayjs(bookingDetail.startDate, "DD-MM-YYYY"),
               dayjs(bookingDetail.endDate, "DD-MM-YYYY"),

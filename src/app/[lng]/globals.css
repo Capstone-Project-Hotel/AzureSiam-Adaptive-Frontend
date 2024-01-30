@@ -189,3 +189,7 @@ li {
 .ant-menu-submenu-popup .ant-menu-vertical {
   max-height: 150px !important;
 }
+
+.ant-picker-time-panel {
+  display: none !important;
+}
