@@ -59,7 +59,6 @@ body {
 .ant-select {
   /* background-color: #2a4d69; */
   @media screen and (max-width: 431px) {
-    width: 80px !important;
     padding-left: 5px !important;
     padding-right: 5px !important;
     padding-bottom: 3px !important;
@@ -75,7 +74,7 @@ body {
 
 .ant-picker {
   @media screen and (max-width: 431px) {
-    width: 250px !important;
+    width: full !important;
   }
 }
 
@@ -99,13 +98,13 @@ body {
 
 .ant-select-selection-item {
   @media screen and (max-width: 431px) {
-    font-size: 8px !important;
+    font-size: 12px !important;
   }
 }
 
 .ant-select-item-option-content {
   @media screen and (max-width: 431px) {
-    font-size: 8px !important;
+    font-size: 12px !important;
   }
 }
 

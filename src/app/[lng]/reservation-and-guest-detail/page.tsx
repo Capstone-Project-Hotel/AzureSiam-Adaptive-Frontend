@@ -214,7 +214,7 @@ const ReservationAndGuestDetail: React.FC<ReservationAndGuestDetailProps> = ({
       </div>
       <div className="flex justify-center mt-[100px]">
         {/* Main Container */}
-        <div className="w-[1440px] mobile:w-[330px] flex items-start flex-wrap gap-10 py-10 mobile:py-1 px-10 mobile:px-0">
+        <div className="w-[1440px] mobile:w-[330px] flex items-start flex-wrap gap-10 py-10 mobile:py-1 px-10 mobile:px-0 mobile:justify-center">
           {/* Left Container */}
           <div className="w-[55%] mobile:w-[80vw] flex flex-col gap-10 mt-10 mobile:mt-0">
             {/* Back to search result Container */}
@@ -393,6 +393,7 @@ const ReservationAndGuestDetail: React.FC<ReservationAndGuestDetailProps> = ({
                       <span className="text-red-600">*</span>
                     </div>
                     <DatePicker
+                      style={{ width: "100%" }}
                       className="w-full"
                       placeholder={t("expiration_date_default")}
                       onChange={handleExpDateChange}
@@ -569,7 +570,7 @@ const GuestDetailInputContainer: React.FC<GuestDetailInputContainerProps> = ({
       {/* Row 1 */}
       <div className="flex flex-wrap justify-between gap-2">
         {/* First Name */}
-        <div className="w-[212px]">
+        <div className="w-[212px] mobile:w-full">
           <div className="text-description mobile:text-h3-mobile">
             {t("first_name")} <span className="text-red-600">*</span>
           </div>
@@ -583,7 +584,7 @@ const GuestDetailInputContainer: React.FC<GuestDetailInputContainerProps> = ({
         </div>
 
         {/* Middle Name */}
-        <div className="w-[212px]">
+        <div className="w-[212px] mobile:w-full">
           <div className="text-description mobile:text-h3-mobile">
             {t("middle_name")}
           </div>
@@ -597,7 +598,7 @@ const GuestDetailInputContainer: React.FC<GuestDetailInputContainerProps> = ({
         </div>
 
         {/* Last Name */}
-        <div className="w-[212px]">
+        <div className="w-[212px] mobile:w-full">
           <div className="text-description mobile:text-h3-mobile">
             {t("last_name")} <span className="text-red-600">*</span>
           </div>
@@ -612,9 +613,9 @@ const GuestDetailInputContainer: React.FC<GuestDetailInputContainerProps> = ({
       </div>
 
       {/* Row 2 */}
-      <div className="flex flex-wrap justify-between gap-2">
+      <div className="flex flex-wrap justify-between gap-2 mobile:gap-0">
         {/* Gender */}
-        <div className="w-[343px]">
+        <div className="w-[343px] mobile:w-full">
           <div className="text-description mobile:text-h3-mobile">
             {t("gender")} <span className="text-red-600">*</span>
           </div>
@@ -632,7 +633,7 @@ const GuestDetailInputContainer: React.FC<GuestDetailInputContainerProps> = ({
         </div>
 
         {/* Birth Date */}
-        <div className="w-[343px]">
+        <div className="w-[343px] mobile:w-full">
           <div className="text-description mobile:text-h3-mobile">
             {t("birthdate")} <span className="text-red-600">*</span>
           </div>
@@ -649,7 +650,7 @@ const GuestDetailInputContainer: React.FC<GuestDetailInputContainerProps> = ({
       {/* Row 3 */}
       <div className="flex flex-wrap justify-between gap-2">
         {/* Email */}
-        <div className="w-[343px]">
+        <div className="w-[343px] mobile:w-full">
           <div className="text-description mobile:text-h3-mobile">
             {t("email")} <span className="text-red-600">*</span>
           </div>
@@ -663,7 +664,7 @@ const GuestDetailInputContainer: React.FC<GuestDetailInputContainerProps> = ({
         </div>
 
         {/* Phone Number */}
-        <div className="w-[343px]">
+        <div className="w-[343px] mobile:w-full">
           <div className="text-description mobile:text-h3-mobile">
             {t("phone_number")} <span className="text-red-600">*</span>
           </div>
@@ -686,7 +687,7 @@ const GuestDetailInputContainer: React.FC<GuestDetailInputContainerProps> = ({
       {/* Row 4 */}
       <div className="flex flex-wrap justify-between gap-2">
         {/* Country */}
-        <div className="w-[212px]">
+        <div className="w-[212px] mobile:w-full">
           <div className="text-description mobile:text-h3-mobile">
             {t("country")} <span className="text-red-600">*</span>
           </div>
@@ -707,7 +708,7 @@ const GuestDetailInputContainer: React.FC<GuestDetailInputContainerProps> = ({
         </div>
 
         {/* City */}
-        <div className="w-[212px]">
+        <div className="w-[212px] mobile:w-full">
           <div className="text-description mobile:text-h3-mobile">
             {t("city")} <span className="text-red-600">*</span>
           </div>
@@ -721,7 +722,7 @@ const GuestDetailInputContainer: React.FC<GuestDetailInputContainerProps> = ({
         </div>
 
         {/* Zip code */}
-        <div className="w-[212px]">
+        <div className="w-[212px] mobile:w-full">
           <div className="text-description mobile:text-h3-mobile">
             {t("zip_code")} <span className="text-red-600">*</span>
           </div>
@@ -760,10 +761,10 @@ const GuestDetailInputContainer: React.FC<GuestDetailInputContainerProps> = ({
           <div className="text-description mobile:text-h3-mobile">
             {t("id_card")} <span className="text-red-600">*</span>
           </div>
-          <div className="flex justify-between flex-wrap gap-1">
-            <div className="w-[212px]">
+          <div className="flex justify-between flex-wrap gap-1 mobile:gap-0">
+            <div className="w-[212px] mobile:w-[50%]">
               <Select
-                className="w-full"
+                id="idSelect"
                 placeholder={t("select")}
                 options={[
                   { value: "id", label: t("national_id"), group: "idType" },
@@ -782,7 +783,7 @@ const GuestDetailInputContainer: React.FC<GuestDetailInputContainerProps> = ({
                 defaultValue={guest.idType ? guest.idType : undefined}
               />
             </div>
-            <div className="w-[470px]">
+            <div className="w-[470px] mobile:w-[50%]">
               <Input
                 className="w-full"
                 placeholder={

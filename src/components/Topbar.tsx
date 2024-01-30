@@ -124,7 +124,7 @@ export default function Topbar({ lng }: { lng: any }) {
         </Link>
       </div>
       <div className="flex flex-row items-center">
-        <div className="flex flex-row gap-4">
+        <div className="flex flex-row gap-4 mobile:w-[200px] mobile:gap-1">
           <Select
             defaultValue={lng == "th" ? "ไทย" : "English"}
             options={options}
