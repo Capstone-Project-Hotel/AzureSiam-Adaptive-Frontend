@@ -15,6 +15,7 @@ dayjs().format();
 import { useRouter } from "next/navigation";
 import type { CheckboxProps } from "antd";
 import { runes } from "runes2";
+import { useMediaQuery } from "react-responsive";
 export default function Filter({ t }: { t: any }) {
   const { RangePicker } = DatePicker;
   const CheckboxGroup = Checkbox.Group;
@@ -24,6 +25,8 @@ export default function Filter({ t }: { t: any }) {
   );
   const { bookingDetail, setBookingDetail, currency, exchangeRate } =
     useStore();
+
+  const isMobile = useMediaQuery({ query: "(max-width: 431px)" });
 
   const router = useRouter();
 
@@ -85,7 +88,7 @@ export default function Filter({ t }: { t: any }) {
         </p>
         <div className="flex justify-between mobile:flex-wrap mobile:space-y-3 mobile:space-x-0 mobile:justify-start">
           <RangePicker
-            showTime
+            showTime={isMobile}
             value={[
               dayjs(bookingDetail.startDate, "DD-MM-YYYY"),
               dayjs(bookingDetail.endDate, "DD-MM-YYYY"),

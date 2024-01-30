@@ -204,7 +204,7 @@ const ReservationAndGuestDetail: React.FC<ReservationAndGuestDetailProps> = ({
     setIsModalOpen(false);
   };
 
-  const isMobile = useMediaQuery({ query: "(max-width: 393px)" });
+  const isMobile = useMediaQuery({ query: "(max-width: 431px)" });
 
   return (
     // Page Container

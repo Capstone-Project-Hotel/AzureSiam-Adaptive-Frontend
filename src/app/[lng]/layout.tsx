@@ -19,7 +19,7 @@ export async function generateStaticParams() {
 }
 
 export const metadata: Metadata = {
-  title: "AzureSiam Responsive",
+  title: "AzureSiam Adaptive",
   description: "Hotel Booking Application",
 };
 
