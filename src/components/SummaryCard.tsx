@@ -116,6 +116,31 @@ export default function SummaryCard({
   // Convert the difference to days
   const dayDuration = Math.ceil(timeDifference / (1000 * 60 * 60 * 24));
 
+  let mondayAndFridayNightCount = 0;
+  let saturdayNightCount = 0;
+
+  const generateDateList = (start: Date, end: Date): string[] => {
+    let dateList: string[] = [];
+    for (let date = start; date < end; date.setDate(date.getDate() + 1)) {
+      if (date.getDay() === 6) {
+        // 0 is Sunday, 1 is Monday, ..., 6 is Saturday
+        saturdayNightCount++;
+      }
+      if (date.getDay() === 5 || date.getDay() === 1) {
+        mondayAndFridayNightCount++;
+      }
+      let dateVar = date.toLocaleDateString("en-GB");
+      console.log(dateVar);
+      dateList.push(dateVar);
+    }
+    return dateList;
+  };
+
+  const generatedDates = generateDateList(startDateFormat, endDateFormat);
+
+  // console.log("saturday nights:", saturdayNightCount);
+  // console.log("monday and friday nights:", mondayAndFridayNightCount);
+
   // calculate price here
 
   let reducedRate = 1;
@@ -124,14 +149,38 @@ export default function SummaryCard({
     reducedRate = 0.8;
   }
 
+  let mondayAndFridaySale =
+    200 *
+    mondayAndFridayNightCount *
+    (bookingDetail.standardRoomNumber +
+      bookingDetail.deluxeRoomNumber +
+      bookingDetail.familyRoomNumber +
+      bookingDetail.suiteRoomNumber +
+      bookingDetail.executiveRoomNumber) *
+    reducedRate *
+    exchangeRate;
+  let saturdayAdditionalCost =
+    200 *
+    saturdayNightCount *
+    (bookingDetail.standardRoomNumber +
+      bookingDetail.deluxeRoomNumber +
+      bookingDetail.familyRoomNumber +
+      bookingDetail.suiteRoomNumber +
+      bookingDetail.executiveRoomNumber) *
+    reducedRate *
+    exchangeRate;
+
   let subTotal =
     (1200 * bookingDetail.standardRoomNumber +
       1800 * bookingDetail.deluxeRoomNumber +
       2200 * bookingDetail.familyRoomNumber +
       2500 * bookingDetail.suiteRoomNumber +
-      3000 * bookingDetail.executiveRoomNumber) *
-    reducedRate *
-    exchangeRate;
+      3000 * bookingDetail.executiveRoomNumber -
+      mondayAndFridaySale +
+      saturdayAdditionalCost) *
+    dayDuration;
+  reducedRate * exchangeRate;
+
   if (bookingDetail.packageOne === true)
     subTotal += 299 * reducedRate * exchangeRate;
   if (bookingDetail.packageTwo === true)
@@ -207,7 +256,7 @@ export default function SummaryCard({
               <div className="flex justify-between mt-[0.5vh]">
                 <div className="text-body mobile:text-h4-mobile">
                   {t("std_title")} {bookingDetail.standardRoomNumber}{" "}
-                  {t("room")}
+                  {t("room_per_night")}
                 </div>
                 <div className="text-body text-slate-400 mobile:text-h4-mobile">
                   {currency}{" "}
@@ -259,7 +308,8 @@ export default function SummaryCard({
               </button>
               <div className="flex justify-between mt-[0.5vh]">
                 <div className="text-body mobile:text-h4-mobile">
-                  {t("dlx_title")} {bookingDetail.deluxeRoomNumber} {t("room")}
+                  {t("dlx_title")} {bookingDetail.deluxeRoomNumber}{" "}
+                  {t("room_per_night")}
                 </div>
                 <div className="text-body text-slate-400 mobile:text-h4-mobile">
                   {currency}{" "}
@@ -311,7 +361,8 @@ export default function SummaryCard({
               </button>
               <div className="flex justify-between mt-[0.5vh]">
                 <div className="text-body mobile:text-h4-mobile">
-                  {t("fml_title")} {bookingDetail.familyRoomNumber} {t("room")}
+                  {t("fml_title")} {bookingDetail.familyRoomNumber}{" "}
+                  {t("room_per_night")}
                 </div>
                 <div className="text-body text-slate-400 mobile:text-h4-mobile">
                   {currency}{" "}
@@ -363,7 +414,8 @@ export default function SummaryCard({
               </button>
               <div className="flex justify-between mt-[0.5vh]">
                 <div className="text-body mobile:text-h4-mobile">
-                  {t("s_title")} {bookingDetail.suiteRoomNumber} {t("room")}
+                  {t("s_title")} {bookingDetail.suiteRoomNumber}{" "}
+                  {t("room_per_night")}
                 </div>
                 <div className="text-body text-slate-400 mobile:text-h4-mobile">
                   {currency}{" "}
@@ -416,7 +468,7 @@ export default function SummaryCard({
               <div className="flex justify-between mt-[0.5vh]">
                 <div className="text-body mobile:text-h4-mobile">
                   {t("ex_title")} {bookingDetail.executiveRoomNumber}{" "}
-                  {t("room")}
+                  {t("room_per_night")}
                 </div>
                 <div className="text-body text-slate-400 mobile:text-h4-mobile">
                   {currency}{" "}
@@ -442,7 +494,7 @@ export default function SummaryCard({
               <div className="flex justify-between ml-2 mt-1">
                 <div className="text-body mobile:text-h4-mobile">
                   {t("std_title")} {bookingDetail.standardRoomNumber}{" "}
-                  {t("room")}
+                  {t("room_per_night")}
                 </div>
                 <div className="text-body text-slate-400 mobile:text-h4-mobile">
                   {currency}{" "}
@@ -462,7 +514,8 @@ export default function SummaryCard({
             {bookingDetail.deluxeRoomNumber !== 0 ? (
               <div className="flex justify-between ml-2 mt-1">
                 <div className="text-body mobile:text-h4-mobile">
-                  {t("dlx_title")} {bookingDetail.deluxeRoomNumber} {t("room")}
+                  {t("dlx_title")} {bookingDetail.deluxeRoomNumber}{" "}
+                  {t("room_per_night")}
                 </div>
                 <div className="text-body text-slate-400 mobile:text-h4-mobile">
                   {currency}{" "}
@@ -482,7 +535,8 @@ export default function SummaryCard({
             {bookingDetail.familyRoomNumber !== 0 ? (
               <div className="flex justify-between ml-2 mt-1">
                 <div className="text-body mobile:text-h4-mobile">
-                  {t("fml_title")} {bookingDetail.familyRoomNumber} {t("room")}
+                  {t("fml_title")} {bookingDetail.familyRoomNumber}{" "}
+                  {t("room_per_night")}
                 </div>
                 <div className="text-body text-slate-400 mobile:text-h4-mobile">
                   {currency}{" "}
@@ -502,7 +556,8 @@ export default function SummaryCard({
             {bookingDetail.suiteRoomNumber !== 0 ? (
               <div className="flex justify-between ml-2 mt-1">
                 <div className="text-body mobile:text-h4-mobile">
-                  {t("s_title")} {bookingDetail.suiteRoomNumber} {t("room")}
+                  {t("s_title")} {bookingDetail.suiteRoomNumber}{" "}
+                  {t("room_per_night")}
                 </div>
                 <div className="text-body text-slate-400 mobile:text-h4-mobile">
                   {currency}{" "}
@@ -523,7 +578,7 @@ export default function SummaryCard({
               <div className="flex justify-between ml-2 mt-1">
                 <div className="text-body mobile:text-h4-mobile">
                   {t("ex_title")} {bookingDetail.executiveRoomNumber}{" "}
-                  {t("room")}
+                  {t("room_per_night")}
                 </div>
                 <div className="text-body text-slate-400 mobile:text-h4-mobile">
                   {currency}{" "}
@@ -635,7 +690,7 @@ export default function SummaryCard({
               <div className="flex justify-between">
                 <div className="text-body mobile:text-h4-mobile">
                   {t("std_title")} {bookingDetail.standardRoomNumber}{" "}
-                  {t("room")}
+                  {t("room_per_night")}
                 </div>
                 <div className="text-body text-slate-400 mobile:text-h4-mobile">
                   {currency}{" "}
@@ -655,7 +710,8 @@ export default function SummaryCard({
             {bookingDetail.deluxeRoomNumber !== 0 ? (
               <div className="flex justify-between">
                 <div className="text-body mobile:text-h4-mobile">
-                  {t("dlx_title")} {bookingDetail.deluxeRoomNumber} {t("room")}
+                  {t("dlx_title")} {bookingDetail.deluxeRoomNumber}{" "}
+                  {t("room_per_night")}
                 </div>
                 <div className="text-body text-slate-400 mobile:text-h4-mobile">
                   {currency}{" "}
@@ -675,7 +731,8 @@ export default function SummaryCard({
             {bookingDetail.familyRoomNumber !== 0 ? (
               <div className="flex justify-between">
                 <div className="text-body mobile:text-h4-mobile">
-                  {t("fml_title")} {bookingDetail.familyRoomNumber} {t("room")}
+                  {t("fml_title")} {bookingDetail.familyRoomNumber}{" "}
+                  {t("room_per_night")}
                 </div>
                 <div className="text-body text-slate-400 mobile:text-h4-mobile">
                   {currency}{" "}
@@ -695,7 +752,8 @@ export default function SummaryCard({
             {bookingDetail.suiteRoomNumber !== 0 ? (
               <div className="flex justify-between">
                 <div className="text-body  mobile:text-h4-mobile">
-                  {t("s_title")} {bookingDetail.suiteRoomNumber} {t("room")}
+                  {t("s_title")} {bookingDetail.suiteRoomNumber}{" "}
+                  {t("room_per_night")}
                 </div>
                 <div className="text-body text-slate-400 mobile:text-h4-mobile">
                   {currency}{" "}
@@ -716,7 +774,7 @@ export default function SummaryCard({
               <div className="flex justify-between">
                 <div className="text-body mobile:text-h4-mobile">
                   {t("ex_title")} {bookingDetail.executiveRoomNumber}{" "}
-                  {t("room")}
+                  {t("room_per_night")}
                 </div>
                 <div className="text-body text-slate-400 mobile:text-h4-mobile">
                   {currency}{" "}
@@ -774,6 +832,32 @@ export default function SummaryCard({
         </div>
       )}
       <div className="flex flex-col gap-y-[1vh] mt-[1vh]">
+        <div className="flex justify-between">
+          <div className="text-body text-slate-400 mobile:text-h4-mobile">
+            {t("monday_and_friday_sale")}
+          </div>
+          <div className="text-body text-slate-400 mobile:text-h4-mobile">
+            {currency}{" "}
+            {new Intl.NumberFormat("th-TH", {
+              style: "decimal",
+              minimumFractionDigits: 2,
+              maximumFractionDigits: 2,
+            }).format(mondayAndFridaySale)}
+          </div>
+        </div>
+        <div className="flex justify-between">
+          <div className="text-body text-slate-400 mobile:text-h4-mobile">
+            {t("saturday_additional_cost")}
+          </div>
+          <div className="text-body text-slate-400 mobile:text-h4-mobile">
+            {currency}{" "}
+            {new Intl.NumberFormat("th-TH", {
+              style: "decimal",
+              minimumFractionDigits: 2,
+              maximumFractionDigits: 2,
+            }).format(saturdayAdditionalCost)}
+          </div>
+        </div>
         <div className="flex justify-between">
           <div className="text-body text-slate-400 mobile:text-h4-mobile">
             {t("sub_total")}
@@ -862,12 +946,6 @@ export default function SummaryCard({
               disabled={isDisabledConfirm || !bookingDetail.isCheckedPDPA}
             >
               <div>{t("confirm")}</div>
-            </Button>
-          </Link>
-        ) : page === "summary-booking-detail" ? (
-          <Link href={"/booking-confirmation"}>
-            <Button style={{ background: "#2A4D69", color: "white" }}>
-              <div>{t("check_out")}</div>
             </Button>
           </Link>
         ) : null}

@@ -90,7 +90,7 @@
   "price": "ราคา",
   "night": "คืน",
   "edit_room": "แก้ไขห้อง",
-  "room": "ห้อง",
+  "room_per_night": "ห้องต่อ 1 คืน",
   "remove": "ลบห้อง",
   "sub_total": "ยอดรวมย่อย",
   "service_charge": "ค่าบริการ",
@@ -164,5 +164,13 @@
   "discount": "ส่วนลด",
   "modify": "แก้ไขข้อมูลการจอง",
   "language": "เปลี่ยนภาษา",
-  "currency": "เปลี่ยนสกุลเงิน"
+  "currency": "เปลี่ยนสกุลเงิน",
+  "are_unavailable": "ไม่มีห้องว่างสำหรับประเภทนี้",
+  "find_available_date": "ค้นหาวันที่ว่าง",
+  "modify2": "แก้ไขวัน",
+  "monday_and_friday_sale": "ส่วนลดสำหรับวันจันทร์และวันศุกร์",
+  "saturday_additional_cost": "ค่าบริการเพิ่มเติมสำหรับวันเสาร์",
+  "booking_summary": "สรุปผลการจอง",
+  "total_room": "ห้อง"
+
 }

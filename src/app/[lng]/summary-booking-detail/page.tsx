@@ -10,6 +10,7 @@ import Footer from "@/components/Footer";
 import { LeftOutlined } from "@ant-design/icons";
 import Link from "next/link";
 import { useTranslation } from "@/app/i18n/client";
+import { Button } from "antd";
 interface Guest {
   firstName: string;
   middleName: string;
@@ -60,7 +61,7 @@ const BookingConfirmation: React.FC<ReservationAndGuestDetailProps> = ({
       <div className="z-50 w-[100vw] fixed top-0">
         <Topbar lng={lng} />
       </div>
-      <div className="flex justify-center mt-[100px] overflow-hidden">
+      <div className="flex justify-center mt-[100px] overflow-hidden mobile:flex-row-reverse">
         {/* Main Container */}
         <div className="w-[1440px] mobile:w-[330px] flex items-start flex-wrap gap-10 py-10 mobile:py-1 px-10 mobile:px-0">
           {/* Left Container */}
@@ -168,6 +169,18 @@ const BookingConfirmation: React.FC<ReservationAndGuestDetailProps> = ({
       </div>
       <div className="mt-[50px] mobile:mt-[20px]">
         <Footer t={t} />
+      </div>
+      <div className="h-[50px] w-full bg-primary mobile:block hidden mobile:h-full">
+        <div className="flex justify-center items-center ">
+          <Link href={"/booking-confirmation"}>
+            <Button
+              className={"w-[50vw] mx-[3vw] my-[2vh]"}
+              style={{ background: "#4B86B4", color: "white" }}
+            >
+              <div>{t("check_out")}</div>
+            </Button>
+          </Link>
+        </div>
       </div>
     </div>
   );

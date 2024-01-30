@@ -22,6 +22,7 @@ import { useRouter } from "next/navigation";
 import dayjs from "dayjs";
 import { t } from "i18next";
 import { useMediaQuery } from "react-responsive";
+import SummaryBar from "@/components/SummaryBar";
 
 const PhoneInput = dynamic(() => import("react-phone-number-input"), {
   ssr: false,
@@ -491,12 +492,20 @@ const ReservationAndGuestDetail: React.FC<ReservationAndGuestDetailProps> = ({
             </Modal>
           </div>
           {/* Right Container */}
-          <div className="flex flex-col w-[509px] mobile:w-[330px] sticky mobile:right-0 top-[190px] mobile:static items-center">
-            <SummaryCard
-              page="reservation-and-guest-detail"
-              isDisabledConfirm={isDisabledConfirm}
-              t={t}
-            />
+          <div className="flex flex-col w-[509px] mobile:w-full sticky top-[190px] mobile:top-auto mobile:left-0 mobile:fixed mobile:bottom-0 items-center">
+            {isMobile ? (
+              <SummaryBar
+                page="reservation-and-guest-detail"
+                isDisabledConfirm={isDisabledConfirm}
+                t={t}
+              />
+            ) : (
+              <SummaryCard
+                page="reservation-and-guest-detail"
+                isDisabledConfirm={isDisabledConfirm}
+                t={t}
+              />
+            )}
           </div>
         </div>
       </div>
