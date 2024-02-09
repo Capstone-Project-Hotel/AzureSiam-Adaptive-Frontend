@@ -1,3 +1,4 @@
+"use client";
 import { BlockOutlined } from "@ant-design/icons";
 import Link from "next/link";
 
