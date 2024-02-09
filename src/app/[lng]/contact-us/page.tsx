@@ -1,3 +1,4 @@
+"use client";
 import Image from "next/image";
 import Topbar from "@/components/Topbar";
 import Footer from "@/components/Footer";
