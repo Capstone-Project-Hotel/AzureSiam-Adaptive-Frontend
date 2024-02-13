@@ -1,16 +1,13 @@
+"use client";
 import Image from "next/image";
 import Topbar from "@/components/Topbar";
 import Footer from "@/components/Footer";
 import { PhoneOutlined, MailOutlined } from "@ant-design/icons";
 import LandingTopbar from "@/components/LandingTopbar";
-import { useTranslation } from "@/app/i18n";
+import { useTranslation } from "@/app/i18n/client";
 
-export default async function Home({
-  params: { lng },
-}: {
-  params: { lng: any };
-}) {
-  const { t } = await useTranslation(lng);
+export default function Home({ params: { lng } }: { params: { lng: any } }) {
+  const { t } = useTranslation(lng);
 
   const iconStyle = { color: "#2A4D69" };
 
@@ -33,32 +30,34 @@ export default async function Home({
           </p>
         </div>
         <div className="flex flex-col mobile:flex-row mobile:gap-2">
-        <div className="flex flex-row items-center justify-center w-[100vw] mt-[1vw] mobile:gap-2 mobile:flex-col mobile:w-[40vw] mobile:p-3 mobile:bg-[#E7EFF6]">
-          <div className="flex flex-row items-center mr-[2vw] mobile:flex-col mobile:gap-2">
-            <PhoneOutlined style={iconStyle} />
-            <div className="ml-[1vw]">
-              <p className="text-h4 mobile:text-h4-mobile">{t("hotel_phone")}</p>
+          <div className="flex flex-row items-center justify-center w-[100vw] mt-[1vw] mobile:gap-2 mobile:flex-col mobile:w-[40vw] mobile:p-3 mobile:bg-[#E7EFF6]">
+            <div className="flex flex-row items-center mr-[2vw] mobile:flex-col mobile:gap-2">
+              <PhoneOutlined style={iconStyle} />
+              <div className="ml-[1vw]">
+                <p className="text-h4 mobile:text-h4-mobile">
+                  {t("hotel_phone")}
+                </p>
+              </div>
+            </div>
+            <div className="flex flex-row items-center mobile:flex-col mobile:gap-2">
+              <MailOutlined style={iconStyle} />
+              <div className="ml-[1vw]">
+                <p className="text-h4 mobile:text-h4-mobile">
+                  azuresiam@hotelservice.com
+                </p>
+              </div>
             </div>
           </div>
-          <div className="flex flex-row items-center mobile:flex-col mobile:gap-2">
-            <MailOutlined style={iconStyle} />
-            <div className="ml-[1vw]">
-              <p className="text-h4 mobile:text-h4-mobile">
-                azuresiam@hotelservice.com
-              </p>
-            </div>
+          <div className="flex flex-row mt-[1.5vw] items-center justify-center">
+            <img
+              src={"https://via.placeholder.com/800x300"}
+              alt="Google Map Mock"
+              className="w-[55vw] h-[19vw]"
+            />
           </div>
         </div>
-        <div className="flex flex-row mt-[1.5vw] items-center justify-center">
-          <img
-            src={"https://via.placeholder.com/800x300"}
-            alt="Google Map Mock"
-            className="w-[55vw] h-[19vw]"
-          />
-        </div>
       </div>
-      </div>
-      <Footer t={t}/>
+      <Footer t={t} />
     </main>
   );
 }
