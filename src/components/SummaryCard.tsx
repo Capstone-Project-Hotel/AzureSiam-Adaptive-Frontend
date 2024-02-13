@@ -130,7 +130,7 @@ export default function SummaryCard({
         mondayAndFridayNightCount++;
       }
       let dateVar = date.toLocaleDateString("en-GB");
-      console.log(dateVar);
+      // console.log(dateVar);
       dateList.push(dateVar);
     }
     return dateList;

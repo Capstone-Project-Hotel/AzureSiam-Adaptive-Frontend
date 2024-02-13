@@ -96,7 +96,6 @@ export default function SearchResultPage({
     let dateList: string[] = [];
     for (let date = start; date < end; date.setDate(date.getDate() + 1)) {
       let dateVar = date.toLocaleDateString("en-GB");
-      console.log(dateVar);
       dateList.push(dateVar);
     }
     return dateList;
@@ -123,7 +122,8 @@ export default function SearchResultPage({
     "26/01/2024",
     "28/01/2024",
     "29/01/2024",
-    "03/02/2024",
+    "14/02/2024",
+    "15/02/2024",
   ];
   const familyUnavailableDateList = ["25/01/2024", "26/01/2024", "28/01/2024"];
   const suiteUnavailableDateList = ["25/01/2024", "26/01/2024", "28/01/2024"];

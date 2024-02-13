@@ -161,7 +161,7 @@ const BookingConfirmation: React.FC<ReservationAndGuestDetailProps> = ({
                   {/* CVV */}
                   <div className="w-[343px]">
                     <div className="text-h5 mobile:text-h4-mobile">
-                      {t("cvv")} : {paymentDetail.cvv}
+                      {t("cvv")} : •••
                     </div>
                   </div>
                 </div>

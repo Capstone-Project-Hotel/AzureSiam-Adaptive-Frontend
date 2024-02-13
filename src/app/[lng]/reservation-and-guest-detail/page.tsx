@@ -152,7 +152,6 @@ const ReservationAndGuestDetail: React.FC<ReservationAndGuestDetailProps> = ({
       "email",
       "phoneNumber",
       "country",
-      "city",
       "zipCode",
       "address",
       "id",
@@ -719,14 +718,14 @@ const GuestDetailInputContainer: React.FC<GuestDetailInputContainerProps> = ({
         {/* City */}
         <div className="w-[212px] mobile:w-full">
           <div className="text-description mobile:text-h3-mobile">
-            {t("city")} <span className="text-red-600">*</span>
+            {t("city")}
           </div>
           <Select
             className="w-full"
             placeholder={t("city_default")}
             options={city}
             onChange={handleChange}
-            defaultValue={guest.city ? guest.city : undefined}
+            defaultValue={guest.city ? guest.city : ""}
           />
         </div>
 
