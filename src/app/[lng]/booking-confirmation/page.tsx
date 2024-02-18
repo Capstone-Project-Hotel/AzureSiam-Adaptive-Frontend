@@ -97,7 +97,7 @@ const BookingConfirmation: React.FC<ReservationAndGuestDetailProps> = ({
           {t("booking_id")}: {bookingDetail.bookingId}
         </div>
       </div>
-      <div className="flex justify-center mt-[15px] mobile:flex-row-reverse mobile:items-center overflow-hidden">
+      <div className="flex justify-center mt-[15px] mobile:flex-row-reverse mobile:items-center">
         {/* Main Container */}
         <div className="w-[1440px] mobile:w-[330px] flex items-start flex-wrap gap-10 py-10 mobile:py-1 px-10 mobile:px-0">
           {/* Left Container */}
@@ -180,7 +180,7 @@ const BookingConfirmation: React.FC<ReservationAndGuestDetailProps> = ({
             </div>
           </div>
           {/* Right Container */}
-          <div className="flex flex-col w-[509px] mobile:w-[330px] sticky mobile:right-0 top-[40px] mobile:static items-center">
+          <div className="flex flex-col w-[509px] mobile:w-[330px] sticky mobile:right-0 top-[20vh] mobile:static items-center">
             <SummaryCard
               page="booking-confirmation"
               isDisabledConfirm={true}

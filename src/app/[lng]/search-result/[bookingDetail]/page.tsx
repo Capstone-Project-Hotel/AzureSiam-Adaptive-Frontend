@@ -308,7 +308,7 @@ export default function SearchResultPage({
 
   return (
     <div>
-      <div className="z-50 w-[100vw] sticky top-0">
+      <div className="z-50 sticky top-0">
         <Topbar lng={lng} />
       </div>
       <div>
@@ -316,7 +316,7 @@ export default function SearchResultPage({
       </div>
 
       <div className="flex items-start mobile:flex-col">
-        <div className="flex flex-col space-y-10 mt-[5vh] w-[100vw] px-[4vw] items-center">
+        <div className="flex flex-col space-y-10 pt-[5vh] w-[65vw] mobile:w-[100vw] px-[4vw] items-center">
           {mockRoomInformation.map((room, index) =>
             room.show === true ? (
               <RoomCard
@@ -337,28 +337,85 @@ export default function SearchResultPage({
             ) : null
           )}
         </div>
-        <div className="flex sticky mt-[5vh] w-[100vw] justify-center mobile:fixed mobile:bottom-0">
+        <div className="flex justify-center sticky top-[15vh] mobile:static pt-[5vh] w-[35vw] mobile:w-[100vw]">
           {isMobile ? (
-            <SummaryBar
-              page="search-result"
-              isDisabledConfirm={false}
-              t={t}
-              lng={lng}
-            />
+            <div className="fixed bottom-0 w-full">
+              <SummaryBar
+                page="search-result"
+                isDisabledConfirm={false}
+                t={t}
+                lng={lng}
+              />
+            </div>
           ) : (
-            <SummaryCard
-              page="search-result"
-              isDisabledConfirm={false}
-              t={t}
-              lng={lng}
-            />
+            <div>
+              <SummaryCard
+                page="search-result"
+                isDisabledConfirm={false}
+                t={t}
+                lng={lng}
+              />
+            </div>
           )}
         </div>
       </div>
 
-      <div className="mt-[10vh]">
+      <div className="pt-[10vh]">
         <Footer t={t} />
       </div>
     </div>
+    // <div>
+    //   <div className="z-50 sticky top-0">
+    //     <Topbar lng={lng} />
+    //   </div>
+    //   <div>
+    //     <Filter t={t} />
+    //   </div>
+
+    //   <div className="flex items-start mobile:flex-col">
+    //     <div className="flex flex-col space-y-10 mt-[5vh] w-[100vw] px-[4vw] items-center">
+    //       {mockRoomInformation.map((room, index) =>
+    //         room.show === true ? (
+    //           <RoomCard
+    //             key={index}
+    //             roomName={room.roomName}
+    //             maxGuest={room.maxGuest}
+    //             bedType={room.bedType}
+    //             roomSize={room.roomSize}
+    //             roomPrice={room.roomPrice * reducedRate}
+    //             roomImage={room.roomImage}
+    //             roomAmenities={room.roomAmenities}
+    //             roomDetail={room.roomDetail}
+    //             roomType={room.roomType}
+    //             t={t}
+    //             isAvailable={room.isAvailable}
+    //             disabledDate={room.disabledDate}
+    //           />
+    //         ) : null
+    //       )}
+    //     </div>
+    //     <div className="flex sticky mt-[5vh] w-[100vw] justify-center mobile:fixed mobile:bottom-0">
+    //       {isMobile ? (
+    //         <SummaryBar
+    //           page="search-result"
+    //           isDisabledConfirm={false}
+    //           t={t}
+    //           lng={lng}
+    //         />
+    //       ) : (
+    //         <SummaryCard
+    //           page="search-result"
+    //           isDisabledConfirm={false}
+    //           t={t}
+    //           lng={lng}
+    //         />
+    //       )}
+    //     </div>
+    //   </div>
+
+    //   <div className="mt-[10vh]">
+    //     <Footer t={t} />
+    //   </div>
+    // </div>
   );
 }

@@ -1035,8 +1035,8 @@ export default function SummaryBar({
                 }
               >
                 <div>{t("confirm")}</div>
-              </Link>
-            </Button>
+              </Button>
+            </Link>
           ) : page === "reservation-and-guest-detail" ? (
             <Link href={`/${lng}/booking-confirmation`}>
               <Button
