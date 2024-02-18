@@ -308,10 +308,10 @@ export default function SearchResultPage({
 
   return (
     <div>
-      <div className="z-50 w-[100vw] fixed top-0">
+      <div className="z-50 w-[100vw] sticky top-0">
         <Topbar lng={lng} />
       </div>
-      <div className="mt-[110px] mobile:mt-[50px]">
+      <div>
         <Filter t={t} />
       </div>
 
@@ -339,9 +339,19 @@ export default function SearchResultPage({
         </div>
         <div className="flex sticky mt-[5vh] w-[100vw] justify-center mobile:fixed mobile:bottom-0">
           {isMobile ? (
-            <SummaryBar page="search-result" isDisabledConfirm={false} t={t} />
+            <SummaryBar
+              page="search-result"
+              isDisabledConfirm={false}
+              t={t}
+              lng={lng}
+            />
           ) : (
-            <SummaryCard page="search-result" isDisabledConfirm={false} t={t} />
+            <SummaryCard
+              page="search-result"
+              isDisabledConfirm={false}
+              t={t}
+              lng={lng}
+            />
           )}
         </div>
       </div>

@@ -67,7 +67,7 @@ const BookingConfirmation: React.FC<ReservationAndGuestDetailProps> = ({
           {/* Left Container */}
           <div className="w-[729px] mobile:w-[330px] flex flex-col gap-10 mt-10 mobile:mt-0">
             <div className="flex items-center gap-5">
-              <Link href="/reservation-and-guest-detail">
+              <Link href={`/${lng}/reservation-and-guest-detail`}>
                 <LeftOutlined className="text-[36px] mobile:text-[25px]" />
               </Link>
               <div className="text-h2 mobile:text-h2-mobile">{t("modify")}</div>
@@ -163,6 +163,7 @@ const BookingConfirmation: React.FC<ReservationAndGuestDetailProps> = ({
               page="summary-booking-detail"
               isDisabledConfirm={true}
               t={t}
+              lng={lng}
             />
           </div>
         </div>

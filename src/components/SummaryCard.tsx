@@ -59,10 +59,12 @@ export default function SummaryCard({
   page,
   isDisabledConfirm,
   t,
+  lng,
 }: {
   page: string;
   isDisabledConfirm: boolean;
   t: any;
+  lng: any;
 }) {
   const { bookingDetail, setBookingDetail, exchangeRate, currency } =
     useStore();
@@ -946,6 +948,12 @@ export default function SummaryCard({
               disabled={isDisabledConfirm || !bookingDetail.isCheckedPDPA}
             >
               <div>{t("confirm")}</div>
+            </Button>
+          </Link>
+        ) : page === "summary-booking-detail" ? (
+          <Link href={`/${lng}/booking-confirmation`}>
+            <Button style={{ background: "#2A4D69", color: "white" }}>
+              <div>{t("check_out")}</div>
             </Button>
           </Link>
         ) : null}

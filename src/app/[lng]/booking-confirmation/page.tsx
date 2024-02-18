@@ -185,6 +185,7 @@ const BookingConfirmation: React.FC<ReservationAndGuestDetailProps> = ({
               page="booking-confirmation"
               isDisabledConfirm={true}
               t={t}
+              lng={lng}
             />
           </div>
         </div>

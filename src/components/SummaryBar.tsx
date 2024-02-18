@@ -62,10 +62,12 @@ export default function SummaryBar({
   page,
   isDisabledConfirm,
   t,
+  lng,
 }: {
   page: string;
   isDisabledConfirm: boolean;
   t: any;
+  lng: any;
 }) {
   const { bookingDetail, setBookingDetail, exchangeRate, currency } =
     useStore();
@@ -1010,7 +1012,7 @@ export default function SummaryBar({
         </div>
         <div className="flex justify-center items-center">
           {page === "search-result" ? (
-            <Link href={"/reservation-and-guest-detail"}>
+            <Link href={`/${lng}/summary-booking-detail`}>
               <Button
                 className={` ${
                   bookingDetail.standardRoomNumber +
@@ -1036,7 +1038,7 @@ export default function SummaryBar({
               </Button>
             </Link>
           ) : page === "reservation-and-guest-detail" ? (
-            <Link href={"/summary-booking-detail"}>
+            <Link href={`/${lng}/booking-confirmation`}>
               <Button
                 className={` ${
                   isDisabledConfirm || !bookingDetail.isCheckedPDPA
@@ -1047,6 +1049,12 @@ export default function SummaryBar({
                 disabled={isDisabledConfirm || !bookingDetail.isCheckedPDPA}
               >
                 <div>{t("confirm")}</div>
+              </Button>
+            </Link>
+          ) : page === "summary-booking-detail" ? (
+            <Link href={`/${lng}/booking-confirmation`}>
+              <Button style={{ background: "#2A4D69", color: "white" }}>
+                <div>{t("check_out")}</div>
               </Button>
             </Link>
           ) : null}
