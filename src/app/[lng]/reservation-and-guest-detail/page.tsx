@@ -820,7 +820,7 @@ const GuestDetailInputContainer: React.FC<GuestDetailInputContainerProps> = ({
             setGuests([...guests.slice(0, index), ...guests.slice(index + 1)])
           }
         >
-          - <span className="underline">Remove Guest</span>
+          - <span className="underline">{t("remove_guest")}</span>
         </div>
       )}
 

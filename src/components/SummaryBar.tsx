@@ -212,7 +212,7 @@ export default function SummaryBar({
   };
 
   return (
-    <div className="h-[50px] w-full bg-primary">
+    <div className="h-[50px] w-full bg-primary px-5">
       {/* Drawer */}
       <Drawer
         title={t("booking_summary")}
@@ -990,9 +990,9 @@ export default function SummaryBar({
           ) : null}
         </div>
       </Drawer>
-      <div className="flex justify-between">
-        <div className="flex flex-col ml-[1vw]">
-          <div className="text text-h2 font-bold mt-1 mobile:text-h2-mobile mobile:mt-[10px] text-white">
+      <div className="flex justify-between items-center h-full">
+        <div className="flex flex-col justify-center">
+          <div className="text text-h2 font-bold mobile:text-h2-mobile text-white">
             {currency}{" "}
             {new Intl.NumberFormat("th-TH", {
               style: "decimal",
@@ -1035,8 +1035,8 @@ export default function SummaryBar({
                 }
               >
                 <div>{t("confirm")}</div>
-              </Button>
-            </Link>
+              </Link>
+            </Button>
           ) : page === "reservation-and-guest-detail" ? (
             <Link href={`/${lng}/booking-confirmation`}>
               <Button
