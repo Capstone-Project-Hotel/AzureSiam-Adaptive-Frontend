@@ -260,7 +260,7 @@ const GuestDetailInputContainer: React.FC<GuestDetailInputContainerProps> = ({
       {/* Row 3 */}
       <div className="flex flex-wrap mobile:gap-2">
         {/* Email */}
-        <div className="w-[243px]">
+        <div className="w-[486px]">
           <div className="text-h5 mobile:text-h4-mobile">
             {t("email")} : {guest.email}
           </div>

@@ -490,6 +490,11 @@ const ReservationAndGuestDetail: React.FC<ReservationAndGuestDetailProps> = ({
                 <div>5) {t("terms_condition_d5")}</div>
                 <div>6) {t("terms_condition_d6")}</div>
                 <div>7) {t("terms_condition_d7")}</div>
+                <div>8) {t("terms_condition_d8")}</div>
+                <div>9) {t("terms_condition_d9")}</div>
+                <div>10) {t("terms_condition_d10")}</div>
+                <div>11) {t("terms_condition_d11")}</div>
+                <div>12) {t("terms_condition_d12")}</div>
               </div>
             </Modal>
           </div>
