@@ -151,37 +151,23 @@ export default function SummaryCard({
     reducedRate = 0.8;
   }
 
+  let totalRooms =
+    bookingDetail.standardRoomNumber +
+    bookingDetail.deluxeRoomNumber +
+    bookingDetail.familyRoomNumber +
+    bookingDetail.suiteRoomNumber +
+    bookingDetail.executiveRoomNumber;
+
   let mondayAndFridaySale =
-    200 *
-    mondayAndFridayNightCount *
-    (bookingDetail.standardRoomNumber +
-      bookingDetail.deluxeRoomNumber +
-      bookingDetail.familyRoomNumber +
-      bookingDetail.suiteRoomNumber +
-      bookingDetail.executiveRoomNumber) *
-    reducedRate *
-    exchangeRate;
+    200 * mondayAndFridayNightCount * totalRooms * exchangeRate * dayDuration;
   let saturdayAdditionalCost =
-    200 *
-    saturdayNightCount *
-    (bookingDetail.standardRoomNumber +
-      bookingDetail.deluxeRoomNumber +
-      bookingDetail.familyRoomNumber +
-      bookingDetail.suiteRoomNumber +
-      bookingDetail.executiveRoomNumber) *
-    reducedRate *
-    exchangeRate;
+    200 * saturdayNightCount * totalRooms * exchangeRate * dayDuration;
 
   let subTotal =
-    (1200 * bookingDetail.standardRoomNumber +
-      1800 * bookingDetail.deluxeRoomNumber +
-      2200 * bookingDetail.familyRoomNumber +
-      2500 * bookingDetail.suiteRoomNumber +
-      3000 * bookingDetail.executiveRoomNumber -
-      mondayAndFridaySale +
-      saturdayAdditionalCost) *
-    dayDuration;
-  reducedRate * exchangeRate;
+    (totalRooms * reducedRate * dayDuration +
+      saturdayAdditionalCost -
+      mondayAndFridaySale) *
+    exchangeRate;
 
   if (bookingDetail.packageOne === true)
     subTotal += 299 * reducedRate * exchangeRate;

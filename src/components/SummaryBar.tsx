@@ -154,37 +154,23 @@ export default function SummaryBar({
     reducedRate = 0.8;
   }
 
+  let totalRooms =
+    bookingDetail.standardRoomNumber +
+    bookingDetail.deluxeRoomNumber +
+    bookingDetail.familyRoomNumber +
+    bookingDetail.suiteRoomNumber +
+    bookingDetail.executiveRoomNumber;
+
   let mondayAndFridaySale =
-    200 *
-    mondayAndFridayNightCount *
-    (bookingDetail.standardRoomNumber +
-      bookingDetail.deluxeRoomNumber +
-      bookingDetail.familyRoomNumber +
-      bookingDetail.suiteRoomNumber +
-      bookingDetail.executiveRoomNumber) *
-    reducedRate *
-    exchangeRate;
+    200 * mondayAndFridayNightCount * totalRooms * exchangeRate * dayDuration;
   let saturdayAdditionalCost =
-    200 *
-    saturdayNightCount *
-    (bookingDetail.standardRoomNumber +
-      bookingDetail.deluxeRoomNumber +
-      bookingDetail.familyRoomNumber +
-      bookingDetail.suiteRoomNumber +
-      bookingDetail.executiveRoomNumber) *
-    reducedRate *
-    exchangeRate;
+    200 * saturdayNightCount * totalRooms * exchangeRate * dayDuration;
 
   let subTotal =
-    (1200 * bookingDetail.standardRoomNumber +
-      1800 * bookingDetail.deluxeRoomNumber +
-      2200 * bookingDetail.familyRoomNumber +
-      2500 * bookingDetail.suiteRoomNumber +
-      3000 * bookingDetail.executiveRoomNumber -
-      mondayAndFridaySale +
-      saturdayAdditionalCost) *
-    dayDuration;
-  reducedRate * exchangeRate;
+    (totalRooms * reducedRate * dayDuration +
+      saturdayAdditionalCost -
+      mondayAndFridaySale) *
+    exchangeRate;
 
   if (bookingDetail.packageOne === true)
     subTotal += 299 * reducedRate * exchangeRate;
@@ -193,14 +179,6 @@ export default function SummaryBar({
 
   const serviceCharge = subTotal / 10;
   const taxesAndFees = (subTotal / 100) * 7;
-
-  const totalRooms =
-    bookingDetail.standardRoomNumber +
-    bookingDetail.deluxeRoomNumber +
-    bookingDetail.familyRoomNumber +
-    bookingDetail.suiteRoomNumber +
-    bookingDetail.executiveRoomNumber;
-
   const [open, setOpen] = useState<boolean>(false);
 
   const showDrawer = () => {
@@ -931,7 +909,7 @@ export default function SummaryBar({
             </div>
           </div>
         </div>
-        
+
         <div className="text-center text-h2 font-bold py-5 mobile:text-h2-mobile mobile:mt-[20px] mobile:py-2">
           {currency}{" "}
           {new Intl.NumberFormat("th-TH", {
