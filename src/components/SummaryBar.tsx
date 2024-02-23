@@ -161,13 +161,20 @@ export default function SummaryBar({
     bookingDetail.suiteRoomNumber +
     bookingDetail.executiveRoomNumber;
 
+  let totalRoomPrice =
+    1200 * bookingDetail.standardRoomNumber +
+    1800 * bookingDetail.deluxeRoomNumber +
+    2200 * bookingDetail.familyRoomNumber +
+    2500 * bookingDetail.suiteRoomNumber +
+    3000 * bookingDetail.executiveRoomNumber;
+
   let mondayAndFridaySale =
     200 * mondayAndFridayNightCount * totalRooms * exchangeRate * dayDuration;
   let saturdayAdditionalCost =
     200 * saturdayNightCount * totalRooms * exchangeRate * dayDuration;
 
   let subTotal =
-    (totalRooms * reducedRate * dayDuration +
+    (totalRoomPrice * reducedRate * dayDuration +
       saturdayAdditionalCost -
       mondayAndFridaySale) *
     exchangeRate;
@@ -179,6 +186,7 @@ export default function SummaryBar({
 
   const serviceCharge = subTotal / 10;
   const taxesAndFees = (subTotal / 100) * 7;
+
   const [open, setOpen] = useState<boolean>(false);
 
   const showDrawer = () => {
