@@ -19,6 +19,12 @@ import { useMediaQuery } from "react-responsive";
 import SummaryBar from "@/components/SummaryBar";
 // type RangePickerProps = GetProps<typeof DatePicker.RangePicker>;
 
+import stdroom from "../../../../../public/stdroom.jpg";
+import dlxroom from "../../../../../public/dlxroom.jpg";
+import famroom from "../../../../../public/famroom.jpg";
+import suiteroom from "../../../../../public/suiteroom.jpg";
+import exroom from "../../../../../public/exroom.jpg";
+
 export default function SearchResultPage({
   params: { lng },
 }: {
@@ -139,8 +145,7 @@ export default function SearchResultPage({
     bedType: t("single_bed"),
     roomSize: 16,
     roomPrice: 1200,
-    roomImage:
-      "https://cdn.discordapp.com/attachments/457166097230069773/1186386766119305258/cover.jpg?ex=65930fc7&is=65809ac7&hm=81597f4a64012d760e9c97c217db3cae2617d4f37183b609a89429cc3562fd42&",
+    roomImage: stdroom.src,
     roomAmenities: [
       t("television"),
       t("air_conditioner"),
@@ -170,8 +175,7 @@ export default function SearchResultPage({
     bedType: t("twin_bed"),
     roomSize: 20,
     roomPrice: 1800,
-    roomImage:
-      "https://cdn.discordapp.com/attachments/457166097230069773/1186387436901781634/cover_1.jpg?ex=65931066&is=65809b66&hm=f75c101fa0d7768bac471cc46a3c94a94b5a1737567af3c91951c95abfc4ec9b&",
+    roomImage: dlxroom.src,
     roomAmenities: [
       t("television"),
       t("air_conditioner"),
@@ -202,8 +206,7 @@ export default function SearchResultPage({
     bedType: t("double_bed"),
     roomSize: 28,
     roomPrice: 2200,
-    roomImage:
-      "https://cdn.discordapp.com/attachments/457166097230069773/1186387586516791326/cover_2.jpg?ex=6593108a&is=65809b8a&hm=44468b0913ab9e438ce166d2c49366e3833e42e84669ffff7b38eb770aac7c1c&",
+    roomImage: famroom.src,
     roomAmenities: [
       t("television"),
       t("air_conditioner"),
@@ -235,8 +238,7 @@ export default function SearchResultPage({
     bedType: t("queen_bed"),
     roomSize: 30,
     roomPrice: 2500,
-    roomImage:
-      "https://cdn.discordapp.com/attachments/457166097230069773/1188826464708218920/image_41.jpg?ex=659befec&is=65897aec&hm=5a3d092015cc24fcd079f85b33341c508f33152ec6ea2e2c7b2c5796e4839e6a&",
+    roomImage: suiteroom.src,
     roomAmenities: [
       t("television"),
       t("air_conditioner"),
@@ -269,8 +271,7 @@ export default function SearchResultPage({
     bedType: t("king_bed"),
     roomSize: 40,
     roomPrice: 3000,
-    roomImage:
-      "https://cdn.discordapp.com/attachments/457166097230069773/1188826023228354650/image_40_1_1.jpg?ex=659bef83&is=65897a83&hm=6582bd0a8cc86db4a4146b452e6d4b139146174c8c42818f174afa5fbd7e6bc0&",
+    roomImage: exroom.src,
     roomAmenities: [
       t("television"),
       t("air_conditioner"),

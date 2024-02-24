@@ -24,6 +24,10 @@ import { t } from "i18next";
 import { useMediaQuery } from "react-responsive";
 import SummaryBar from "@/components/SummaryBar";
 
+import amex from "../../../../public/amex.jpg";
+import add1 from "../../../../public/add1.png";
+import add2 from "../../../../public/add2.png";
+
 const PhoneInput = dynamic(() => import("react-phone-number-input"), {
   ssr: false,
 });
@@ -68,7 +72,7 @@ const emptyGuest: Guest = {
 };
 
 const cardTypeToCardImg = {
-  amex: "https://cdn.discordapp.com/attachments/457166097230069773/1186233714523512852/vinnytsia-ukraine-september-6-2023-600nw-2358048941.webp?ex=6592813c&is=65800c3c&hm=b37ff0d726d6a4b7c5994550407f23d9a6401cfb3fa44696c5425531b322b02d&",
+  amex: amex.src,
   visa: "https://swissuplabs.com/wordpress/wp-content/uploads/2016/04/free-icons-visa.png",
   mastercard:
     "https://swissuplabs.com/wordpress/wp-content/uploads/2016/04/free-icons-mastercard.png",
@@ -244,7 +248,7 @@ const ReservationAndGuestDetail: React.FC<ReservationAndGuestDetailProps> = ({
                   unit=""
                   // unit={t("service_unit1")}
                   price={299}
-                  serviceImage="https://cdn.discordapp.com/attachments/863762167340990494/1199360857935720530/image_32.png?ex=65c242d7&is=65afcdd7&hm=5fa7797322db7c00c453a1a1c6693ee3c5435fc146a53c4714ad50af0ca89006&"
+                  serviceImage={add1.src}
                   t={t}
                 />
                 <AdditionalServiceCard
@@ -253,7 +257,7 @@ const ReservationAndGuestDetail: React.FC<ReservationAndGuestDetailProps> = ({
                   unit=""
                   // unit={t("service_unit2")}
                   price={499}
-                  serviceImage="https://cdn.discordapp.com/attachments/863762167340990494/1199360857692446740/cover.png?ex=65c242d7&is=65afcdd7&hm=b785dd4d923b8f7552f094c8abf6df8bb5f59e891d2b69d4afd479b2289a74be&"
+                  serviceImage={add2.src}
                   t={t}
                 />
               </div>
