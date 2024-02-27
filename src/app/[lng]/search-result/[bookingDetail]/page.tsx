@@ -123,7 +123,10 @@ export default function SearchResultPage({
     "26/01/2024",
     "28/01/2024",
     "04/03/2024",
+    "07/03/2024",
+    "08/03/2024",
   ];
+
   const deluxeUnavailableDateList = [
     "25/01/2024",
     "26/01/2024",
