@@ -407,7 +407,7 @@ const ReservationAndGuestDetail: React.FC<ReservationAndGuestDetailProps> = ({
                       picker="month"
                       defaultValue={
                         paymentDetail.expDate
-                          ? dayjs(paymentDetail.expDate)
+                          ? dayjs(paymentDetail.expDate, "MM-YYYY")
                           : undefined
                       }
                     />
@@ -585,6 +585,8 @@ const GuestDetailInputContainer: React.FC<GuestDetailInputContainerProps> = ({
     date,
     dateString
   ) => {
+    console.log("oat", date);
+
     handleInputChange(index, dateString, "birthDate");
   };
 
@@ -665,7 +667,9 @@ const GuestDetailInputContainer: React.FC<GuestDetailInputContainerProps> = ({
             format={"DD-MM-YYYY"}
             placeholder={t("birthdate_default")}
             onChange={handleBirthDateChange}
-            defaultValue={guest.birthDate ? dayjs(guest.birthDate) : undefined}
+            defaultValue={
+              guest.birthDate ? dayjs(guest.birthDate, "DD-MM-YYYY") : undefined
+            }
           />
         </div>
       </div>
