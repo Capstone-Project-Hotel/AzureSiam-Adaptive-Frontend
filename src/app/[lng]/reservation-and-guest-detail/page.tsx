@@ -585,8 +585,6 @@ const GuestDetailInputContainer: React.FC<GuestDetailInputContainerProps> = ({
     date,
     dateString
   ) => {
-    console.log("oat", date);
-
     handleInputChange(index, dateString, "birthDate");
   };
 
