@@ -122,6 +122,7 @@ export default function SearchResultPage({
     "25/01/2024",
     "26/01/2024",
     "28/01/2024",
+    "04/03/2024",
   ];
   const deluxeUnavailableDateList = [
     "25/01/2024",
@@ -326,7 +327,7 @@ export default function SearchResultPage({
                 maxGuest={room.maxGuest}
                 bedType={room.bedType}
                 roomSize={room.roomSize}
-                roomPrice={room.roomPrice * reducedRate}
+                roomPrice={room.roomPrice}
                 roomImage={room.roomImage}
                 roomAmenities={room.roomAmenities}
                 roomDetail={room.roomDetail}
@@ -334,6 +335,7 @@ export default function SearchResultPage({
                 t={t}
                 isAvailable={room.isAvailable}
                 disabledDate={room.disabledDate}
+                reducedRate={reducedRate}
               />
             ) : null
           )}

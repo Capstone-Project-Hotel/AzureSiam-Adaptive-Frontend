@@ -24,6 +24,7 @@ export default function RoomCard({
   roomAmenities,
   roomDetail,
   roomType,
+  reducedRate,
   isAvailable,
   disabledDate,
   t,
@@ -37,6 +38,7 @@ export default function RoomCard({
   roomAmenities: string[];
   roomDetail: string;
   roomType: string;
+  reducedRate: number;
   isAvailable: boolean;
   disabledDate: DatePickerProps["disabledDate"];
   t: any;
@@ -116,16 +118,26 @@ export default function RoomCard({
 
       {isAvailable ? (
         <div className="flex justify-end mr-[2vw] mb-[2vh] items-center">
+          {bookingDetail.codePromotion == "valid001" ? (
+            <text className="text-h5 mr-[2vw] font-bold mobile:text-h5-mobile line-through">
+              {currency}{" "}
+              {new Intl.NumberFormat("th-TH", {
+                style: "decimal",
+                minimumFractionDigits: 2,
+                maximumFractionDigits: 2,
+              }).format(roomPrice * exchangeRate)}
+            </text>
+          ) : null}
           <text className="text-h5 mr-[2vw] font-bold mobile:text-h5-mobile">
             {currency}{" "}
             {new Intl.NumberFormat("th-TH", {
               style: "decimal",
               minimumFractionDigits: 2,
               maximumFractionDigits: 2,
-            }).format(roomPrice * exchangeRate)}
+            }).format(roomPrice * exchangeRate * reducedRate)}
           </text>
           <Button type="primary" onClick={() => handleBookNowClick(roomType)}>
-            {t("book")}
+            {t("book_now")}
           </Button>
         </div>
       ) : (
@@ -134,7 +146,7 @@ export default function RoomCard({
             <b>
               {bookingDetail.startDate} - {bookingDetail.endDate}
             </b>{" "}
-            are unavailable
+            {t("are_unavailable")}
           </div>
           {openCalendar ? (
             <div>
@@ -177,7 +189,7 @@ export default function RoomCard({
                 }}
                 className="float-right"
               >
-                Modify
+                {t("modify2")}
               </Button>
             </div>
           ) : (
@@ -186,7 +198,7 @@ export default function RoomCard({
               style={{ width: "200px", height: "30px" }}
               onClick={() => setOpenCalendar(true)}
             >
-              Find Available Date
+              {t("find_available_date")}
             </Button>
           )}
         </div>

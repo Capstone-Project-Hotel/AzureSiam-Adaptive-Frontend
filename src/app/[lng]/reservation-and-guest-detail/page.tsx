@@ -245,8 +245,7 @@ const ReservationAndGuestDetail: React.FC<ReservationAndGuestDetailProps> = ({
                 <AdditionalServiceCard
                   serviceName={t("service_name1")}
                   // serviceName={t("service_name1")}
-                  unit=""
-                  // unit={t("service_unit1")}
+                  unit={t("service_unit1")}
                   price={299}
                   serviceImage={add1.src}
                   t={t}
@@ -254,8 +253,7 @@ const ReservationAndGuestDetail: React.FC<ReservationAndGuestDetailProps> = ({
                 <AdditionalServiceCard
                   serviceName={t("service_name2")}
                   // serviceName={t("service_name2")}
-                  unit=""
-                  // unit={t("service_unit2")}
+                  unit={t("service_unit2")}
                   price={499}
                   serviceImage={add2.src}
                   t={t}
