@@ -38,7 +38,7 @@ export default function AdditionalServiceCard(information: {
   const { bookingDetail, setBookingDetail } = useStore();
 
   return (
-    <div className="flex flex-col w-[16vw] h-auto [box-shadow:0px_4px_4px_rgba(0,_0,_0,_0.25)] mobile:w-[40vw]">
+    <div className="flex flex-col flex-1 h-auto [box-shadow:0px_4px_4px_rgba(0,_0,_0,_0.25)]">
       <img src={information.serviceImage} className="w-full" />
       <div className="flex flex-col w-full h-auto p-[1vw]">
         <p className="text-h5 mobile:text-h3-mobile">

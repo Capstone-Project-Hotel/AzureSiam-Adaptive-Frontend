@@ -308,7 +308,7 @@ export default function SearchResultPage({
   ];
 
   return (
-    <div>
+    <div className="sr">
       <div className="z-50 sticky top-0">
         <Topbar lng={lng} />
       </div>
@@ -361,7 +361,7 @@ export default function SearchResultPage({
         </div>
       </div>
 
-      <div className="pt-[10vh]">
+      <div className="pt-[10px] mobile:mb-[51px]">
         <Footer t={t} />
       </div>
     </div>

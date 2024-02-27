@@ -60,7 +60,7 @@ const BookingConfirmation: React.FC<ReservationAndGuestDetailProps> = ({
   return (
     // Page Container
     <div>
-      <div className="z-50 w-[100vw] sticky top-0">
+      <div className="z-50 sticky top-0">
         <Topbar lng={lng} />
       </div>
 
@@ -180,11 +180,11 @@ const BookingConfirmation: React.FC<ReservationAndGuestDetailProps> = ({
           </div>
         </div>
       ) : (
-        <div className="flex justify-center mobile:flex-row-reverse">
+        <div className="flex justify-center">
           {/* Main Container */}
-          <div className="w-[1440px] mobile:w-[330px] flex items-start flex-wrap py-10 mobile:py-1 px-10 mobile:px-0">
+          <div className="w-[1440px] flex items-start py-10 px-10">
             {/* Left Container */}
-            <div className="w-[70%] mobile:w-[330px] flex flex-col gap-10 pr-10 mobile:pr-0 mt-10 mobile:mt-0 mobile:pb-10">
+            <div className="w-[70%] flex flex-col gap-10 pr-10 mt-10">
               <div className="flex items-center gap-5">
                 <Link href={`/${lng}/reservation-and-guest-detail`}>
                   <LeftOutlined className="text-[36px] mobile:text-[25px]" />
@@ -282,7 +282,7 @@ const BookingConfirmation: React.FC<ReservationAndGuestDetailProps> = ({
               </div>
             </div>
             {/* Right Container */}
-            <div className="flex flex-col w-[30%] mobile:w-[330px] sticky mobile:right-0 top-[20vh] mobile:static items-center">
+            <div className="flex flex-col w-[30%] sticky top-[20vh] items-center">
               <SummaryCard
                 page="summary-booking-detail"
                 isDisabledConfirm={true}
@@ -352,19 +352,9 @@ const GuestDetailInputContainer: React.FC<GuestDetailInputContainerProps> = ({
       {/* Row 2 */}
       <div className="flex flex-wrap">
         {/* Gender */}
-        {/* <div className="w-[243px] flex-1">
-          <div className="text-h5 mobile:text-h4-mobile">
-            {t("gender")} : {t(guest.gender)}
-          </div>
-        </div> */}
         <Field fieldName={t("gender")} value={guest.gender} />
 
         {/* Birth Date */}
-        {/* <div className="w-[243px] flex-1">
-          <div className="text-h5 mobile:text-h4-mobile">
-            {t("birthdate")} : {guest.birthDate}
-          </div>
-        </div> */}
         <Field fieldName={t("birthdate")} value={guest.birthDate} />
       </div>
 
@@ -428,7 +418,7 @@ const Field = ({
   children?: any;
 }) => {
   return (
-    <div className="w-[243px] flex-1 mobile:flex-none mobile:w-full border-solid border-1 border-black-400 border p-3.5">
+    <div className="flex-1 mobile:flex-none mobile:w-full border-solid border-1 border-black-400 border p-3.5">
       <div className="text-body mobile:text-h4-mobile opacity-[60%]">
         {fieldName}
       </div>

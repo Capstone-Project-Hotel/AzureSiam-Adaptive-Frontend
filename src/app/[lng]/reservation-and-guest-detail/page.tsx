@@ -218,11 +218,11 @@ const ReservationAndGuestDetail: React.FC<ReservationAndGuestDetailProps> = ({
       <div className="z-30 fixed w-[100vw] top-0">
         <Topbar lng={lng} />
       </div>
-      <div className="flex justify-center mt-[100px]">
+      <div className="flex justify-center mt-[100px] mobile:mt-[75px]">
         {/* Main Container */}
         <div className="w-[1440px] mobile:w-[330px] flex items-start flex-wrap py-10 mobile:py-1 px-10 mobile:px-0 mobile:justify-center">
           {/* Left Container */}
-          <div className="w-[55%] mobile:w-[80vw] flex flex-col gap-10 mt-10 mobile:mt-0">
+          <div className="w-[55%] mobile:w-[80vw] flex flex-col gap-10 mobile:gap-5 mt-10 mobile:mt-0">
             {/* Back to search result Container */}
             <div className="flex items-center gap-5">
               <button onClick={handleReselect}>
@@ -524,7 +524,7 @@ const ReservationAndGuestDetail: React.FC<ReservationAndGuestDetailProps> = ({
           </div>
         </div>
       </div>
-      <div className="mt-[50px] mobile:mt-[20px]">
+      <div className="mt-[50px] mobile:mt-[20px] mobile:mb-[51px]">
         <Footer t={t} />
       </div>
     </div>

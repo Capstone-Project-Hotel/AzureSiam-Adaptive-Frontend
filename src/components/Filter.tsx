@@ -176,7 +176,7 @@ export default function Filter({ t }: { t: any }) {
               </p>
               <Input
                 placeholder="eg. promo001"
-                style={{ width: "120px", height: "30px" }}
+                style={{ width: "150px", paddingTop: 0, paddingBottom: 0 }}
                 count={{
                   show: true,
                   max: 8,

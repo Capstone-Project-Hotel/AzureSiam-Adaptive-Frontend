@@ -997,7 +997,7 @@ export default function SummaryBar({
             </button>
           </div>
         </div>
-        <div className="flex justify-center items-center">
+        <div className="flex justify-center items-center pb-1.5">
           {page === "search-result" ? (
             <Link href={`/${lng}/reservation-and-guest-detail`}>
               <Button
@@ -1008,8 +1008,8 @@ export default function SummaryBar({
                     bookingDetail.suiteRoomNumber * 2 +
                     bookingDetail.executiveRoomNumber * 4 <
                   bookingDetail.adultNumber + bookingDetail.childrenNumber
-                    ? "opacity-50 cursor-not-allowed w-[20vw] mr-[3vw] mt-[2vh]"
-                    : "w-[20vw] mr-[3vw] mt-[2vh]"
+                    ? "opacity-50 cursor-not-allowed w-[20vw] mr-[3vw] bc"
+                    : "w-[20vw] bc"
                 }`}
                 style={{ background: "#4B86B4", color: "white" }}
                 disabled={
@@ -1029,8 +1029,8 @@ export default function SummaryBar({
               <Button
                 className={` ${
                   isDisabledConfirm || !bookingDetail.isCheckedPDPA
-                    ? "opacity-50 cursor-not-allowed w-[20vw] mr-[3vw] mt-[2vh]"
-                    : "w-[20vw] mr-[3vw] mt-[2vh]"
+                    ? "opacity-50 cursor-not-allowed w-[20vw] bc"
+                    : "w-[20vw] bc"
                 }`}
                 style={{ background: "#4B86B4", color: "white" }}
                 disabled={isDisabledConfirm || !bookingDetail.isCheckedPDPA}

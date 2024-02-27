@@ -204,6 +204,20 @@ li {
   height: 32px !important;
 }
 
+.sr input,
+.sr .ant-select-single,
+.sr .ant-select-selector,
+.sr .ant-input,
+.sr .ant-select-selection-item,
+.sr .ant-picker-input > input,
+.sr .ant-select-selection-placeholder,
+.ant-input-show-count-suffix {
+  font-size: 16px !important;
+  @media screen and (max-width: 431px) {
+    font-size: 10px !important;
+  }
+}
+
 input,
 .ant-select-single,
 .ant-select-selector,
@@ -212,6 +226,9 @@ input,
 .ant-picker-input > input,
 .ant-select-selection-placeholder {
   font-size: 14px !important;
+  @media screen and (max-width: 431px) {
+    font-size: 14px !important;
+  }
 }
 
 input::-webkit-outer-spin-button,
@@ -221,4 +238,8 @@ input::-webkit-inner-spin-button {
 }
 input[type="number"] {
   -moz-appearance: textfield;
+}
+
+.bc {
+  height: 100% !important;
 }
