@@ -10,6 +10,7 @@ import "primeicons/primeicons.css";
 import useStore from "@/hooks/useStore";
 import { InputNumber, Button } from "antd";
 import Link from "next/link";
+import { AntAnchor } from "antd/es/anchor/Anchor";
 
 const RoomNumberInput = ({
   roomType,
@@ -132,7 +133,7 @@ export default function SummaryCard({
         mondayAndFridayNightCount++;
       }
       let dateVar = date.toLocaleDateString("en-GB");
-      // console.log(dateVar);
+      console.log(dateVar);
       dateList.push(dateVar);
     }
     return dateList;
@@ -187,7 +188,7 @@ export default function SummaryCard({
   return (
     <div className="[box-shadow:0px_4px_4px_rgba(0,_0,_0,_0.25)] rounded-md w-[400px] h-auto p-5 bg-background mobile:w-[80vw]">
       <div className="border-b-2">
-        <div className="flex mt-[10px] m-2">
+        <div className="flex mt-[10px] my-2">
           <CalendarOutlined style={{ fontSize: "30px", marginRight: "10px" }} />
           <div>
             <div className="text-h5 font-medium mobile:text-h3-mobile">
@@ -200,7 +201,7 @@ export default function SummaryCard({
             </div>
           </div>
         </div>
-        <div className="flex m-2">
+        <div className="flex my-2">
           <UserOutlined style={{ fontSize: "30px", marginRight: "10px" }} />
           <div className="text-h5 font-medium mobile:text-h3-mobile">
             {bookingDetail.adultNumber} {t("adults")}{" "}
@@ -486,7 +487,7 @@ export default function SummaryCard({
         <div>
           <div className="border-t-2">
             {bookingDetail.standardRoomNumber !== 0 ? (
-              <div className="flex justify-between ml-2 mt-1">
+              <div className="flex justify-between mt-1">
                 <div className="text-body mobile:text-h4-mobile">
                   {t("std_title")} {bookingDetail.standardRoomNumber}{" "}
                   {t("room_per_night")}
@@ -507,7 +508,7 @@ export default function SummaryCard({
               </div>
             ) : null}
             {bookingDetail.deluxeRoomNumber !== 0 ? (
-              <div className="flex justify-between ml-2 mt-1">
+              <div className="flex justify-between mt-1">
                 <div className="text-body mobile:text-h4-mobile">
                   {t("dlx_title")} {bookingDetail.deluxeRoomNumber}{" "}
                   {t("room_per_night")}
@@ -528,7 +529,7 @@ export default function SummaryCard({
               </div>
             ) : null}
             {bookingDetail.familyRoomNumber !== 0 ? (
-              <div className="flex justify-between ml-2 mt-1">
+              <div className="flex justify-between mt-1">
                 <div className="text-body mobile:text-h4-mobile">
                   {t("fml_title")} {bookingDetail.familyRoomNumber}{" "}
                   {t("room_per_night")}
@@ -549,7 +550,7 @@ export default function SummaryCard({
               </div>
             ) : null}
             {bookingDetail.suiteRoomNumber !== 0 ? (
-              <div className="flex justify-between ml-2 mt-1">
+              <div className="flex justify-between mt-1">
                 <div className="text-body mobile:text-h4-mobile">
                   {t("s_title")} {bookingDetail.suiteRoomNumber}{" "}
                   {t("room_per_night")}
@@ -570,7 +571,7 @@ export default function SummaryCard({
               </div>
             ) : null}
             {bookingDetail.executiveRoomNumber !== 0 ? (
-              <div className="flex justify-between ml-2 mt-1">
+              <div className="flex justify-between mt-1">
                 <div className="text-body mobile:text-h4-mobile">
                   {t("ex_title")} {bookingDetail.executiveRoomNumber}{" "}
                   {t("room_per_night")}
@@ -592,34 +593,35 @@ export default function SummaryCard({
             ) : null}
           </div>
           <div className="border-b-2 border-t-2">
-            <div className="m-1">
+            <div className="my-1">
               <div className="text-body text-slate-400 mobile:text-h3-mobile">
                 {t("edit_service")}
               </div>
               {bookingDetail.packageOne ? (
                 <div className="mt-1">
-                  <div className="flex justify-between">
-                    <div className="flex">
-                      <div className="text-h5 mobile:text-h4-mobile">
+                  <div className="flex">
+                    <div className="flex flex-col">
+                      <div className="text-h5 mobile:text-h4-mobile font-bold">
                         {t("service_name1")}
                       </div>
+                      <button
+                        className="flex"
+                        onClick={() => {
+                          const updatedBookingDetail = {
+                            ...bookingDetail,
+                            packageOne: false,
+                          };
+                          setBookingDetail(updatedBookingDetail);
+                        }}
+                      >
+                        <i className="pi pi-trash text-gray-400 text-[16px] mobile:text-h5-mobile"></i>
+
+                        <div className="text-description ml-1 text-gray-400 mobile:text-h5-mobile">
+                          {t("remove_service")}
+                        </div>
+                      </button>
                     </div>
                   </div>
-                  <button
-                    className="flex"
-                    onClick={() => {
-                      const updatedBookingDetail = {
-                        ...bookingDetail,
-                        packageOne: false,
-                      };
-                      setBookingDetail(updatedBookingDetail);
-                    }}
-                  >
-                    <i className="pi pi-trash text-gray-400 mobile:text-h5-mobile"></i>
-                    <div className="text-description ml-1 text-gray-400 mobile:text-h5-mobile">
-                      {t("remove_service")}
-                    </div>
-                  </button>
                   <div className="flex justify-between">
                     <div className="text-body mobile:text-h4-mobile">
                       {t("service_name1")}
@@ -638,27 +640,27 @@ export default function SummaryCard({
               {bookingDetail.packageTwo ? (
                 <div className="mt-1">
                   <div className="flex justify-between">
-                    <div className="flex">
-                      <div className="text-h5 mobile:text-h4-mobile">
+                    <div className="flex flex-col">
+                      <div className="text-h5 mobile:text-h4-mobile font-bold">
                         {t("service_name2")}
                       </div>
+                      <button
+                        className="flex"
+                        onClick={() => {
+                          const updatedBookingDetail = {
+                            ...bookingDetail,
+                            packageTwo: false,
+                          };
+                          setBookingDetail(updatedBookingDetail);
+                        }}
+                      >
+                        <i className="pi pi-trash text-gray-400 mobile:text-h5-mobile"></i>
+                        <div className="text-description ml-1 text-gray-400 mobile:text-h5-mobile">
+                          {t("remove_service")}
+                        </div>
+                      </button>
                     </div>
                   </div>
-                  <button
-                    className="flex"
-                    onClick={() => {
-                      const updatedBookingDetail = {
-                        ...bookingDetail,
-                        packageTwo: false,
-                      };
-                      setBookingDetail(updatedBookingDetail);
-                    }}
-                  >
-                    <i className="pi pi-trash text-gray-400 mobile:text-h5-mobile"></i>
-                    <div className="text-description ml-1 text-gray-400 mobile:text-h5-mobile">
-                      {t("remove_service")}
-                    </div>
-                  </button>
                   <div className="flex justify-between">
                     <div className="text-body mobile:text-h4-mobile">
                       {t("service_name2")}
@@ -893,7 +895,7 @@ export default function SummaryCard({
           </div>
         </div>
       </div>
-      <div className="text-center text-h2 font-bold mt-1 mobile:text-h2-mobile mobile:mt-[10px]">
+      <div className="text-center text-h2 font-bold py-5 mobile:text-h2-mobile mobile:mt-[20px] mobile:py-2">
         {currency}{" "}
         {new Intl.NumberFormat("th-TH", {
           style: "decimal",
@@ -904,7 +906,7 @@ export default function SummaryCard({
       </div>
       <div className="flex justify-center items-center">
         {page === "search-result" ? (
-          <Link href={"/reservation-and-guest-detail"}>
+          <Link href={`/${lng}/reservation-and-guest-detail`}>
             <Button
               className={` ${
                 bookingDetail.standardRoomNumber +
@@ -930,7 +932,7 @@ export default function SummaryCard({
             </Button>
           </Link>
         ) : page === "reservation-and-guest-detail" ? (
-          <Link href={"/summary-booking-detail"}>
+          <Link href={`/${lng}/summary-booking-detail`}>
             <Button
               className={` ${
                 isDisabledConfirm || !bookingDetail.isCheckedPDPA

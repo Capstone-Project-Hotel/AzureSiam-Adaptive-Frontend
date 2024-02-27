@@ -220,7 +220,7 @@ const ReservationAndGuestDetail: React.FC<ReservationAndGuestDetailProps> = ({
       </div>
       <div className="flex justify-center mt-[100px]">
         {/* Main Container */}
-        <div className="w-[1440px] mobile:w-[330px] flex items-start flex-wrap gap-10 py-10 mobile:py-1 px-10 mobile:px-0 mobile:justify-center">
+        <div className="w-[1440px] mobile:w-[330px] flex items-start flex-wrap py-10 mobile:py-1 px-10 mobile:px-0 mobile:justify-center">
           {/* Left Container */}
           <div className="w-[55%] mobile:w-[80vw] flex flex-col gap-10 mt-10 mobile:mt-0">
             {/* Back to search result Container */}
@@ -305,7 +305,7 @@ const ReservationAndGuestDetail: React.FC<ReservationAndGuestDetailProps> = ({
                 {/* Row 1 */}
                 <div className="flex flex-wrap justify-between gap-2">
                   {/* Card Holder Name */}
-                  <div className="w-[343px]">
+                  <div className="flex-1 mobile:flex-none mobile:w-full">
                     <div className="text-description mobile:text-h3-mobile">
                       {t("card_holder")} <span className="text-red-600">*</span>
                     </div>
@@ -319,7 +319,7 @@ const ReservationAndGuestDetail: React.FC<ReservationAndGuestDetailProps> = ({
                   </div>
 
                   {/* Card Number */}
-                  <div className="w-[343px]">
+                  <div className="flex-1 mobile:flex-none mobile:w-full">
                     <div className="text-description mobile:text-h3-mobile flex justify-between items-center">
                       <div>
                         {t("card_number")}
@@ -393,7 +393,7 @@ const ReservationAndGuestDetail: React.FC<ReservationAndGuestDetailProps> = ({
                 {/* Row 2 */}
                 <div className="flex flex-wrap justify-between gap-2">
                   {/* Exp Date */}
-                  <div className="w-[343px]">
+                  <div className="flex-1 mobile:flex-none mobile:w-full">
                     <div className="text-description mobile:text-h3-mobile">
                       {t("expiration_date")}{" "}
                       <span className="text-red-600">*</span>
@@ -414,11 +414,12 @@ const ReservationAndGuestDetail: React.FC<ReservationAndGuestDetailProps> = ({
                   </div>
 
                   {/* CVV */}
-                  <div className="w-[343px]">
+                  <div className="flex-1 mobile:flex-none mobile:w-full">
                     <div className="text-description mobile:text-h3-mobile">
                       {t("CVV")} <span className="text-red-600">*</span>
                     </div>
-                    <Input.Password
+                    <Input
+                      type="password"
                       className="w-full"
                       placeholder="CVV"
                       name="cvv"
@@ -504,7 +505,7 @@ const ReservationAndGuestDetail: React.FC<ReservationAndGuestDetailProps> = ({
             </Modal>
           </div>
           {/* Right Container */}
-          <div className="flex flex-col w-[509px] mobile:w-full sticky top-[190px] mobile:top-auto mobile:left-0 mobile:fixed mobile:bottom-0 items-center">
+          <div className="flex flex-col w-[45%] mobile:w-full sticky top-[190px] mobile:top-auto mobile:left-0 mobile:fixed mobile:bottom-0 items-center">
             {isMobile ? (
               <SummaryBar
                 page="reservation-and-guest-detail"
@@ -592,7 +593,7 @@ const GuestDetailInputContainer: React.FC<GuestDetailInputContainerProps> = ({
       {/* Row 1 */}
       <div className="flex flex-wrap justify-between gap-2">
         {/* First Name */}
-        <div className="w-[212px] mobile:w-full">
+        <div className="flex-1 mobile:flex-none mobile:w-full">
           <div className="text-description mobile:text-h3-mobile">
             {t("first_name")} <span className="text-red-600">*</span>
           </div>
@@ -606,7 +607,7 @@ const GuestDetailInputContainer: React.FC<GuestDetailInputContainerProps> = ({
         </div>
 
         {/* Middle Name */}
-        <div className="w-[212px] mobile:w-full">
+        <div className="flex-1 mobile:flex-none mobile:w-full">
           <div className="text-description mobile:text-h3-mobile">
             {t("middle_name")}
           </div>
@@ -620,7 +621,7 @@ const GuestDetailInputContainer: React.FC<GuestDetailInputContainerProps> = ({
         </div>
 
         {/* Last Name */}
-        <div className="w-[212px] mobile:w-full">
+        <div className="flex-1 mobile:flex-none mobile:w-full">
           <div className="text-description mobile:text-h3-mobile">
             {t("last_name")} <span className="text-red-600">*</span>
           </div>
@@ -635,9 +636,9 @@ const GuestDetailInputContainer: React.FC<GuestDetailInputContainerProps> = ({
       </div>
 
       {/* Row 2 */}
-      <div className="flex flex-wrap justify-between gap-2 mobile:gap-0">
+      <div className="flex flex-wrap justify-between gap-2">
         {/* Gender */}
-        <div className="w-[343px] mobile:w-full">
+        <div className="flex-1 mobile:flex-none mobile:w-full">
           <div className="text-description mobile:text-h3-mobile">
             {t("gender")} <span className="text-red-600">*</span>
           </div>
@@ -655,7 +656,7 @@ const GuestDetailInputContainer: React.FC<GuestDetailInputContainerProps> = ({
         </div>
 
         {/* Birth Date */}
-        <div className="w-[343px] mobile:w-full">
+        <div className="flex-1 mobile:flex-none mobile:w-full">
           <div className="text-description mobile:text-h3-mobile">
             {t("birthdate")} <span className="text-red-600">*</span>
           </div>
@@ -672,7 +673,7 @@ const GuestDetailInputContainer: React.FC<GuestDetailInputContainerProps> = ({
       {/* Row 3 */}
       <div className="flex flex-wrap justify-between gap-2">
         {/* Email */}
-        <div className="w-[343px] mobile:w-full">
+        <div className="flex-1 mobile:flex-none mobile:w-full">
           <div className="text-description mobile:text-h3-mobile">
             {t("email")} <span className="text-red-600">*</span>
           </div>
@@ -686,7 +687,7 @@ const GuestDetailInputContainer: React.FC<GuestDetailInputContainerProps> = ({
         </div>
 
         {/* Phone Number */}
-        <div className="w-[343px] mobile:w-full">
+        <div className="flex-1 mobile:flex-none mobile:w-full">
           <div className="text-description mobile:text-h3-mobile">
             {t("phone_number")} <span className="text-red-600">*</span>
           </div>
@@ -709,7 +710,7 @@ const GuestDetailInputContainer: React.FC<GuestDetailInputContainerProps> = ({
       {/* Row 4 */}
       <div className="flex flex-wrap justify-between gap-2">
         {/* Country */}
-        <div className="w-[212px] mobile:w-full">
+        <div className="flex-1 mobile:flex-none mobile:w-full">
           <div className="text-description mobile:text-h3-mobile">
             {t("country")} <span className="text-red-600">*</span>
           </div>
@@ -730,7 +731,7 @@ const GuestDetailInputContainer: React.FC<GuestDetailInputContainerProps> = ({
         </div>
 
         {/* City */}
-        <div className="w-[212px] mobile:w-full">
+        <div className="flex-1 mobile:flex-none mobile:w-full">
           <div className="text-description mobile:text-h3-mobile">
             {t("city")}
           </div>
@@ -744,11 +745,12 @@ const GuestDetailInputContainer: React.FC<GuestDetailInputContainerProps> = ({
         </div>
 
         {/* Zip code */}
-        <div className="w-[212px] mobile:w-full">
+        <div className="flex-1 mobile:flex-none mobile:w-full">
           <div className="text-description mobile:text-h3-mobile">
             {t("zip_code")} <span className="text-red-600">*</span>
           </div>
           <Input
+            type="number"
             className="w-full"
             placeholder={t("zip_code")}
             name="zipCode"
@@ -783,9 +785,10 @@ const GuestDetailInputContainer: React.FC<GuestDetailInputContainerProps> = ({
           <div className="text-description mobile:text-h3-mobile">
             {t("id_card")} <span className="text-red-600">*</span>
           </div>
-          <div className="flex justify-between flex-wrap gap-1 mobile:gap-0">
-            <div className="w-[212px] mobile:w-[50%]">
+          <div className="flex justify-between flex-wrap gap-2">
+            <div className="w-[212px] mobile:w-full">
               <Select
+                className="w-full"
                 id="idSelect"
                 placeholder={t("select")}
                 options={[
@@ -805,8 +808,9 @@ const GuestDetailInputContainer: React.FC<GuestDetailInputContainerProps> = ({
                 defaultValue={guest.idType ? guest.idType : undefined}
               />
             </div>
-            <div className="w-[470px] mobile:w-[50%]">
+            <div className="flex-1 mobile:flex-none mobile:w-full">
               <Input
+                type="number"
                 className="w-full"
                 placeholder={
                   guest["idType"]

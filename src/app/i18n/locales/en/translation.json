@@ -111,6 +111,7 @@
   "remove_service": "Remove",
   "edit_service": "Edit Additional Service(s)",
   "guest_detail_label": "Guest Detail",
+  "booking_detail_label": "Booking Detail",
   "first_name": "First Name",
   "middle_name": "Middle Name",
   "last_name": "Last Name",

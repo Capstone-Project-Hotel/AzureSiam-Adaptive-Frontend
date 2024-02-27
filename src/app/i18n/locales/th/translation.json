@@ -109,6 +109,7 @@
   "remove_service": "ลด",
   "edit_service": "แก้ไขบริการเพิ่มเติม",
   "guest_detail_label": "ข้อมูลผู้เข้าพัก",
+  "booking_detail_label": "ข้อมูลการจอง",
   "first_name": "ชื่อ",
   "middle_name": "ชื่อกลาง",
   "last_name": "นามสกุล",

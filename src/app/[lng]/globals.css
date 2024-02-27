@@ -59,10 +59,10 @@ body {
 .ant-select {
   /* background-color: #2a4d69; */
   @media screen and (max-width: 431px) {
-    padding-left: 5px !important;
+    /* padding-left: 5px !important;
     padding-right: 5px !important;
     padding-bottom: 3px !important;
-    padding-top: 3px !important;
+    padding-top: 3px !important; */
   }
 }
 
@@ -176,6 +176,7 @@ li {
   border-color: #d9d9d9;
   border-radius: 6px;
   transition: all 0.2s;
+  height: 32px !important;
 }
 .input-n::placeholder {
   text-overflow: ellipsis;
@@ -191,4 +192,33 @@ li {
 
 .ant-picker-time-panel {
   display: none !important;
+}
+
+.ant-select {
+  padding: 0 !important;
+}
+
+.ant-input:not(textarea),
+.ant-select,
+.ant-picker {
+  height: 32px !important;
+}
+
+input,
+.ant-select-single,
+.ant-select-selector,
+.ant-input,
+.ant-select-selection-item,
+.ant-picker-input > input,
+.ant-select-selection-placeholder {
+  font-size: 14px !important;
+}
+
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+input[type="number"] {
+  -moz-appearance: textfield;
 }
