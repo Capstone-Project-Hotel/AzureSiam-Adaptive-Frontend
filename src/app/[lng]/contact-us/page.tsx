@@ -15,25 +15,25 @@ export default function Home({ params: { lng } }: { params: { lng: any } }) {
   const isMobile = useMediaQuery({ query: "(max-width: 431px)" });
 
   return (
-    <main>
+    <div className="flex flex-col h-[100vh]">
       <Topbar lng={lng} />
-      <div className="flex flex-col bg-white h-[72vh] p-5 text-center mobile:text-left">
-        <p
-          className="text-h1 mt-[1vw] mb-[1vw] w-[100vw] mobile:text-h1-mobile"
+      <div className="flex flex-col bg-white flex-1 p-5 text-center mobile:text-left w-full">
+        <div
+          className="text-h1 mt-[1vw] mb-[1vw] mobile:text-h1-mobile w-full"
           style={{ color: "#2A4D69" }}
         >
           {t("contact_us_label")}
-        </p>
-        <div className="mobile:bg-[#E7EFF6] mobile:p-3">
-          <p className="text-h3 mb-[1vw] w-[100vw] mobile:text-h3-mobile">
-            {t("hotel")}
-          </p>
-          <p className="text-h4 w-[100vw] mobile:text-h4-mobile">
-            {t("hotel_address")}
-          </p>
         </div>
-        <div className="flex flex-col mobile:flex-row mobile:gap-2">
-          <div className="flex flex-row items-center justify-center w-[100vw] mt-[1vw] mobile:gap-2 mobile:flex-col mobile:w-[40vw] mobile:p-3 mobile:bg-[#E7EFF6]">
+        <div className="mobile:bg-[#E7EFF6] mobile:p-3 w-full">
+          <div className="text-h3 mb-[1vw] mobile:text-h3-mobile w-full">
+            {t("hotel")}
+          </div>
+          <div className="text-h4 mobile:text-h4-mobile w-full">
+            {t("hotel_address")}
+          </div>
+        </div>
+        <div className="flex flex-col mobile:flex-row mobile:gap-2 w-full">
+          <div className="flex flex-row items-center justify-center w-full mt-[1vw] mobile:gap-2 mobile:flex-col mobile:w-[40vw] mobile:p-3 mobile:bg-[#E7EFF6]">
             <div className="flex flex-row items-center mr-[2vw] mobile:flex-col mobile:gap-2">
               <PhoneOutlined style={iconStyle} />
               <div className="ml-[1vw]">
@@ -76,7 +76,9 @@ export default function Home({ params: { lng } }: { params: { lng: any } }) {
           </div>
         </div>
       </div>
-      <Footer t={t} />
-    </main>
+      <div className="sticky bottom-0 z-50">
+        <Footer t={t} />
+      </div>
+    </div>
   );
 }
