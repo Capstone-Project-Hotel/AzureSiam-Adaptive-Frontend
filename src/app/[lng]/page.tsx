@@ -110,6 +110,9 @@ const Home = ({ params: { lng } }: { params: { lng: any } }) => {
     setGuests,
     setPaymentDetail,
     setSpecialReq,
+    setGuestsError,
+    setPaymentError,
+    setCheckboxError,
   } = useStore();
 
   const showDrawer = () => {
@@ -253,6 +256,32 @@ const Home = ({ params: { lng } }: { params: { lng: any } }) => {
       setBookingDetail(emptyBookingDetail);
       setCardType("");
       setSpecialReq("");
+
+      const emptyGuestError: GuestError = {
+        firstName: "",
+        lastName: "",
+        gender: "",
+        birthDate: "",
+        email: "",
+        phoneNumber: "",
+        country: "",
+        zipCode: "",
+        address: "",
+        idType: "",
+        id: "",
+      };
+      setGuestsError([emptyGuestError]);
+
+      const emptyPaymentError: PaymentError = {
+        cardHolderName: "",
+        cardNumber: "",
+        expDate: "",
+        cvv: "",
+      };
+      setPaymentError(emptyPaymentError);
+
+      setCheckboxError("");
+
       console.log("new store");
     };
     handleNewBooking();

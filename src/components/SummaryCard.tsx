@@ -12,6 +12,9 @@ import { InputNumber, Button } from "antd";
 import Link from "next/link";
 import { AntAnchor } from "antd/es/anchor/Anchor";
 
+import { ToastContainer, toast, Bounce } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
+
 const RoomNumberInput = ({
   roomType,
   value,
@@ -61,14 +64,53 @@ export default function SummaryCard({
   isDisabledConfirm,
   t,
   lng,
+  router,
 }: {
   page: string;
   isDisabledConfirm: boolean;
   t: any;
   lng: any;
+  router?: any;
 }) {
-  const { bookingDetail, setBookingDetail, exchangeRate, currency } =
-    useStore();
+  const {
+    bookingDetail,
+    setBookingDetail,
+    exchangeRate,
+    currency,
+    guestsError,
+    setGuestsError,
+    paymentError,
+    setPaymentError,
+    setPaymentError2,
+    guests,
+    paymentDetail,
+    checkboxError,
+    setCheckboxError,
+  } = useStore();
+
+  const formatGuestDetail: any = {
+    firstName: t("first_name"),
+    lastName: t("last_name"),
+    gender: t("gender"),
+    birthDate: t("birthdate"),
+    email: t("email"),
+    phoneNumber: t("phone_number"),
+    country: t("country"),
+    zipCode: t("zip_code"),
+    address: t("address"),
+    id: t("id"),
+  };
+  const idTypeToid: any = {
+    id: t("national_id"),
+    passportNumber: t("passport_number"),
+    drivingLicence: t("driving_licence"),
+  };
+  const formatPaymentDetail: any = {
+    cardHolderName: t("card_holder"),
+    cardNumber: t("card_number"),
+    expDate: t("expiration_date"),
+    cvv: t("cvv"),
+  };
 
   // Assuming startDate and endDate are in the format dd-mm-yyyy
   const startDateParts = bookingDetail.startDate.split("-");
@@ -133,7 +175,6 @@ export default function SummaryCard({
         mondayAndFridayNightCount++;
       }
       let dateVar = date.toLocaleDateString("en-GB");
-      console.log(dateVar);
       dateList.push(dateVar);
     }
     return dateList;
@@ -932,19 +973,82 @@ export default function SummaryCard({
             </Button>
           </Link>
         ) : page === "reservation-and-guest-detail" ? (
-          <Link href={`/${lng}/summary-booking-detail`}>
-            <Button
-              className={` ${
-                isDisabledConfirm || !bookingDetail.isCheckedPDPA
-                  ? "opacity-50 cursor-not-allowed"
-                  : ""
-              }`}
-              style={{ background: "#2A4D69", color: "white" }}
-              disabled={isDisabledConfirm || !bookingDetail.isCheckedPDPA}
-            >
-              <div>{t("confirm")}</div>
-            </Button>
-          </Link>
+          // <Link href={`/${lng}/summary-booking-detail`}>
+          //   <Button
+          //     className={` ${
+          //       isDisabledConfirm || !bookingDetail.isCheckedPDPA
+          //         ? "opacity-50 cursor-not-allowed"
+          //         : ""
+          //     }`}
+          //     style={{ background: "#2A4D69", color: "white" }}
+          //     disabled={isDisabledConfirm || !bookingDetail.isCheckedPDPA}
+          //   >
+          //     <div>{t("confirm")}</div>
+          //   </Button>
+          // </Link>
+          <Button
+            style={{ background: "#2A4D69", color: "white" }}
+            onClick={() => {
+              let isFormFull = true;
+              guests.map((guest, index) => {
+                Object.keys(guest).map((guestKey) => {
+                  if ((guests[index] as any)[guestKey] === "") {
+                    if (guestKey !== "middleName" && guestKey !== "city")
+                      isFormFull = false;
+                    let ud = guestsError;
+                    ud[index] = {
+                      ...ud[index],
+                      [guestKey]:
+                        guestKey === "id" || guestKey === "idType"
+                          ? lng === "en"
+                            ? "This input" + t("isRequired")
+                            : "อินพุตนี้" + t("isRequired")
+                          : formatGuestDetail[guestKey] + t("isRequired"),
+                    };
+                    setGuestsError(ud);
+                  }
+                });
+              });
+              Object.keys(paymentError).map((paymentDetailKey) => {
+                if ((paymentDetail as any)[paymentDetailKey] === "") {
+                  isFormFull = false;
+                  setPaymentError2(
+                    paymentDetailKey,
+                    formatPaymentDetail[paymentDetailKey] + t("isRequired")
+                  );
+                }
+              });
+              if (!bookingDetail.isCheckedPDPA) {
+                lng == "en"
+                  ? setCheckboxError("Checkbox is required")
+                  : setCheckboxError("จำเป็นต้องทำเครื่องหมายในช่อง");
+              } else {
+                setCheckboxError("");
+              }
+              if (isFormFull && bookingDetail.isCheckedPDPA) {
+                router.push(`/${lng}/summary-booking-detail`);
+              } else {
+                toast.error(
+                  lng == "en"
+                    ? "Some required field is empty"
+                    : "ช่องที่ต้องกรอกบางช่องว่างเปล่า",
+                  {
+                    position: "bottom-right",
+                    autoClose: 5000,
+                    hideProgressBar: false,
+                    closeOnClick: true,
+                    pauseOnHover: true,
+                    draggable: true,
+                    progress: undefined,
+                    theme: "colored",
+                    transition: Bounce,
+                  }
+                );
+              }
+            }}
+          >
+            <div>{t("confirm")}</div>
+          </Button>
         ) : page === "summary-booking-detail" ? (
           <Link href={`/${lng}/booking-confirmation`}>
             <Button style={{ background: "#2A4D69", color: "white" }}>
@@ -953,6 +1057,7 @@ export default function SummaryCard({
           </Link>
         ) : null}
       </div>
+      <ToastContainer />
     </div>
   );
 }

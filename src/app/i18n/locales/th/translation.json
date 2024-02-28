@@ -171,5 +171,12 @@
   "find_available_date": "ค้นหาวันที่ว่าง",
   "modify2": "แก้ไขวัน",
   "monday_and_friday_sale": "ส่วนลดสำหรับวันจันทร์และวันศุกร์",
-  "saturday_additional_cost": "ค่าบริการเพิ่มเติมสำหรับวันเสาร์"
+  "saturday_additional_cost": "ค่าบริการเพิ่มเติมสำหรับวันเสาร์",
+
+  "isRequired": " จำเป็นต้องระบุ",
+  "zipCodeFormat": "รูปแบบรหัสไปรษณีย์ไม่ถูกต้อง",
+  "emailFormat": "รูปแบบอีเมลไม่ถูกต้อง.",
+
+  "booking_detail_label": "รายละเอียดการจอง",
+  "booking_summary": "สรุปการจอง"
 }
