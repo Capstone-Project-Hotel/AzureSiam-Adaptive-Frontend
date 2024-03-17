@@ -180,5 +180,7 @@
   "emailFormat": "รูปแบบอีเมลไม่ถูกต้อง.",
 
   "booking_detail_label": "รายละเอียดการจอง",
-  "booking_summary": "สรุปการจอง"
+  "booking_summary": "สรุปการจอง",
+
+  "lowest_price_remark": "ราคาที่แสดงในปฏิทินเป็นราคาห้องพักต่ำสุดในวันนั้นๆ"
 }

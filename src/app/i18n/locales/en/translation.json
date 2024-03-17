@@ -182,5 +182,7 @@
   "emailFormat": "Invalid email format.",
 
   "booking_detail_label": "Booking Detail",
-  "booking_summary": "Booking Summary"
+  "booking_summary": "Booking Summary",
+
+  "lowest_price_remark": "The calendar price represents the lowest available rate for that day"
 }
