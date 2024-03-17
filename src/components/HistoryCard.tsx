@@ -56,8 +56,6 @@ const StyledCard = styled(Card)`
     }
     .ant-card-meta-description {
       font-size: 8px;
-      background-color: #e6f7ff;
-      border: 1px solid #91d5ff;
     }
   }
 `;
