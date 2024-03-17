@@ -155,6 +155,7 @@
   "successful_booking": "การจองของคุณเสร็จสมบูรณ์",
   "booking_id": "รหัสการจอง",
   "city_view": "วิวเมือง/ระเบียง",
+  "balcony_included":"",
   "price_default": "ราคาใดก็ได้",
   "price_not_exceeding": "ราคาไม่เกิน",
   "confirm": "ยืนยัน",
