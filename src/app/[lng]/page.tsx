@@ -394,6 +394,14 @@ const Home = ({ params: { lng } }: { params: { lng: any } }) => {
             />
           </div>
 
+          {/* Lowest Price Remark */}
+          <div>
+            <div className="text-right test-description font-thin  mobile:text-h5-mobile">
+              <span className="text-red-600">*</span>
+              <span> {t("lowest_price_remark")} </span>
+            </div>
+          </div>
+
           {/* Select Date */}
           <div className="flex justify-center gap-4">
             <CalendarOutlined />
