@@ -1085,7 +1085,7 @@ export default function SummaryBar({
             {totalRooms} {t("total_room")}{" "}
             {bookingDetail.adultNumber + bookingDetail.childrenNumber}{" "}
             {t("guest")}
-            <button onClick={showDrawer}>
+            <button onClick={showDrawer} className="ml-1">
               <DownOutlined className="text-[10px]" />
             </button>
           </div>

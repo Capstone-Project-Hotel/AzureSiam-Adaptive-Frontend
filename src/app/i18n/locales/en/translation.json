@@ -176,6 +176,7 @@
   "modify2": "modify",
   "monday_and_friday_sale": "Monday and Friday Sale",
   "saturday_additional_cost": "Saturday Additional Cost",
+  "total_room":"Total Room",
 
   "isRequired": " is required",
   "zipCodeFormat": "Invalid zip code format.",
@@ -184,5 +185,6 @@
   "booking_detail_label": "Booking Detail",
   "booking_summary": "Booking Summary",
 
-  "lowest_price_remark": "The calendar price represents the lowest available rate for that day"
+  "lowest_price_remark": "The calendar price represents the lowest available rate for that day",
+  "promo_placeholder": "e.g. promo001"
 }
