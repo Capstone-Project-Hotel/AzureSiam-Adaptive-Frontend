@@ -589,7 +589,7 @@ const ReservationAndGuestDetail: React.FC<ReservationAndGuestDetailProps> = ({
 
             {/* Modal PDPA */}
             <Modal
-              title={t("terms_condition_2")}
+              title={t("terms_condition_label")}
               open={isModalOpen}
               onOk={handleOk}
               onCancel={handleCancel}
@@ -605,11 +605,16 @@ const ReservationAndGuestDetail: React.FC<ReservationAndGuestDetailProps> = ({
                 <div>5) {t("terms_condition_d5")}</div>
                 <div>6) {t("terms_condition_d6")}</div>
                 <div>7) {t("terms_condition_d7")}</div>
-                <div>8) {t("terms_condition_d8")}</div>
-                <div>9) {t("terms_condition_d9")}</div>
-                <div>10) {t("terms_condition_d10")}</div>
-                <div>11) {t("terms_condition_d11")}</div>
-                <div>12) {t("terms_condition_d12")}</div>
+              </div>
+              <div className="text-h3 mobile:text-h2-mobile font-bold pt-6 pb-2">
+                {t("privacy_policy_label")}
+              </div>
+              <div className="flex flex-col gap-y-4 py-2 text-h5 mobile:text-h3-mobile mobile:gap-y-2">
+                <div>1) {t("terms_condition_d8")}</div>
+                <div>2) {t("terms_condition_d9")}</div>
+                <div>3) {t("terms_condition_d10")}</div>
+                <div>4) {t("terms_condition_d11")}</div>
+                <div>5) {t("terms_condition_d12")}</div>
               </div>
             </Modal>
           </div>

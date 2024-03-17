@@ -130,6 +130,8 @@
   "expiration_date": "วันหมดอายุ",
   "expiration_date_default": "เลือกวันหมดอายุ",
   "cvv": "CVV",
+  "terms_condition_label": "ข้อตกลงการใช้บริการ",
+  "privacy_policy_label": "นโยบายคุ้มครองข้อมูลส่วนบุคคล",
   "terms_condition": "ข้าพเจ้ารับทราบ ",
   "terms_condition_2": "ข้อตกลงการใช้บริการ และ นโยบายคุ้มครองข้อมูลส่วนบุคคล",
   "terms_condition_d1": "จะมีการเรียกเก็บค่ามัดจำล่วงหน้าเมื่อทำการจอง",

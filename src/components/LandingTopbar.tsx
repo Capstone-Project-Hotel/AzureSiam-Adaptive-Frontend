@@ -241,7 +241,7 @@ export default function LandingTopbar({
           }}
           onClick={handleBookNowClick}
         >
-          {t("book")}
+          {t("book_now")}
         </Button>
       </div>
     </div>

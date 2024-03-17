@@ -132,6 +132,8 @@
   "expiration_date": "Expiration Date",
   "expiration_date_default": "Select Expiration Date",
   "cvv": "CVV",
+  "terms_condition_label": "Terms and Conditions",
+  "privacy_policy_label": "Privacy Policy",
   "terms_condition": "I have read and agree to the ",
   "terms_condition_2": "Terms and Conditions and Privacy Policy",
   "terms_condition_d1": "Advanced deposit payment will be charged at time of reservation.",
