@@ -89,13 +89,13 @@ export default function Filter({ t }: { t: any }) {
         <div className="flex gap-x-5 justify-between mobile:flex-wrap mobile:space-y-3 mobile:space-x-0 mobile:justify-start">
           <div className="flex-1">
           <RangePicker
+          className="w-[300px] h-[30px] mobile:w-full"
             showTime={isMobile}
             value={[
               dayjs(bookingDetail.startDate, "DD-MM-YYYY"),
               dayjs(bookingDetail.endDate, "DD-MM-YYYY"),
             ]}
             format={["DD-MM-YYYY"]}
-            style={{ width: "300px", height: "30px" }}
             onChange={(RangePicker, dateStrings: [string, string]) => {
               const [startDate, endDate] = dateStrings;
 
