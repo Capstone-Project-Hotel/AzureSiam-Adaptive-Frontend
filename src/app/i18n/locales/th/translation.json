@@ -190,5 +190,7 @@
   "booking_summary": "สรุปการจอง",
 
   "lowest_price_remark": "ราคาที่แสดงในปฏิทินเป็นราคาห้องพักต่ำสุดในวันนั้นๆ",
-  "promo_placeholder": "เช่น promo001"
+  "promo_placeholder": "เช่น promo001",
+  "monday_and_friday_discount_remark" :"มีส่วนลดสำหรับการเข้าพักในคืนวันจันทร์และวันศุกร์ 200 บาทต่อห้องต่อคืน",
+  "saturday_additional_cost_remark" :"มีค่าบริการเพิ่มเติมในคืนวันเสาร์ 200 บาทต่อห้องต่อคืน"
 }

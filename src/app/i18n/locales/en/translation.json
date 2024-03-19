@@ -192,5 +192,7 @@
   "booking_summary": "Booking Summary",
 
   "lowest_price_remark": "The calendar price represents the lowest available rate for that day",
-  "promo_placeholder": "e.g. promo001"
+  "promo_placeholder": "e.g. promo001",
+  "monday_and_friday_discount_remark" :"There will be a discount of 200 baht per room per night for stays on Monday and Friday nights.",
+  "saturday_additional_cost_remark" :"There will be an additional service charge of 200 baht per room per night for stays on Saturday nights."
 }
