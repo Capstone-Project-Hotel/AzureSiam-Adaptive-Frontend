@@ -10,6 +10,10 @@ import "primeicons/primeicons.css";
 import useStore from "@/hooks/useStore";
 import { InputNumber, Button } from "antd";
 import Link from "next/link";
+import { AntAnchor } from "antd/es/anchor/Anchor";
+
+import { ToastContainer, toast, Bounce } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 const RoomNumberInput = ({
   roomType,
@@ -59,13 +63,54 @@ export default function SummaryCard({
   page,
   isDisabledConfirm,
   t,
+  lng,
+  router,
 }: {
   page: string;
   isDisabledConfirm: boolean;
   t: any;
+  lng: any;
+  router?: any;
 }) {
-  const { bookingDetail, setBookingDetail, exchangeRate, currency } =
-    useStore();
+  const {
+    bookingDetail,
+    setBookingDetail,
+    exchangeRate,
+    currency,
+    guestsError,
+    setGuestsError,
+    paymentError,
+    setPaymentError,
+    setPaymentError2,
+    guests,
+    paymentDetail,
+    checkboxError,
+    setCheckboxError,
+  } = useStore();
+
+  const formatGuestDetail: any = {
+    firstName: t("first_name"),
+    lastName: t("last_name"),
+    gender: t("gender"),
+    birthDate: t("birthdate"),
+    email: t("email"),
+    phoneNumber: t("phone_number"),
+    country: t("country"),
+    zipCode: t("zip_code"),
+    address: t("address"),
+    id: t("id"),
+  };
+  const idTypeToid: any = {
+    id: t("national_id"),
+    passportNumber: t("passport_number"),
+    drivingLicence: t("driving_licence"),
+  };
+  const formatPaymentDetail: any = {
+    cardHolderName: t("card_holder"),
+    cardNumber: t("card_number"),
+    expDate: t("expiration_date"),
+    cvv: t("cvv"),
+  };
 
   // Assuming startDate and endDate are in the format dd-mm-yyyy
   const startDateParts = bookingDetail.startDate.split("-");
@@ -130,7 +175,6 @@ export default function SummaryCard({
         mondayAndFridayNightCount++;
       }
       let dateVar = date.toLocaleDateString("en-GB");
-      console.log(dateVar);
       dateList.push(dateVar);
     }
     return dateList;
@@ -149,37 +193,30 @@ export default function SummaryCard({
     reducedRate = 0.8;
   }
 
-  let mondayAndFridaySale =
-    200 *
-    mondayAndFridayNightCount *
-    (bookingDetail.standardRoomNumber +
-      bookingDetail.deluxeRoomNumber +
-      bookingDetail.familyRoomNumber +
-      bookingDetail.suiteRoomNumber +
-      bookingDetail.executiveRoomNumber) *
-    reducedRate *
-    exchangeRate;
+  let totalRooms =
+    bookingDetail.standardRoomNumber +
+    bookingDetail.deluxeRoomNumber +
+    bookingDetail.familyRoomNumber +
+    bookingDetail.suiteRoomNumber +
+    bookingDetail.executiveRoomNumber;
+
+  let totalRoomPrice =
+    1200 * bookingDetail.standardRoomNumber +
+    1800 * bookingDetail.deluxeRoomNumber +
+    2200 * bookingDetail.familyRoomNumber +
+    2500 * bookingDetail.suiteRoomNumber +
+    3000 * bookingDetail.executiveRoomNumber;
+
+  let mondayAndFridayDiscount =
+    200 * mondayAndFridayNightCount * totalRooms * exchangeRate;
   let saturdayAdditionalCost =
-    200 *
-    saturdayNightCount *
-    (bookingDetail.standardRoomNumber +
-      bookingDetail.deluxeRoomNumber +
-      bookingDetail.familyRoomNumber +
-      bookingDetail.suiteRoomNumber +
-      bookingDetail.executiveRoomNumber) *
-    reducedRate *
-    exchangeRate;
+    200 * saturdayNightCount * totalRooms * exchangeRate;
 
   let subTotal =
-    (1200 * bookingDetail.standardRoomNumber +
-      1800 * bookingDetail.deluxeRoomNumber +
-      2200 * bookingDetail.familyRoomNumber +
-      2500 * bookingDetail.suiteRoomNumber +
-      3000 * bookingDetail.executiveRoomNumber -
-      mondayAndFridaySale +
-      saturdayAdditionalCost) *
-    dayDuration;
-  reducedRate * exchangeRate;
+    (totalRoomPrice * reducedRate * dayDuration +
+      saturdayAdditionalCost -
+      mondayAndFridayDiscount) *
+    exchangeRate;
 
   if (bookingDetail.packageOne === true)
     subTotal += 299 * reducedRate * exchangeRate;
@@ -192,7 +229,7 @@ export default function SummaryCard({
   return (
     <div className="[box-shadow:0px_4px_4px_rgba(0,_0,_0,_0.25)] rounded-md w-[400px] h-auto p-5 bg-background mobile:w-[80vw]">
       <div className="border-b-2">
-        <div className="flex mt-[10px] m-2">
+        <div className="flex mt-[10px] my-2">
           <CalendarOutlined style={{ fontSize: "30px", marginRight: "10px" }} />
           <div>
             <div className="text-h5 font-medium mobile:text-h3-mobile">
@@ -205,7 +242,7 @@ export default function SummaryCard({
             </div>
           </div>
         </div>
-        <div className="flex m-2">
+        <div className="flex my-2">
           <UserOutlined style={{ fontSize: "30px", marginRight: "10px" }} />
           <div className="text-h5 font-medium mobile:text-h3-mobile">
             {bookingDetail.adultNumber} {t("adults")}{" "}
@@ -491,7 +528,7 @@ export default function SummaryCard({
         <div>
           <div className="border-t-2">
             {bookingDetail.standardRoomNumber !== 0 ? (
-              <div className="flex justify-between ml-2 mt-1">
+              <div className="flex justify-between mt-1">
                 <div className="text-body mobile:text-h4-mobile">
                   {t("std_title")} {bookingDetail.standardRoomNumber}{" "}
                   {t("room_per_night")}
@@ -512,7 +549,7 @@ export default function SummaryCard({
               </div>
             ) : null}
             {bookingDetail.deluxeRoomNumber !== 0 ? (
-              <div className="flex justify-between ml-2 mt-1">
+              <div className="flex justify-between mt-1">
                 <div className="text-body mobile:text-h4-mobile">
                   {t("dlx_title")} {bookingDetail.deluxeRoomNumber}{" "}
                   {t("room_per_night")}
@@ -533,7 +570,7 @@ export default function SummaryCard({
               </div>
             ) : null}
             {bookingDetail.familyRoomNumber !== 0 ? (
-              <div className="flex justify-between ml-2 mt-1">
+              <div className="flex justify-between mt-1">
                 <div className="text-body mobile:text-h4-mobile">
                   {t("fml_title")} {bookingDetail.familyRoomNumber}{" "}
                   {t("room_per_night")}
@@ -554,7 +591,7 @@ export default function SummaryCard({
               </div>
             ) : null}
             {bookingDetail.suiteRoomNumber !== 0 ? (
-              <div className="flex justify-between ml-2 mt-1">
+              <div className="flex justify-between mt-1">
                 <div className="text-body mobile:text-h4-mobile">
                   {t("s_title")} {bookingDetail.suiteRoomNumber}{" "}
                   {t("room_per_night")}
@@ -575,7 +612,7 @@ export default function SummaryCard({
               </div>
             ) : null}
             {bookingDetail.executiveRoomNumber !== 0 ? (
-              <div className="flex justify-between ml-2 mt-1">
+              <div className="flex justify-between mt-1">
                 <div className="text-body mobile:text-h4-mobile">
                   {t("ex_title")} {bookingDetail.executiveRoomNumber}{" "}
                   {t("room_per_night")}
@@ -597,34 +634,35 @@ export default function SummaryCard({
             ) : null}
           </div>
           <div className="border-b-2 border-t-2">
-            <div className="m-1">
+            <div className="my-1">
               <div className="text-body text-slate-400 mobile:text-h3-mobile">
                 {t("edit_service")}
               </div>
               {bookingDetail.packageOne ? (
                 <div className="mt-1">
-                  <div className="flex justify-between">
-                    <div className="flex">
-                      <div className="text-h5 mobile:text-h4-mobile">
+                  <div className="flex">
+                    <div className="flex flex-col">
+                      <div className="text-h5 mobile:text-h4-mobile font-bold">
                         {t("service_name1")}
                       </div>
+                      <button
+                        className="flex"
+                        onClick={() => {
+                          const updatedBookingDetail = {
+                            ...bookingDetail,
+                            packageOne: false,
+                          };
+                          setBookingDetail(updatedBookingDetail);
+                        }}
+                      >
+                        <i className="pi pi-trash text-gray-400 text-[16px] mobile:text-h5-mobile"></i>
+
+                        <div className="text-description ml-1 text-gray-400 mobile:text-h5-mobile">
+                          {t("remove_service")}
+                        </div>
+                      </button>
                     </div>
                   </div>
-                  <button
-                    className="flex"
-                    onClick={() => {
-                      const updatedBookingDetail = {
-                        ...bookingDetail,
-                        packageOne: false,
-                      };
-                      setBookingDetail(updatedBookingDetail);
-                    }}
-                  >
-                    <i className="pi pi-trash text-gray-400 mobile:text-h5-mobile"></i>
-                    <div className="text-description ml-1 text-gray-400 mobile:text-h5-mobile">
-                      {t("remove_service")}
-                    </div>
-                  </button>
                   <div className="flex justify-between">
                     <div className="text-body mobile:text-h4-mobile">
                       {t("service_name1")}
@@ -643,27 +681,27 @@ export default function SummaryCard({
               {bookingDetail.packageTwo ? (
                 <div className="mt-1">
                   <div className="flex justify-between">
-                    <div className="flex">
-                      <div className="text-h5 mobile:text-h4-mobile">
+                    <div className="flex flex-col">
+                      <div className="text-h5 mobile:text-h4-mobile font-bold">
                         {t("service_name2")}
                       </div>
+                      <button
+                        className="flex"
+                        onClick={() => {
+                          const updatedBookingDetail = {
+                            ...bookingDetail,
+                            packageTwo: false,
+                          };
+                          setBookingDetail(updatedBookingDetail);
+                        }}
+                      >
+                        <i className="pi pi-trash text-gray-400 mobile:text-h5-mobile"></i>
+                        <div className="text-description ml-1 text-gray-400 mobile:text-h5-mobile">
+                          {t("remove_service")}
+                        </div>
+                      </button>
                     </div>
                   </div>
-                  <button
-                    className="flex"
-                    onClick={() => {
-                      const updatedBookingDetail = {
-                        ...bookingDetail,
-                        packageTwo: false,
-                      };
-                      setBookingDetail(updatedBookingDetail);
-                    }}
-                  >
-                    <i className="pi pi-trash text-gray-400 mobile:text-h5-mobile"></i>
-                    <div className="text-description ml-1 text-gray-400 mobile:text-h5-mobile">
-                      {t("remove_service")}
-                    </div>
-                  </button>
                   <div className="flex justify-between">
                     <div className="text-body mobile:text-h4-mobile">
                       {t("service_name2")}
@@ -834,15 +872,15 @@ export default function SummaryCard({
       <div className="flex flex-col gap-y-[1vh] mt-[1vh]">
         <div className="flex justify-between">
           <div className="text-body text-slate-400 mobile:text-h4-mobile">
-            {t("monday_and_friday_sale")}
+            {t("monday_and_friday_discount")}
           </div>
           <div className="text-body text-slate-400 mobile:text-h4-mobile">
-            {currency}{" "}
+            {currency} {mondayAndFridayDiscount > 0 ? "-" : ""}
             {new Intl.NumberFormat("th-TH", {
               style: "decimal",
               minimumFractionDigits: 2,
               maximumFractionDigits: 2,
-            }).format(mondayAndFridaySale)}
+            }).format(mondayAndFridayDiscount)}
           </div>
         </div>
         <div className="flex justify-between">
@@ -898,7 +936,7 @@ export default function SummaryCard({
           </div>
         </div>
       </div>
-      <div className="text-center text-h2 font-bold mt-1 mobile:text-h2-mobile mobile:mt-[10px]">
+      <div className="text-center text-h2 font-bold py-5 mobile:text-h2-mobile mobile:mt-[20px] mobile:py-2">
         {currency}{" "}
         {new Intl.NumberFormat("th-TH", {
           style: "decimal",
@@ -909,7 +947,7 @@ export default function SummaryCard({
       </div>
       <div className="flex justify-center items-center">
         {page === "search-result" ? (
-          <Link href={"/reservation-and-guest-detail"}>
+          <Link href={`/${lng}/reservation-and-guest-detail`}>
             <Button
               className={` ${
                 bookingDetail.standardRoomNumber +
@@ -935,27 +973,78 @@ export default function SummaryCard({
             </Button>
           </Link>
         ) : page === "reservation-and-guest-detail" ? (
-          <Link href={"/summary-booking-detail"}>
-            <Button
-              className={` ${
-                isDisabledConfirm || !bookingDetail.isCheckedPDPA
-                  ? "opacity-50 cursor-not-allowed"
-                  : ""
-              }`}
-              style={{ background: "#2A4D69", color: "white" }}
-              disabled={isDisabledConfirm || !bookingDetail.isCheckedPDPA}
-            >
-              <div>{t("confirm")}</div>
-            </Button>
-          </Link>
+          <Button
+            style={{ background: "#2A4D69", color: "white" }}
+            onClick={() => {
+              let isFormFull = true;
+              guests.map((guest, index) => {
+                Object.keys(guest).map((guestKey) => {
+                  if ((guests[index] as any)[guestKey] === "") {
+                    if (guestKey !== "middleName" && guestKey !== "city")
+                      isFormFull = false;
+                    let ud = guestsError;
+                    ud[index] = {
+                      ...ud[index],
+                      [guestKey]:
+                        guestKey === "id" || guestKey === "idType"
+                          ? lng === "en"
+                            ? "This input" + t("isRequired")
+                            : "อินพุตนี้" + t("isRequired")
+                          : formatGuestDetail[guestKey] + t("isRequired"),
+                    };
+                    setGuestsError(ud);
+                  }
+                });
+              });
+              Object.keys(paymentError).map((paymentDetailKey) => {
+                if ((paymentDetail as any)[paymentDetailKey] === "") {
+                  isFormFull = false;
+                  setPaymentError2(
+                    paymentDetailKey,
+                    formatPaymentDetail[paymentDetailKey] + t("isRequired")
+                  );
+                }
+              });
+              if (!checkboxError) {
+                lng == "en"
+                  ? setCheckboxError("Checkbox is required")
+                  : setCheckboxError("จำเป็นต้องทำเครื่องหมายในช่อง");
+              } else {
+                setCheckboxError("");
+              }
+              if (isFormFull && bookingDetail.isCheckedPDPA) {
+                router.push(`/${lng}/summary-booking-detail`);
+              } else {
+                toast.error(
+                  lng == "en"
+                    ? "Some required field is empty"
+                    : "ช่องที่ต้องกรอกบางช่องว่างเปล่า",
+                  {
+                    position: "bottom-right",
+                    autoClose: 5000,
+                    hideProgressBar: false,
+                    closeOnClick: true,
+                    pauseOnHover: true,
+                    draggable: true,
+                    progress: undefined,
+                    theme: "colored",
+                    transition: Bounce,
+                  }
+                );
+              }
+            }}
+          >
+            <div>{t("confirm")}</div>
+          </Button>
         ) : page === "summary-booking-detail" ? (
-          <Link href={"/booking-confirmation"}>
+          <Link href={`/${lng}/booking-confirmation`}>
             <Button style={{ background: "#2A4D69", color: "white" }}>
               <div>{t("check_out")}</div>
             </Button>
           </Link>
         ) : null}
       </div>
+      <ToastContainer />
     </div>
   );
 }

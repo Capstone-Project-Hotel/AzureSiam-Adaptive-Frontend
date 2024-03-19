@@ -1,7 +1,7 @@
 import { Card } from "antd";
 import styled from "styled-components";
-
-import { useTranslation } from "@/app/i18n/client";
+import Image from "next/image";
+import histioryCard from "../../public/historycard.png";
 
 const { Meta } = Card;
 
@@ -9,11 +9,11 @@ const HistoryCard = ({ t }: { t: any }) => {
   return (
     <StyledCard
       cover={
-        <img
+        <Image
           width={1280}
           height={512}
-          alt="example"
-          src="https://cdn.discordapp.com/attachments/457166097230069773/1182354485096497322/image.png?ex=6584646c&is=6571ef6c&hm=be00f7c469d5c40d961f5bdaa7023c525bd0efabfc3c94551b8ce9ccb9cac4c7&"
+          alt="histioryCard"
+          src={histioryCard}
         />
       }
     >

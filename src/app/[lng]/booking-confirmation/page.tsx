@@ -26,12 +26,6 @@ interface Guest {
   idType: string;
 }
 
-// const idTypeToid = {
-//   id: "National ID",
-//   passportNumber: "Passport Number",
-//   drivingLicence: "Driving Licence",
-// };
-
 const cardTypeToCardImg = {
   amex: "https://venturebeat.com/wp-content/uploads/2023/05/blue.jpg?fit=750%2C422&strip=all",
   visa: "https://swissuplabs.com/wordpress/wp-content/uploads/2016/04/free-icons-visa.png",
@@ -97,81 +91,87 @@ const BookingConfirmation: React.FC<ReservationAndGuestDetailProps> = ({
           {t("booking_id")}: {bookingDetail.bookingId}
         </div>
       </div>
-      <div className="flex justify-center mt-[15px] mobile:flex-col mobile:items-center overflow-hidden">
+      <div className="flex justify-center mt-[15px] mobile:flex-col mobile:items-center">
         {/* Main Container */}
-        <div className="w-[1440px] mobile:w-[330px] flex items-start flex-wrap gap-10 py-10 mobile:py-1 px-10 mobile:px-0">
+        <div className="w-[1440px] mobile:w-[330px] flex items-start flex-wrap py-10 mobile:py-1 px-10 mobile:px-0">
           {/* Left Container */}
-          <div className="w-[729px] mobile:w-[330px] flex flex-col gap-10 mobile:gap-1">
+          <div className="w-[70%] mobile:w-[330px] flex flex-col gap-10 pr-10 mobile:pr-0 mt-10 mobile:mt-0 mobile:pb-10">
             {/* Guest Detail Container */}
             <div>
               {/* Guest Detail */}
-              <div className="text-h2 mobile:text-h2-mobile font-bold text-primary">
+              <div className="text-h2 mobile:text-h2-mobile font-bold text-primary mb-2">
                 {t("guest_detail_label")}
               </div>
+
               {/* Guest Detail - Input Container */}
-              {guests.map((guest, index) => {
-                return (
-                  <GuestDetailInputContainer key={index} guest={guest} t={t} />
-                );
-              })}
+              <div className="flex gap-8 mobile:gap-5 flex-col">
+                {guests.map((guest, index) => {
+                  return (
+                    <GuestDetailInputContainer
+                      key={index}
+                      guest={guest}
+                      t={t}
+                    />
+                  );
+                })}
+              </div>
             </div>
+
             {/* Payment Detail Container */}
             <div>
               {/* Payment Detail */}
               <div className="text-h2 mobile:text-h2-mobile font-bold text-primary mb-2">
                 {t("payment_label")}
               </div>
+
               {/* Payment Detail - Input Container */}
-              <div className="flex flex-col gap-2">
+              <div className="flex flex-col">
                 {/* Row 1 */}
-                <div className="flex flex-wrap justify-between gap-2">
+                <div className="flex flex-wrap justify-between">
                   {/* Card Holder Name */}
-                  <div className="w-full">
-                    <div className="text-h5 mobile:text-h4-mobile">
-                      {t("card_holder")} : {paymentDetail.cardHolderName}
-                    </div>
-                  </div>
+                  <Field
+                    fieldName={t("card_holder")}
+                    value={paymentDetail.cardHolderName}
+                  />
+
                   {/* Card Number */}
-                  <div className="w-full">
-                    <div className="text-description mobile:text-h3-mobile flex gap-2 items-center">
-                      <div className="text-h5 mobile:text-h4-mobile">
-                        {t("card_number")} : {paymentDetail.cardNumber}
-                      </div>
-                      <div>
-                        {cardType &&
-                        Object.keys(cardTypeToCardImg).includes(cardType) ? (
-                          <img
-                            src={(cardTypeToCardImg as any)[cardType]}
-                            alt="cardType"
-                            style={{ height: "17px" }}
-                          />
-                        ) : null}
-                      </div>
+                  <Field
+                    fieldName={t("card_number")}
+                    value={paymentDetail.cardNumber}
+                  >
+                    <div>
+                      {cardType &&
+                      Object.keys(cardTypeToCardImg).includes(cardType) ? (
+                        <img
+                          src={(cardTypeToCardImg as any)[cardType]}
+                          alt="cardType"
+                          style={{ height: "17px" }}
+                        />
+                      ) : null}
                     </div>
-                  </div>
+                  </Field>
                 </div>
+
                 {/* Row 2 */}
-                <div className="flex flex-wrap justify-between gap-2">
+                <div className="flex flex-wrap justify-between">
                   {/* Exp Date */}
-                  <div className="w-[343px]">
-                    <div className="text-h5 mobile:text-h4-mobile">
-                      {t("expiration_date")} : {paymentDetail.expDate}
-                    </div>
-                  </div>
+                  <Field
+                    fieldName={t("expiration_date")}
+                    value={paymentDetail.expDate}
+                  />
+
                   {/* CVV */}
-                  <div className="w-[343px]">
-                    <div className="text-h5 mobile:text-h4-mobile">
-                      {t("cvv")} : {paymentDetail.cvv}
-                    </div>
-                  </div>
+                  <Field fieldName={t("cvv")} value={"•••"} />
                 </div>
               </div>
             </div>
+
             {/* HR Line */}
-            <hr className="my-2 mobile:w-[65vw]" />
+            {/* <hr className="my-2 mobile:w-[60vw]" /> */}
+
             {/* Special Request Container */}
             <div>
-              <div className="text-h2 mobile:text-h2-mobile font-bold text-primary">
+              <div className="text-h2 mobile:text-h2-mobile font-bold text-primary mb-2">
                 {t("special_request")}
               </div>
               <div className="w-full text-h5 mobile:text-h4-mobile">
@@ -180,11 +180,12 @@ const BookingConfirmation: React.FC<ReservationAndGuestDetailProps> = ({
             </div>
           </div>
           {/* Right Container */}
-          <div className="flex flex-col w-[509px] mobile:w-[330px] sticky mobile:right-0 top-[40px] mobile:static items-center">
+          <div className="flex flex-col w-[30%] mobile:w-[330px] sticky mobile:right-0 top-[20vh] mobile:static items-center">
             <SummaryCard
               page="booking-confirmation"
               isDisabledConfirm={true}
               t={t}
+              lng={lng}
             />
           </div>
         </div>
@@ -213,112 +214,91 @@ const GuestDetailInputContainer: React.FC<GuestDetailInputContainerProps> = ({
     drivingLicence: t("driving_licence"),
   };
   return (
-    <div className="flex flex-col gap-2 my-2">
+    <div className="flex flex-col">
       {/* Row 1 */}
-      <div className="flex flex-wrap mobile:gap-2">
+      <div className="flex flex-wrap">
         {/* First Name */}
-        <div className="w-[243px]">
-          <div className="text-h5 mobile:text-h4-mobile">
-            {t("first_name")} : {guest.firstName}
-          </div>
-        </div>
+        <Field fieldName={t("first_name")} value={guest.firstName} />
 
         {/* Middle Name */}
-        <div className="w-[243px]">
-          <div className="text-h5 mobile:text-h4-mobile">
-            {t("middle_name")} :{" "}
-            {guest.middleName === "" ? "-" : guest.middleName}
-          </div>
-        </div>
+        <Field
+          fieldName={t("middle_name")}
+          value={guest.middleName === "" ? "-" : guest.middleName}
+        />
 
         {/* Last Name */}
-        <div className="w-[243px]">
-          <div className="text-h5 mobile:text-h4-mobile">
-            {t("last_name")} : {guest.lastName}
-          </div>
-        </div>
+        <Field fieldName={t("last_name")} value={guest.lastName} />
       </div>
 
       {/* Row 2 */}
-      <div className="flex flex-wrap mobile:gap-2">
+      <div className="flex flex-wrap">
         {/* Gender */}
-        <div className="w-[243px]">
-          <div className="text-h5 mobile:text-h4-mobile">
-            {t("gender")} : {t(guest.gender)}
-          </div>
-        </div>
+        <Field fieldName={t("gender")} value={t(guest.gender)} />
 
         {/* Birth Date */}
-        <div className="w-[243px]">
-          <div className="text-h5 mobile:text-h4-mobile">
-            {t("birthdate")} : {guest.birthDate}
-          </div>
-        </div>
+        <Field fieldName={t("birthdate")} value={guest.birthDate} />
       </div>
 
       {/* Row 3 */}
-      <div className="flex flex-wrap mobile:gap-2">
+      <div className="flex flex-wrap">
         {/* Email */}
-        <div className="w-[243px]">
-          <div className="text-h5 mobile:text-h4-mobile">
-            {t("email")} : {guest.email}
-          </div>
-        </div>
+        <Field fieldName={t("email")} value={guest.email} />
 
         {/* Phone Number */}
-        <div className="w-[243px]">
-          <div className="text-h5 mobile:text-h4-mobile">
-            {t("phone_number")} : {guest.phoneNumber}
-          </div>
-        </div>
+        <Field fieldName={t("phone_number")} value={guest.phoneNumber} />
       </div>
 
       {/* Row 4 */}
-      <div className="flex flex-wrap mobile:gap-2">
+      <div className="flex flex-wrap">
         {/* Country */}
-        <div className="w-[243px]">
-          <div className="text-h5 mobile:text-h4-mobile">
-            {t("country")} : {guest.country}
-          </div>
-        </div>
+        <Field fieldName={t("country")} value={guest.country} />
 
         {/* City */}
-        <div className="w-[243px]">
-          <div className="text-h5 mobile:text-h4-mobile">
-            {t("city")} : {guest.city}
-          </div>
-        </div>
+        <Field fieldName={t("city_state")} value={guest.city} />
 
         {/* Zip code */}
-        <div className="w-[243px]">
-          <div className="text-h5 mobile:text-h4-mobile">
-            {t("zip_code")} : {guest.zipCode}
-          </div>
-        </div>
+        <Field fieldName={t("zip_code")} value={guest.zipCode} />
       </div>
 
       {/* Row 5 */}
-      <div className="flex flex-wrap justify-between gap-2">
+      <div className="flex flex-wrap justify-between">
         {/* Address  */}
-        <div className="w-full">
-          <div className="text-h5 mobile:text-h4-mobile">
-            {t("address")} : {guest.address}
-          </div>
-        </div>
+        <Field fieldName={t("address")} value={guest.address} />
       </div>
 
       {/* Row 6 */}
-      <div className="flex flex-wrap justify-between gap-2">
+      <div className="flex flex-wrap justify-between">
         {/* ID , Passport Number , Driving Licence */}
-        <div className="w-full">
-          <div className="text-h5 mobile:text-h4-mobile">
-            {(idTypeToid as any)[guest["idType"]] || "National ID"} : {guest.id}
-          </div>
-        </div>
+        <Field
+          fieldName={(idTypeToid as any)[guest["idType"]] || t("national_id")}
+          value={guest.id}
+        />
       </div>
 
       {/* HR Line */}
-      <hr className="my-2  mobile:w-[65vw]" />
+      {/* <hr className="my-2 mobile:w-[60vw]" /> */}
+    </div>
+  );
+};
+
+const Field = ({
+  fieldName,
+  value,
+  children,
+}: {
+  fieldName: string;
+  value: string;
+  children?: any;
+}) => {
+  return (
+    <div className="w-[243px] flex-1 border-solid border-1 border-black-400 border p-3.5">
+      <div className="text-body mobile:text-h4-mobile opacity-[60%]">
+        {fieldName}
+      </div>
+      <div className="text-h5 mobile:text-h4-mobile break-all flex items-center">
+        {value}
+        {children}
+      </div>
     </div>
   );
 };

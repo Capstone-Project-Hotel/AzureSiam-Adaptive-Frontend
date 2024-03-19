@@ -15,6 +15,7 @@ dayjs().format();
 import { useRouter } from "next/navigation";
 import type { CheckboxProps } from "antd";
 import { runes } from "runes2";
+import { useMediaQuery } from "react-responsive";
 export default function Filter({ t }: { t: any }) {
   const { RangePicker } = DatePicker;
   const CheckboxGroup = Checkbox.Group;
@@ -26,6 +27,7 @@ export default function Filter({ t }: { t: any }) {
     useStore();
 
   const router = useRouter();
+  const isMobile = useMediaQuery({ query: "(max-width: 431px)" });
 
   const handlePriceSelectChange = (data: string) => {
     // console.log(value); // { value: "lucy", key: "lucy", label: "Lucy (101)" }
@@ -78,13 +80,15 @@ export default function Filter({ t }: { t: any }) {
   };
 
   return (
-    <div className="w-full flex-row bg-secondary pt-3 pb-3">
+    <div className="w-full flex-row bg-secondary pt-3 pb-3 [4.16vw]">
       <div className="my-[20px] mx-10">
         <p className="text-white text-h3 font-bold mobile:text-h3-mobile">
           {t("booking_detail")}
         </p>
-        <div className="flex justify-between mobile:flex-wrap mobile:space-y-3 mobile:space-x-0 mobile:justify-start">
+        <div className="flex gap-x-5 justify-between mobile:flex-wrap mobile:space-y-3 mobile:space-x-0 mobile:justify-start">
+          <div className="flex-1">
           <RangePicker
+            showTime={isMobile}
             value={[
               dayjs(bookingDetail.startDate, "DD-MM-YYYY"),
               dayjs(bookingDetail.endDate, "DD-MM-YYYY"),
@@ -109,9 +113,10 @@ export default function Filter({ t }: { t: any }) {
               }
             }}
           />
-          <div className="flex gap-x-10">
-            <div className="flex">
-              <div className="mr-2 text-white text-h4 mobile:text-h4-mobile">
+          </div>
+          <div className="flex flex-1 gap-x-10">
+            <div className="flex mobile:items-center">
+              <div className="mr-2 mobile:w-14 text-white text-h4 mobile:text-h4-mobile">
                 {t("adults")}
               </div>
               <InputNumber
@@ -135,8 +140,8 @@ export default function Filter({ t }: { t: any }) {
                 }}
               />
             </div>
-            <div className="flex">
-              <p className=" mr-2 text-white text-h4 mobile:text-h4-mobile">
+            <div className="flex mobile:items-center">
+              <p className=" mr-2 mobile:w-10 text-white text-h4 mobile:text-h4-mobile">
                 {t("children")}
               </p>
               <InputNumber
@@ -165,14 +170,14 @@ export default function Filter({ t }: { t: any }) {
               />
             </div>
           </div>
-          <div className="flex flex-col">
-            <div className="flex">
-              <p className=" mr-2 text-white text-h4 mobile:text-h4-mobile">
+          <div className="flex flex-1 mobile:flex-0 flex-col">
+            <div className="flex mobile:items-center">
+              <p className=" mr-2 mobile:w-14 text-white text-h4 mobile:text-h4-mobile">
                 {t("code")}
               </p>
               <Input
-                placeholder="eg. promo001"
-                style={{ width: "120px", height: "30px" }}
+                placeholder={t("promo_placeholder")}
+                className="w-[250px] mobile:h-[42px]"
                 count={{
                   show: true,
                   max: 8,
@@ -202,8 +207,8 @@ export default function Filter({ t }: { t: any }) {
             </div>
             {bookingDetail.codePromotion === "valid001" ? (
               <div className="flex justify-end">
-                <i className="pi pi-check-circle text-white text-xl mobile:text-sm mt-1 ml-1"></i>
-                <p className="ml-2 mr-2 text-white text-body mobile:text-body-mobile mt-1">
+                <i className="pi pi-check-circle text-white text-xl mobile:text-h4-mobile mt-1 ml-1"></i>
+                <p className="ml-2 mr-2 text-white text-body mobile:text-h5-mobile mt-1">
                   {t("discount")} 20%
                 </p>
               </div>
@@ -211,7 +216,7 @@ export default function Filter({ t }: { t: any }) {
           </div>
         </div>
       </div>
-      <div className="flex justify-between ml-10 mr-10 my-2 mobile:flex-col">
+      <div className="flex justify-between ml-10 mr-10 my-2 gap-x-5 mobile:gap-y-6 mobile:flex-col">
         <div>
           <p className="text-white text-h3 font-bold mobile:text-h3-mobile">
             {t("room_type")}
@@ -291,11 +296,12 @@ export default function Filter({ t }: { t: any }) {
             </Checkbox>
           </div>
         </div>
-        <div>
+        <div className="flex-1">
           <p className="text-white text-h3 font-bold mobile:text-h3-mobile">
             {t("room_feature")}
           </p>
           <div className="grid grid-cols-3 gap-2">
+            <div className="flex flex-row items-center">
             <Checkbox
               defaultChecked={bookingDetail.showOnlyBalcony}
               onChange={(e) => {
@@ -307,9 +313,12 @@ export default function Filter({ t }: { t: any }) {
               }}
             >
               <p className="text-white text-h5 mobile:text-h5-mobile">
-                {t("city_view")}
+                <div>{t("city_view")}</div>
+                <div>{t("balcony_included")}</div>
               </p>
             </Checkbox>
+            </div>
+            <div className="flex flex-row items-center">
             <Checkbox
               defaultChecked={bookingDetail.showOnlyDinnerPlan}
               onChange={(e) => {
@@ -324,6 +333,8 @@ export default function Filter({ t }: { t: any }) {
                 {t("dinner")}
               </p>
             </Checkbox>
+            </div>
+            <div className="flex flex-row items-center">
             <Checkbox
               defaultChecked={bookingDetail.showOnlyJacuzzi}
               onChange={(e) => {
@@ -338,17 +349,18 @@ export default function Filter({ t }: { t: any }) {
                 {t("jacuzzi")}
               </p>
             </Checkbox>
+            </div>
           </div>
         </div>
 
-        <div>
+        <div className="flex-1">
           <p className="text-white text-h3 font-bold mobile:text-h3-mobile">
             {t("price")}
           </p>
+          <div className="">
           <Select
             defaultValue={t("price_default")}
-            style={{ width: 220 }}
-            className="price-select"
+            className="w-[220px] price-select mobile:flex-1"
             onChange={handlePriceSelectChange}
             options={[
               {
@@ -384,6 +396,7 @@ export default function Filter({ t }: { t: any }) {
               },
             ]}
           />
+          </div>
         </div>
       </div>
     </div>

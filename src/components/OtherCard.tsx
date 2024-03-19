@@ -48,6 +48,7 @@ const Othercard: React.FC<React.PropsWithChildren<OthercardProps>> = ({
         <Meta title={title} description={description} />
       </StyledCard>
       <Modal
+        className="top-[50px] mobile:top-[200px]"
         title={title}
         open={isModalOpen}
         onOk={handleOk}
@@ -72,6 +73,7 @@ const StyledCard = styled(Card)`
   border: 1px solid #f0f0f0;
   border-radius: 2px;
   box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+  margin-right: 2vw;
   img {
     border-radius: 2px !important;
   }

@@ -181,3 +181,29 @@ li {
 .input-n::placeholder {
   text-overflow: ellipsis;
 }
+
+.ant-picker-time-panel {
+  display: none !important;
+}
+
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+input[type="number"] {
+  -moz-appearance: textfield;
+}
+
+.error {
+  color: red;
+  font-size: 12px;
+  padding-top: 4px;
+}
+.error::before,
+.error-cb::before {
+  content: url("data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAACXBIWXMAAAsTAAALEwEAmpwYAAAA5ElEQVQ4jWNgQAPX1dV1r2loTATSV4D4CxRfAYpNAGIddPVwcEtFhR2oYBoQ/72uofEfGwbK/QEaNuWKlhYbNs37cGnEYtBeFEOAAtOxKXy0fTsYYzVIXX0ysp+xOhufASDvXNXU1GYABxgOp+J1AcQVfSAXXKXAgMsgAz6TawDQ9Z9AXvhEgQEf8XrhbkEBGOP1AiiFERv/WAzoBRmgA05hZEQjMDFpwdLCFFK9AIp+eEoEJUugIXtIcPruM8bGrCj5AWrIZFzegTkbZDOGZmQASp6gFAYKYXAagWAQuxfuZyQAAFKs25QkDMSZAAAAAElFTkSuQmCC");
+  display: inline-block;
+  margin-right: 10px;
+  vertical-align: -20%;
+}

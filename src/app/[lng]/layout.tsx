@@ -35,6 +35,12 @@ export default function RootLayout({
       <body>
         <ConfigProvider
           theme={{
+            components: {
+              Carousel: {
+                dotWidth: 70,
+                dotActiveWidth: 100,
+              },
+            },
             token: {
               fontFamily: '"Noto Sans Thai",sans-serif',
               colorPrimary: "#2A4D69",

@@ -111,7 +111,7 @@ export default function Topbar({ lng }: { lng: any }) {
 
   return (
     <div
-      className="sticky top-0 flex flex-row h-[110px] w-full px-[4.16vw] items-center justify-between mobile:h-[50px]"
+      className="top-0 flex flex-row h-[110px] w-full px-[4.16vw] items-center justify-between mobile:h-[50px]"
       style={{ backgroundColor: "#2A4D69", color: "white" }}
     >
       <div className="flex flex-row items-center">

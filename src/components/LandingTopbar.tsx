@@ -148,39 +148,39 @@ export default function LandingTopbar({
           AzureSiam
         </Link>
       </div>
-      <div className="flex flex-row flex-wrap items-start gap-x-8 gap-y-1 mobile:flex-col ml-[2vw]">
+      <div className="text-[.85vw] flex flex-row mobile:flex-wrap items-start gap-x-[2vw] gap-y-1 mobile:flex-col ml-[2vw]">
         <div
-          className="text-h5 mobile:text-h5-mobile cursor-pointer"
+          className="mobile:text-h5-mobile cursor-pointer"
           onClick={scrollToRoom}
         >
           {t("room_type")}
         </div>
         <div
-          className="text-h5 mobile:text-h5-mobile cursor-pointer"
+          className="mobile:text-h5-mobile cursor-pointer"
           onClick={scrollToFacilities}
         >
           {t("facilities")}
         </div>
         <div
-          className="text-h5 mobile:text-h5-mobile cursor-pointer"
+          className="mobile:text-h5-mobile cursor-pointer"
           onClick={scrollToPromotions}
         >
           {t("promotions")}
         </div>
         <div
-          className="text-h5 mobile:text-h5-mobile cursor-pointer"
+          className="mobile:text-h5-mobile cursor-pointer"
           onClick={scrollToActivity}
         >
           {t("activity_schedule")}
         </div>
         <div
-          className="text-h5 mobile:text-h5-mobile cursor-pointer"
+          className="mobile:text-h5-mobile cursor-pointer"
           onClick={scrollToGallery}
         >
           {t("gallery")}
         </div>
         <div
-          className="text-h5 mobile:text-h5-mobile cursor-pointer"
+          className="mobile:text-h5-mobile cursor-pointer"
           onClick={scrollToNearby}
         >
           {t("nearby_attraction")}
@@ -206,7 +206,7 @@ export default function LandingTopbar({
             color: "#2A4D69",
             marginLeft: "0.75vw",
             backgroundColor: "white",
-            borderRadius: "8px",
+            borderRadius: "0.65vw",
           }}
           onClick={handleBookNowClick}
         >

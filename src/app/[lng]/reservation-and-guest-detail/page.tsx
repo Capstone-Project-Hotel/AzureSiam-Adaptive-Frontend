@@ -23,6 +23,24 @@ import dayjs from "dayjs";
 import { t } from "i18next";
 import { useMediaQuery } from "react-responsive";
 
+import amex from "../../../../public/amex.jpg";
+import add1 from "../../../../public/add1.png";
+import add2 from "../../../../public/add2.png";
+
+const emptyGuestError: GuestError = {
+  firstName: "",
+  lastName: "",
+  gender: "",
+  birthDate: "",
+  email: "",
+  phoneNumber: "",
+  country: "",
+  zipCode: "",
+  address: "",
+  idType: "",
+  id: "",
+};
+
 const PhoneInput = dynamic(() => import("react-phone-number-input"), {
   ssr: false,
 });
@@ -67,7 +85,7 @@ const emptyGuest: Guest = {
 };
 
 const cardTypeToCardImg = {
-  amex: "https://cdn.discordapp.com/attachments/457166097230069773/1186233714523512852/vinnytsia-ukraine-september-6-2023-600nw-2358048941.webp?ex=6592813c&is=65800c3c&hm=b37ff0d726d6a4b7c5994550407f23d9a6401cfb3fa44696c5425531b322b02d&",
+  amex: amex.src,
   visa: "https://swissuplabs.com/wordpress/wp-content/uploads/2016/04/free-icons-visa.png",
   mastercard:
     "https://swissuplabs.com/wordpress/wp-content/uploads/2016/04/free-icons-mastercard.png",
@@ -94,6 +112,12 @@ const ReservationAndGuestDetail: React.FC<ReservationAndGuestDetailProps> = ({
     setSpecialReq,
     cardType,
     setCardType,
+    guestsError,
+    setGuestsError,
+    paymentError,
+    setPaymentError,
+    checkboxError,
+    setCheckboxError,
   } = useStore();
   const [isCheckedPDPA, setIsCheckedPDPA] = useState<boolean>(false);
   const [isDisabledConfirm, setIsDisabledConfirm] = useState<boolean>(false);
@@ -101,7 +125,9 @@ const ReservationAndGuestDetail: React.FC<ReservationAndGuestDetailProps> = ({
   const router = useRouter();
 
   const handleReselect = () => {
-    router.back();
+    router.replace(
+      `/${lng}/search-result/startDate=${bookingDetail.startDate}&endDate=${bookingDetail.endDate}&adults=${bookingDetail.adultNumber}&childrens=${bookingDetail.childrenNumber}`
+    );
   };
 
   const handleInputChange = (index: number, value: string, name: string) => {
@@ -111,7 +137,28 @@ const ReservationAndGuestDetail: React.FC<ReservationAndGuestDetailProps> = ({
     isDisabledConfirmF(updatedGuests, paymentDetail);
   };
 
+  const formatPaymentDetail: any = {
+    cardHolderName: t("card_holder"),
+    cardNumber: t("card_number"),
+    expDate: t("expiration_date"),
+    cvv: t("cvv"),
+  };
   const handlePaymentInputChange = (e: any) => {
+    let ud = paymentError;
+    if (e.target.value === "") {
+      ud = {
+        ...ud,
+        [e.target.name]: formatPaymentDetail[e.target.name] + t("isRequired"),
+      };
+      setPaymentError(ud);
+    } else {
+      ud = {
+        ...ud,
+        [e.target.name]: "",
+      };
+      setPaymentError(ud);
+    }
+
     setPaymentDetail({ ...paymentDetail, [e.target.name]: e.target.value });
     isDisabledConfirmF(guests, {
       ...paymentDetail,
@@ -122,6 +169,21 @@ const ReservationAndGuestDetail: React.FC<ReservationAndGuestDetailProps> = ({
     date,
     dateString
   ) => {
+    let ud = paymentError;
+    if (dateString === "") {
+      ud = {
+        ...ud,
+        ["expDate"]: formatPaymentDetail["expDate"] + t("isRequired"),
+      };
+      setPaymentError(ud);
+    } else {
+      ud = {
+        ...ud,
+        ["expDate"]: "",
+      };
+      setPaymentError(ud);
+    }
+
     setPaymentDetail({ ...paymentDetail, expDate: dateString });
     isDisabledConfirmF(guests, { ...paymentDetail, expDate: dateString });
   };
@@ -151,7 +213,6 @@ const ReservationAndGuestDetail: React.FC<ReservationAndGuestDetailProps> = ({
       "email",
       "phoneNumber",
       "country",
-      "city",
       "zipCode",
       "address",
       "id",
@@ -206,6 +267,34 @@ const ReservationAndGuestDetail: React.FC<ReservationAndGuestDetailProps> = ({
 
   const isMobile = useMediaQuery({ query: "(max-width: 393px)" });
 
+  useEffect(() => {
+    const emptyGuestError: GuestError = {
+      firstName: "",
+      lastName: "",
+      gender: "",
+      birthDate: "",
+      email: "",
+      phoneNumber: "",
+      country: "",
+      zipCode: "",
+      address: "",
+      idType: "",
+      id: "",
+    };
+    const guestsErrorNew = guestsError.map(() => emptyGuestError);
+    setGuestsError(guestsErrorNew);
+
+    const emptyPaymentError: PaymentError = {
+      cardHolderName: "",
+      cardNumber: "",
+      expDate: "",
+      cvv: "",
+    };
+    setPaymentError(emptyPaymentError);
+
+    setCheckboxError("");
+  }, []);
+
   return (
     // Page Container
     <div>
@@ -223,7 +312,7 @@ const ReservationAndGuestDetail: React.FC<ReservationAndGuestDetailProps> = ({
                 <LeftOutlined className="text-[36px] mobile:text-[25px]" />
               </button>
 
-              <div className="text-h2 mobile:text-h2-mobile">
+              <div className="text-h4 mobile:text-h4-mobile">
                 {/* Re-select your room for booking */}
                 {t("reselect_label")}
               </div>
@@ -231,6 +320,9 @@ const ReservationAndGuestDetail: React.FC<ReservationAndGuestDetailProps> = ({
 
             {/* Additional Services Container */}
             <div>
+              {/* <div className="text-h1 mobile:text-h1-mobile font-bold">
+                Fill Your Reservation Detail
+              </div> */}
               <div className="text-h2 mobile:text-h2-mobile font-bold">
                 {/* Additional Services */}
                 {t("additional_label")}
@@ -238,20 +330,16 @@ const ReservationAndGuestDetail: React.FC<ReservationAndGuestDetailProps> = ({
               <div className="flex gap-5">
                 <AdditionalServiceCard
                   serviceName={t("service_name1")}
-                  // serviceName={t("service_name1")}
-                  unit=""
-                  // unit={t("service_unit1")}
+                  unit={t("service_unit1")}
                   price={299}
-                  serviceImage="https://cdn.discordapp.com/attachments/863762167340990494/1199360857935720530/image_32.png?ex=65c242d7&is=65afcdd7&hm=5fa7797322db7c00c453a1a1c6693ee3c5435fc146a53c4714ad50af0ca89006&"
+                  serviceImage={add1.src}
                   t={t}
                 />
                 <AdditionalServiceCard
                   serviceName={t("service_name2")}
-                  // serviceName={t("service_name2")}
-                  unit=""
-                  // unit={t("service_unit2")}
+                  unit={t("service_unit2")}
                   price={499}
-                  serviceImage="https://cdn.discordapp.com/attachments/863762167340990494/1199360857692446740/cover.png?ex=65c242d7&is=65afcdd7&hm=b785dd4d923b8f7552f094c8abf6df8bb5f59e891d2b69d4afd479b2289a74be&"
+                  serviceImage={add2.src}
                   t={t}
                 />
               </div>
@@ -281,7 +369,10 @@ const ReservationAndGuestDetail: React.FC<ReservationAndGuestDetailProps> = ({
               {/* Add Guest */}
               <div
                 className="text-primary text-description mobile:text-h3-mobile cursor-pointer"
-                onClick={() => setGuests([...guests, emptyGuest])}
+                onClick={() => {
+                  setGuests([...guests, emptyGuest]);
+                  setGuestsError([...guestsError, emptyGuestError]);
+                }}
               >
                 + <span className="underline">{t("add_guest")}</span>
               </div>
@@ -309,7 +400,11 @@ const ReservationAndGuestDetail: React.FC<ReservationAndGuestDetailProps> = ({
                       name="cardHolderName"
                       value={paymentDetail.cardHolderName}
                       onChange={handlePaymentInputChange}
+                      status={paymentError.cardHolderName ? "error" : undefined}
                     />
+                    {paymentError.cardHolderName && (
+                      <div className="error">{paymentError.cardHolderName}</div>
+                    )}
                   </div>
 
                   {/* Card Number */}
@@ -380,7 +475,13 @@ const ReservationAndGuestDetail: React.FC<ReservationAndGuestDetailProps> = ({
                       value={paymentDetail.cardNumber}
                       onChange={handlePaymentInputChange}
                       className="input-n"
+                      style={{
+                        border: paymentError.cardNumber ? "1px solid red" : "",
+                      }}
                     />
+                    {paymentError.cardNumber && (
+                      <div className="error">{paymentError.cardNumber}</div>
+                    )}
                   </div>
                 </div>
 
@@ -400,10 +501,14 @@ const ReservationAndGuestDetail: React.FC<ReservationAndGuestDetailProps> = ({
                       picker="month"
                       defaultValue={
                         paymentDetail.expDate
-                          ? dayjs(paymentDetail.expDate)
+                          ? dayjs(paymentDetail.expDate, "MM-YYYY")
                           : undefined
                       }
+                      status={paymentError.expDate ? "error" : undefined}
                     />
+                    {paymentError.expDate && (
+                      <div className="error">{paymentError.expDate}</div>
+                    )}
                   </div>
 
                   {/* CVV */}
@@ -417,7 +522,12 @@ const ReservationAndGuestDetail: React.FC<ReservationAndGuestDetailProps> = ({
                       name="cvv"
                       value={paymentDetail.cvv}
                       onChange={handlePaymentInputChange}
+                      maxLength={3}
+                      status={paymentError.cvv ? "error" : undefined}
                     />
+                    {paymentError.cvv && (
+                      <div className="error">{paymentError.cvv}</div>
+                    )}
                   </div>
                 </div>
               </div>
@@ -450,28 +560,42 @@ const ReservationAndGuestDetail: React.FC<ReservationAndGuestDetailProps> = ({
                 <div>{t("cancel_policy_description")}</div>
                 <div>{t("cancel_policy_description2")} </div>
                 <div>{t("cancel_policy_description3")}</div>
+                <br />
+                <div>{t("cancel_policy_description_header2")}</div>
+                <br />
+                <div>{t("cancel_policy_description4")}</div>
+                <div>{t("cancel_policy_description5")} </div>
+                <div>{t("cancel_policy_description6")}</div>
+                <div>{t("cancel_policy_description7")}</div>
               </div>
             </div>
 
             {/* PDPA */}
-            <div className="flex text-description mobile:text-h3-mobile items-center gap-x-2">
-              <Checkbox
-                onChange={onCheckboxChange}
-                checked={bookingDetail.isCheckedPDPA}
-              />
-              <div>
-                {t("terms_condition")}
-                <span
-                  className="text-primary cursor-pointer underline"
-                  onClick={showModal}
-                >
-                  {t("terms_condition_2")}
-                </span>
+            <div>
+              <div className="flex text-description mobile:text-h3-mobile items-center gap-x-2">
+                <Checkbox
+                  onChange={onCheckboxChange}
+                  checked={bookingDetail.isCheckedPDPA}
+                />
+                <div>
+                  {t("terms_condition")}
+                  <span
+                    className="text-primary cursor-pointer underline"
+                    onClick={showModal}
+                  >
+                    {t("terms_condition_2")}
+                  </span>
+                </div>
               </div>
+              {checkboxError && (
+                <div className="error-cb pt-[2px] text-[12px] text-[#FF0000]">
+                  {checkboxError}
+                </div>
+              )}
             </div>
             {/* Modal PDPA */}
             <Modal
-              title={t("terms_condition_2")}
+              title={t("terms_condition_label")}
               open={isModalOpen}
               onOk={handleOk}
               onCancel={handleCancel}
@@ -488,14 +612,26 @@ const ReservationAndGuestDetail: React.FC<ReservationAndGuestDetailProps> = ({
                 <div>6) {t("terms_condition_d6")}</div>
                 <div>7) {t("terms_condition_d7")}</div>
               </div>
+              <div className="text-h3 mobile:text-h2-mobile font-bold pt-6 pb-2">
+                {t("privacy_policy_label")}
+              </div>
+              <div className="flex flex-col gap-y-4 py-2 text-h5 mobile:text-h3-mobile mobile:gap-y-2">
+                <div>1) {t("terms_condition_d8")}</div>
+                <div>2) {t("terms_condition_d9")}</div>
+                <div>3) {t("terms_condition_d10")}</div>
+                <div>4) {t("terms_condition_d11")}</div>
+                <div>5) {t("terms_condition_d12")}</div>
+              </div>
             </Modal>
           </div>
           {/* Right Container */}
-          <div className="flex flex-col w-[509px] mobile:w-[330px] sticky mobile:right-0 top-[190px] mobile:static items-center">
+          <div className="flex flex-col w-[509px] mobile:w-[330px] sticky mobile:right-0 top-[20vh] mobile:static items-center">
             <SummaryCard
               page="reservation-and-guest-detail"
               isDisabledConfirm={isDisabledConfirm}
               t={t}
+              lng={lng}
+              router={router}
             />
           </div>
         </div>
@@ -526,8 +662,23 @@ const GuestDetailInputContainer: React.FC<GuestDetailInputContainerProps> = ({
 }) => {
   const [countryCode, setCountryCode] = useState("");
   const [city, setCity] = useState<any[]>([]);
+  const zipCodeRegex = /^\d{5}(?:[-\s]\d{4})?$/;
+  const emailRegex = /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i;
+  const { guestsError, setGuestsError } = useStore();
+  const formatGuestDetail: any = {
+    firstName: t("first_name"),
+    lastName: t("last_name"),
+    gender: t("gender"),
+    birthDate: t("birthdate"),
+    email: t("email"),
+    phoneNumber: t("phone_number"),
+    country: t("country"),
+    zipCode: t("zip_code"),
+    address: t("address"),
+    id: t("id"),
+  };
 
-  const idTypeToid = {
+  const idTypeToid: any = {
     id: t("national_id"),
     passportNumber: t("passport_number"),
     drivingLicence: t("driving_licence"),
@@ -549,11 +700,65 @@ const GuestDetailInputContainer: React.FC<GuestDetailInputContainerProps> = ({
   const handleChange = (e: any, fieldNames?: any) => {
     if (fieldNames) {
       handleInputChange(index, fieldNames.value, fieldNames.group);
+      let ud = guestsError;
+      if (fieldNames.value === "") {
+        ud[index] = {
+          ...ud[index],
+          [fieldNames.group]:
+            fieldNames.group === "id"
+              ? idTypeToid[guest.idType] + t("isRequired")
+              : formatGuestDetail[fieldNames.group] + t("isRequired"),
+        };
+        setGuestsError(ud);
+      } else {
+        ud[index] = {
+          ...ud[index],
+          [fieldNames.group]: "",
+        };
+        setGuestsError(ud);
+      }
       if (fieldNames.group === "country") {
         setCountryCode(fieldNames.countryCode);
       }
     } else {
       handleInputChange(index, e.target.value, e.target.name);
+      let ud = guestsError;
+      if (e.target.value === "") {
+        ud[index] = {
+          ...ud[index],
+          [e.target.name]:
+            e.target.name === "id"
+              ? idTypeToid[guest.idType] + t("isRequired")
+              : formatGuestDetail[e.target.name] + t("isRequired"),
+        };
+        setGuestsError(ud);
+      } else if (e.target.name === "zipCode") {
+        const zipCode = e.target.value;
+        const isValid = zipCodeRegex.test(zipCode);
+        if (!isValid) {
+          ud[index] = { ...ud[index], zipCode: t("zipCodeFormat") };
+          setGuestsError(ud);
+        } else {
+          ud[index] = { ...ud[index], zipCode: "" };
+          setGuestsError(ud);
+        }
+      } else if (e.target.name === "email") {
+        const email = e.target.value;
+        const isValid = emailRegex.test(email);
+        if (!isValid) {
+          ud[index] = { ...ud[index], email: t("emailFormat") };
+          setGuestsError(ud);
+        } else {
+          ud[index] = { ...ud[index], email: "" };
+          setGuestsError(ud);
+        }
+      } else {
+        ud[index] = {
+          ...ud[index],
+          [e.target.name]: "",
+        };
+        setGuestsError(ud);
+      }
     }
   };
 
@@ -561,6 +766,20 @@ const GuestDetailInputContainer: React.FC<GuestDetailInputContainerProps> = ({
     date,
     dateString
   ) => {
+    let ud = guestsError;
+    if (dateString === "") {
+      ud[index] = {
+        ...ud[index],
+        ["birthDate"]: formatGuestDetail["birthDate"] + t("isRequired"),
+      };
+      setGuestsError(ud);
+    } else {
+      ud[index] = {
+        ...ud[index],
+        ["birthDate"]: "",
+      };
+      setGuestsError(ud);
+    }
     handleInputChange(index, dateString, "birthDate");
   };
 
@@ -579,7 +798,11 @@ const GuestDetailInputContainer: React.FC<GuestDetailInputContainerProps> = ({
             name="firstName"
             value={guest.firstName}
             onChange={handleChange}
+            status={guestsError[index].firstName ? "error" : undefined}
           />
+          {guestsError[index].firstName && (
+            <div className="error">{guestsError[index].firstName}</div>
+          )}
         </div>
 
         {/* Middle Name */}
@@ -607,7 +830,11 @@ const GuestDetailInputContainer: React.FC<GuestDetailInputContainerProps> = ({
             name="lastName"
             value={guest.lastName}
             onChange={handleChange}
+            status={guestsError[index].lastName ? "error" : undefined}
           />
+          {guestsError[index].lastName && (
+            <div className="error">{guestsError[index].lastName}</div>
+          )}
         </div>
       </div>
 
@@ -628,7 +855,11 @@ const GuestDetailInputContainer: React.FC<GuestDetailInputContainerProps> = ({
             ]}
             onChange={handleChange}
             defaultValue={guest.gender ? guest.gender : undefined}
+            status={guestsError[index].gender ? "error" : undefined}
           />
+          {guestsError[index].gender && (
+            <div className="error">{guestsError[index].gender}</div>
+          )}
         </div>
 
         {/* Birth Date */}
@@ -641,8 +872,14 @@ const GuestDetailInputContainer: React.FC<GuestDetailInputContainerProps> = ({
             format={"DD-MM-YYYY"}
             placeholder={t("birthdate_default")}
             onChange={handleBirthDateChange}
-            defaultValue={guest.birthDate ? dayjs(guest.birthDate) : undefined}
+            defaultValue={
+              guest.birthDate ? dayjs(guest.birthDate, "DD-MM-YYYY") : undefined
+            }
+            status={guestsError[index].birthDate ? "error" : undefined}
           />
+          {guestsError[index].birthDate && (
+            <div className="error">{guestsError[index].birthDate}</div>
+          )}
         </div>
       </div>
 
@@ -659,7 +896,11 @@ const GuestDetailInputContainer: React.FC<GuestDetailInputContainerProps> = ({
             name="email"
             value={guest.email}
             onChange={handleChange}
+            status={guestsError[index].email ? "error" : undefined}
           />
+          {guestsError[index].email && (
+            <div className="error">{guestsError[index].email}</div>
+          )}
         </div>
 
         {/* Phone Number */}
@@ -667,18 +908,41 @@ const GuestDetailInputContainer: React.FC<GuestDetailInputContainerProps> = ({
           <div className="text-description mobile:text-h3-mobile">
             {t("phone_number")} <span className="text-red-600">*</span>
           </div>
-          <div className="flex">
+          <div className="flex flex-col">
             <PhoneInput
               international
               countryCallingCodeEditable={false}
               name="phoneNumber"
               value={guest.phoneNumber}
               onChange={(value) => {
-                if (value) handleInputChange(index, value, "phoneNumber");
+                if (value) {
+                  let ud = guestsError;
+                  if (value === "") {
+                    ud[index] = {
+                      ...ud[index],
+                      ["phoneNumber"]:
+                        formatGuestDetail["phoneNumber"] + t("isRequired"),
+                    };
+                    setGuestsError(ud);
+                  } else {
+                    ud[index] = {
+                      ...ud[index],
+                      ["phoneNumber"]: "",
+                    };
+                    setGuestsError(ud);
+                  }
+                  handleInputChange(index, value, "phoneNumber");
+                }
               }}
               className="input-n"
               placeholder={t("phone_number")}
+              style={{
+                border: guestsError[index].phoneNumber ? "1px solid red" : "",
+              }}
             />
+            {guestsError[index].phoneNumber && (
+              <div className="error">{guestsError[index].phoneNumber}</div>
+            )}
           </div>
         </div>
       </div>
@@ -703,17 +967,21 @@ const GuestDetailInputContainer: React.FC<GuestDetailInputContainerProps> = ({
             })}
             onChange={handleChange}
             defaultValue={guest.country ? guest.country : undefined}
+            status={guestsError[index].country ? "error" : undefined}
           />
+          {guestsError[index].country && (
+            <div className="error">{guestsError[index].country}</div>
+          )}
         </div>
 
         {/* City */}
         <div className="w-[212px]">
           <div className="text-description mobile:text-h3-mobile">
-            {t("city")} <span className="text-red-600">*</span>
+            {t("city_state")}
           </div>
           <Select
             className="w-full"
-            placeholder={t("city_default")}
+            placeholder={t("city_state_default")}
             options={city}
             onChange={handleChange}
             defaultValue={guest.city ? guest.city : undefined}
@@ -731,7 +999,11 @@ const GuestDetailInputContainer: React.FC<GuestDetailInputContainerProps> = ({
             name="zipCode"
             value={guest.zipCode}
             onChange={handleChange}
+            status={guestsError[index].zipCode ? "error" : undefined}
           />
+          {guestsError[index].zipCode && (
+            <div className="error">{guestsError[index].zipCode}</div>
+          )}
         </div>
       </div>
 
@@ -749,7 +1021,11 @@ const GuestDetailInputContainer: React.FC<GuestDetailInputContainerProps> = ({
             name="address"
             value={guest.address}
             onChange={handleChange}
+            status={guestsError[index].address ? "error" : undefined}
           />
+          {guestsError[index].address && (
+            <div className="error">{guestsError[index].address}</div>
+          )}
         </div>
       </div>
 
@@ -780,10 +1056,15 @@ const GuestDetailInputContainer: React.FC<GuestDetailInputContainerProps> = ({
                 ]}
                 onChange={handleChange}
                 defaultValue={guest.idType ? guest.idType : undefined}
+                status={guestsError[index].idType ? "error" : undefined}
               />
+              {guestsError[index].idType && (
+                <div className="error">{guestsError[index].idType}</div>
+              )}
             </div>
             <div className="w-[470px]">
               <Input
+                disabled={!guest.idType}
                 className="w-full"
                 placeholder={
                   guest["idType"]
@@ -793,7 +1074,11 @@ const GuestDetailInputContainer: React.FC<GuestDetailInputContainerProps> = ({
                 name="id"
                 value={guest.id}
                 onChange={handleChange}
+                status={guestsError[index].id ? "error" : undefined}
               />
+              {guestsError[index].id && (
+                <div className="error">{guestsError[index].id}</div>
+              )}
             </div>
           </div>
         </div>
@@ -803,11 +1088,15 @@ const GuestDetailInputContainer: React.FC<GuestDetailInputContainerProps> = ({
       {index > 0 && (
         <div
           className="text-red-700 text-description mobile:text-h3-mobile cursor-pointer"
-          onClick={() =>
-            setGuests([...guests.slice(0, index), ...guests.slice(index + 1)])
-          }
+          onClick={() => {
+            setGuests([...guests.slice(0, index), ...guests.slice(index + 1)]);
+            setGuestsError([
+              ...guestsError.slice(0, index),
+              ...guestsError.slice(index + 1),
+            ]);
+          }}
         >
-          - <span className="underline">Remove Guest</span>
+          - <span className="underline">{t("remove_guest")}</span>
         </div>
       )}
 

@@ -29,7 +29,36 @@ import SatelliteAltIcon from "@mui/icons-material/SatelliteAlt";
 import BalconyIcon from "@mui/icons-material/Balcony";
 import ChairIcon from "@mui/icons-material/Chair";
 import DinnerDiningIcon from "@mui/icons-material/DinnerDining";
+import InventoryIcon from "@mui/icons-material/Inventory";
 import useStore from "@/hooks/useStore";
+
+import landing from "../../../public/landing.png";
+
+import stdroom from "../../../public/stdroom.jpg";
+import dlxroom from "../../../public/dlxroom.jpg";
+import famroom from "../../../public/famroom.jpg";
+import suiteroom from "../../../public/suiteroom.jpg";
+import exroom from "../../../public/exroom.jpg";
+import exroom2 from "../../../public/exroom2.png";
+
+import spa from "../../../public/spa.jpg";
+import gym from "../../../public/gym.jpg";
+
+import fifty from "../../../public/50.jpg";
+import monday from "../../../public/monday.jpg";
+import friday from "../../../public/friday.jpg";
+
+import swim from "../../../public/swim.jpg";
+import medi from "../../../public/medi.jpg";
+import rock from "../../../public/rock.jpg";
+
+import checkin from "../../../public/checkin.jpg";
+
+import siam from "../../../public/siam.jpg";
+import samyan from "../../../public/samyan.jpg";
+import central from "../../../public/central.jpg";
+
+// redeploy 31/01/2024
 
 const { Meta } = Card;
 
@@ -67,7 +96,7 @@ const Home = ({ params: { lng } }: { params: { lng: any } }) => {
     slidesToShow: 3,
     slidesToScroll: 3,
     arrows: true,
-    swipe: false,
+    swipe: true,
     responsive: [
       {
         breakpoint: 431,
@@ -99,6 +128,9 @@ const Home = ({ params: { lng } }: { params: { lng: any } }) => {
     setGuests,
     setPaymentDetail,
     setSpecialReq,
+    setGuestsError,
+    setPaymentError,
+    setCheckboxError,
   } = useStore();
 
   const showDrawer = () => {
@@ -232,6 +264,32 @@ const Home = ({ params: { lng } }: { params: { lng: any } }) => {
       setBookingDetail(emptyBookingDetail);
       setCardType("");
       setSpecialReq("");
+
+      const emptyGuestError: GuestError = {
+        firstName: "",
+        lastName: "",
+        gender: "",
+        birthDate: "",
+        email: "",
+        phoneNumber: "",
+        country: "",
+        zipCode: "",
+        address: "",
+        idType: "",
+        id: "",
+      };
+      setGuestsError([emptyGuestError]);
+
+      const emptyPaymentError: PaymentError = {
+        cardHolderName: "",
+        cardNumber: "",
+        expDate: "",
+        cvv: "",
+      };
+      setPaymentError(emptyPaymentError);
+
+      setCheckboxError("");
+
       console.log("new store");
     };
     handleNewBooking();
@@ -271,13 +329,24 @@ const Home = ({ params: { lng } }: { params: { lng: any } }) => {
                 setStartDate(dates.startDate);
                 setEndDate(dates.endDate);
               }}
-              // disabledDates={[
-              //   addDays(new Date(), 3),
-              //   addDays(new Date(), 7),
-              //   addDays(new Date(), 15),
-              // ]}
               disabledDates={disabledDates}
             />
+          </div>
+
+          {/* Lowest Price Remark */}
+          <div>
+            <div className="text-right test-description font-thin  mobile:text-h5-mobile">
+              <span className="text-red-600">*</span>
+              <span> {t("lowest_price_remark")} </span>
+            </div>
+            <div className="text-right test-description font-thin  mobile:text-h5-mobile">
+              <span className="text-red-600">*</span>
+              <span> {t("monday_and_friday_discount_remark")} </span>
+            </div>
+            <div className="text-right test-description font-thin  mobile:text-h5-mobile">
+              <span className="text-red-600">*</span>
+              <span> {t("saturday_additional_cost_remark")} </span>
+            </div>
           </div>
 
           {/* Select Date */}
@@ -357,13 +426,14 @@ const Home = ({ params: { lng } }: { params: { lng: any } }) => {
 
       <div className="flex justify-center mt-[110px]">
         {/* Main Container */}
-        <div className="w-[1440px] mobile:w-full flex flex-col gap-10 mobile:gap-8 items-center pb-20">
+        <div className="max-w-[1440px] w-full mobile:w-full flex flex-col gap-10 mobile:gap-8 items-center pb-20">
           {/* Hotel Name Container */}
           <div
             style={{
-              backgroundImage:
-                'url("https://cdn.discordapp.com/attachments/457166097230069773/1186379702336753684/coverImage.jpg?ex=65930932&is=65809432&hm=efec0670074a80e0fc1ce6438a2272023f4fcf5fd383d4dfeb9813a8d25c2427&")',
+              backgroundImage: `url(${landing.src})`,
               backgroundPosition: "center",
+              backgroundSize: "cover",
+              backgroundRepeat: "no-repeat",
             }}
             className="p-20 flex items-end h-[822px] w-full mobile:h-[331px] mobile:p-5"
           >
@@ -397,9 +467,9 @@ const Home = ({ params: { lng } }: { params: { lng: any } }) => {
                 hoverable={true}
                 title={t("std_title")}
                 description={t("std_description")}
-                src="https://cdn.discordapp.com/attachments/457166097230069773/1186386766119305258/cover.jpg?ex=65930fc7&is=65809ac7&hm=81597f4a64012d760e9c97c217db3cae2617d4f37183b609a89429cc3562fd42&"
+                src={stdroom.src}
               >
-                <div>{t("std_description")}</div>
+                <div>{t("standard_room_desc")}</div>
                 <div>
                   <div className="font-bold mb-1">{t("amenities")}</div>
                   <div>
@@ -448,7 +518,7 @@ const Home = ({ params: { lng } }: { params: { lng: any } }) => {
                       </li>
                       <li>
                         <BathtubIcon fontSize={isMobile ? "small" : "medium"} />
-                        {t("bath")}
+                        {t("private_bath")}
                       </li>
                       <li>
                         <SatelliteAltIcon
@@ -456,12 +526,18 @@ const Home = ({ params: { lng } }: { params: { lng: any } }) => {
                         />
                         {t("cable")}
                       </li>
+                      <li>
+                        <InventoryIcon
+                          fontSize={isMobile ? "small" : "medium"}
+                        />
+                        {t("safe")}
+                      </li>
                     </ul>
                   </div>
                 </div>
                 <div className="flex gap-2 flex-wrap">
                   <img
-                    src="https://cdn.discordapp.com/attachments/457166097230069773/1186386766119305258/cover.jpg?ex=65930fc7&is=65809ac7&hm=81597f4a64012d760e9c97c217db3cae2617d4f37183b609a89429cc3562fd42&"
+                    src={stdroom.src}
                     alt=""
                     className="w-[150px] aspect-[3/2] mobile:w-[80px]"
                   />
@@ -485,9 +561,9 @@ const Home = ({ params: { lng } }: { params: { lng: any } }) => {
                 hoverable={true}
                 title={t("dlx_title")}
                 description={t("dlx_description")}
-                src="https://cdn.discordapp.com/attachments/457166097230069773/1186387436901781634/cover_1.jpg?ex=65931066&is=65809b66&hm=f75c101fa0d7768bac471cc46a3c94a94b5a1737567af3c91951c95abfc4ec9b&"
+                src={dlxroom.src}
               >
-                <div>{t("dlx_description")}</div>
+                <div>{t("deluxe_room_desc")}</div>
                 <div>
                   <div className="font-bold mb-1">{t("amenities")}</div>
                   <div>
@@ -543,6 +619,12 @@ const Home = ({ params: { lng } }: { params: { lng: any } }) => {
                         {t("cable")}
                       </li>
                       <li>
+                        <InventoryIcon
+                          fontSize={isMobile ? "small" : "medium"}
+                        />
+                        {t("safe")}
+                      </li>
+                      <li>
                         <BalconyIcon fontSize={isMobile ? "small" : "medium"} />
                         {t("balcony")}
                       </li>
@@ -551,7 +633,7 @@ const Home = ({ params: { lng } }: { params: { lng: any } }) => {
                 </div>
                 <div className="flex gap-2 flex-wrap">
                   <img
-                    src="https://cdn.discordapp.com/attachments/457166097230069773/1186387436901781634/cover_1.jpg?ex=65931066&is=65809b66&hm=f75c101fa0d7768bac471cc46a3c94a94b5a1737567af3c91951c95abfc4ec9b&"
+                    src={dlxroom.src}
                     alt=""
                     className="w-[150px] aspect-[3/2] mobile:w-[80px]"
                   />
@@ -575,9 +657,9 @@ const Home = ({ params: { lng } }: { params: { lng: any } }) => {
                 hoverable={true}
                 title={t("fml_title")}
                 description={t("fml_description")}
-                src="https://cdn.discordapp.com/attachments/457166097230069773/1186387586516791326/cover_2.jpg?ex=6593108a&is=65809b8a&hm=44468b0913ab9e438ce166d2c49366e3833e42e84669ffff7b38eb770aac7c1c&"
+                src={famroom.src}
               >
-                <div>{t("fml_description")}</div>
+                <div>{t("family_room_desc")}</div>
                 <div>
                   <div className="font-bold mb-1">{t("amenities")}</div>
                   <div>
@@ -590,7 +672,7 @@ const Home = ({ params: { lng } }: { params: { lng: any } }) => {
                       </li>
                       <li>
                         <KitchenIcon fontSize={isMobile ? "small" : "medium"} />
-                        {t("compact_fridge")}
+                        {t("fridge")}
                       </li>
                       <li className="flex gap-4">
                         <div>
@@ -626,13 +708,19 @@ const Home = ({ params: { lng } }: { params: { lng: any } }) => {
                       </li>
                       <li>
                         <BathtubIcon fontSize={isMobile ? "small" : "medium"} />
-                        {t("bath")}
+                        {t("private_bath")}
                       </li>
                       <li>
                         <SatelliteAltIcon
                           fontSize={isMobile ? "small" : "medium"}
                         />
                         {t("cable")}
+                      </li>
+                      <li>
+                        <InventoryIcon
+                          fontSize={isMobile ? "small" : "medium"}
+                        />
+                        {t("safe")}
                       </li>
                       <li>
                         <BalconyIcon fontSize={isMobile ? "small" : "medium"} />
@@ -643,7 +731,7 @@ const Home = ({ params: { lng } }: { params: { lng: any } }) => {
                 </div>
                 <div className="flex gap-2 flex-wrap">
                   <img
-                    src="https://cdn.discordapp.com/attachments/457166097230069773/1186387586516791326/cover_2.jpg?ex=6593108a&is=65809b8a&hm=44468b0913ab9e438ce166d2c49366e3833e42e84669ffff7b38eb770aac7c1c&"
+                    src={famroom.src}
                     alt=""
                     className="w-[150px] aspect-[3/2] mobile:w-[80px]"
                   />
@@ -667,9 +755,9 @@ const Home = ({ params: { lng } }: { params: { lng: any } }) => {
                 hoverable={true}
                 title={t("s_title")}
                 description={t("s_description")}
-                src="https://cdn.discordapp.com/attachments/457166097230069773/1188826464708218920/image_41.jpg?ex=659befec&is=65897aec&hm=5a3d092015cc24fcd079f85b33341c508f33152ec6ea2e2c7b2c5796e4839e6a&"
+                src={suiteroom.src}
               >
-                <div>{t("s_description")}</div>
+                <div>{t("suite_room_desc")}</div>
                 <div>
                   <div className="font-bold mb-1">{t("amenities")}</div>
                   <div>
@@ -727,6 +815,12 @@ const Home = ({ params: { lng } }: { params: { lng: any } }) => {
                         {t("cable")}
                       </li>
                       <li>
+                        <InventoryIcon
+                          fontSize={isMobile ? "small" : "medium"}
+                        />
+                        {t("safe")}
+                      </li>
+                      <li>
                         <BalconyIcon fontSize={isMobile ? "small" : "medium"} />
                         {t("balcony")}
                       </li>
@@ -745,7 +839,7 @@ const Home = ({ params: { lng } }: { params: { lng: any } }) => {
                 </div>
                 <div className="flex gap-2 flex-wrap">
                   <img
-                    src="https://cdn.discordapp.com/attachments/457166097230069773/1188826464708218920/image_41.jpg?ex=659befec&is=65897aec&hm=5a3d092015cc24fcd079f85b33341c508f33152ec6ea2e2c7b2c5796e4839e6a&"
+                    src={suiteroom.src}
                     alt=""
                     className="w-[150px] aspect-[3/2] mobile:w-[80px]"
                   />
@@ -769,9 +863,9 @@ const Home = ({ params: { lng } }: { params: { lng: any } }) => {
                 hoverable={true}
                 title={t("ex_title")}
                 description={t("ex_description")}
-                src="https://cdn.discordapp.com/attachments/457166097230069773/1188826023228354650/image_40_1_1.jpg?ex=659bef83&is=65897a83&hm=6582bd0a8cc86db4a4146b452e6d4b139146174c8c42818f174afa5fbd7e6bc0&"
+                src={exroom.src}
               >
-                <div>{t("ex_description")}</div>
+                <div>{t("executive_room_desc")}</div>
                 <div>
                   <div className="font-bold mb-1">{t("amenities")}</div>
                   <div>
@@ -784,7 +878,7 @@ const Home = ({ params: { lng } }: { params: { lng: any } }) => {
                       </li>
                       <li>
                         <KitchenIcon fontSize={isMobile ? "small" : "medium"} />
-                        {t("mini_fridge")}
+                        {t("fridge")}
                       </li>
                       <li className="flex gap-4">
                         <div>
@@ -829,6 +923,12 @@ const Home = ({ params: { lng } }: { params: { lng: any } }) => {
                         {t("cable")}
                       </li>
                       <li>
+                        <InventoryIcon
+                          fontSize={isMobile ? "small" : "medium"}
+                        />
+                        {t("safe")}
+                      </li>
+                      <li>
                         <BalconyIcon fontSize={isMobile ? "small" : "medium"} />
                         {t("balcony")}
                       </li>
@@ -847,12 +947,12 @@ const Home = ({ params: { lng } }: { params: { lng: any } }) => {
                 </div>
                 <div className="flex gap-2 flex-wrap">
                   <img
-                    src="https://cdn.discordapp.com/attachments/457166097230069773/1188826023228354650/image_40_1_1.jpg?ex=659bef83&is=65897a83&hm=6582bd0a8cc86db4a4146b452e6d4b139146174c8c42818f174afa5fbd7e6bc0&"
+                    src={exroom.src}
                     alt=""
                     className="w-[150px] aspect-[3/2] mobile:w-[80px]"
                   />
                   <img
-                    src="https://cdn.discordapp.com/attachments/457166097230069773/1188856157427732520/image.png?ex=659c0b93&is=65899693&hm=290cf980bb47675679c8531bcec71e3925e2462e8057f3fd744fb8eb1ed403bf&"
+                    src={exroom2.src}
                     alt=""
                     className="w-[150px] aspect-[3/2] mobile:w-[80px]"
                   />
@@ -873,9 +973,9 @@ const Home = ({ params: { lng } }: { params: { lng: any } }) => {
               className="border-r-0"
               cover={
                 <img
-                  className="w-full h-[611px]"
+                  className="w-full h-[611px] object-cover"
                   alt="example"
-                  src="https://cdn.discordapp.com/attachments/457166097230069773/1186388457875050618/image_22.jpg?ex=6593115a&is=65809c5a&hm=cf867db65fccb6562c196f0bea586dc9020607a9cd118e60f915961630861461&"
+                  src={spa.src}
                 />
               }
             >
@@ -888,8 +988,9 @@ const Home = ({ params: { lng } }: { params: { lng: any } }) => {
             <StyledCard
               cover={
                 <img
+                  className="w-full h-[611px] object-cover"
                   alt="example"
-                  src="https://cdn.discordapp.com/attachments/457166097230069773/1186536405954998322/image_22_1.jpg?ex=65939b23&is=65812623&hm=51c97a045a70919c4ca3cbd6b1f023311523f8a0c7399532f14f427478e44b06&"
+                  src={gym.src}
                 />
               }
             >
@@ -909,19 +1010,19 @@ const Home = ({ params: { lng } }: { params: { lng: any } }) => {
                 t={t}
                 title={t("fifty_title")}
                 description={t("fifty_description")}
-                src="https://cdn.discordapp.com/attachments/457166097230069773/1186562459033686056/image_14.jpg?ex=6593b367&is=65813e67&hm=7c031f253b7dfe592350d4690bb6d92951b739eb2871256db8fc2479304db7a0&"
+                src={fifty.src}
               />
               <OtherCard
                 t={t}
                 title={t("monday_title")}
                 description={t("monday_description")}
-                src="https://cdn.discordapp.com/attachments/457166097230069773/1186562459331477626/cover_3.jpg?ex=6593b367&is=65813e67&hm=4585291084bf482c14175380a43ab8d406802a060167473d38bab221b79a71e0&"
+                src={monday.src}
               />
               <OtherCard
                 t={t}
                 title={t("friday_title")}
                 description={t("friday_description")}
-                src="https://cdn.discordapp.com/attachments/457166097230069773/1186562459604090920/cover_4.jpg?ex=6593b367&is=65813e67&hm=069041e55fe6d46f3a85f69c7600a40a3334b8feac9e86b19cd7068bb9a0e284&"
+                src={friday.src}
               />
             </Slider>
           </div>
@@ -938,19 +1039,19 @@ const Home = ({ params: { lng } }: { params: { lng: any } }) => {
                 t={t}
                 title={t("swim_title")}
                 description={t("swim_description")}
-                src="https://cdn.discordapp.com/attachments/457166097230069773/1186562753062785054/cover_5.jpg?ex=6593b3ad&is=65813ead&hm=5c9c2e3e9039f4b15c27f8ddd0f5fb7b5f45a8cc3b2f0c81cfc52c6cd0490c7a&"
+                src={swim.src}
               />
               <OtherCard
                 t={t}
                 title={t("medi_title")}
                 description={t("medi_description")}
-                src="https://cdn.discordapp.com/attachments/457166097230069773/1186562753389936750/cover_6.jpg?ex=6593b3ad&is=65813ead&hm=a9c5cb9631e12ed98d51d1f96c0bcfc87c18ea3642d48c742b35fe2ef32d94d4&"
+                src={medi.src}
               />
               <OtherCard
                 t={t}
                 title={t("rock_title")}
                 description={t("rock_description")}
-                src="https://cdn.discordapp.com/attachments/457166097230069773/1186562753759039508/cover_7.jpg?ex=6593b3ad&is=65813ead&hm=5633be70c54972883cda392c9079e407c231622e3d304fc2f56c15bc3cf8dcaf&"
+                src={rock.src}
               />
             </Slider>
           </div>
@@ -962,9 +1063,9 @@ const Home = ({ params: { lng } }: { params: { lng: any } }) => {
               {t("gallery")}
             </div>
             <div className="w-[100%]">
-              <Carousel dotPosition="right" autoplay>
+              <Carousel dotPosition="bottom" autoplay>
                 <div>
-                  <ContentStyle src="https://cdn.discordapp.com/attachments/457166097230069773/1186565137671409726/image_28.jpg?ex=6593b5e6&is=658140e6&hm=c439cc34a78e17e8d3f1c886941ad3dd92f40b5e1a9df0f87aef5dc8b6d49517&" />
+                  <ContentStyle src={checkin.src} />
                 </div>
                 <div>
                   <ContentStyle src="https://www.botanicserviceroom.com/uploads/images/rooms/1580917027SYoMNr02iB.jpeg" />
@@ -996,7 +1097,7 @@ const Home = ({ params: { lng } }: { params: { lng: any } }) => {
                   t={t}
                   title={t("siam_title")}
                   description={t("siam_description")}
-                  src="https://cdn.discordapp.com/attachments/457166097230069773/1186563062191357963/cover_8.jpg?ex=6593b3f7&is=65813ef7&hm=e26fe4168c65d44ce4ba29ab2c2e1711997210e092255fa87d811a2a819743bf&"
+                  src={siam.src}
                 />
               </Link>
               <Link
@@ -1008,7 +1109,7 @@ const Home = ({ params: { lng } }: { params: { lng: any } }) => {
                   t={t}
                   title={t("samyan_title")}
                   description={t("samyan_description")}
-                  src="https://cdn.discordapp.com/attachments/457166097230069773/1186563062510137374/cover_9.jpg?ex=6593b3f7&is=65813ef7&hm=37e1d1821914e1abaeb65fff72f7ee8777f76d4849725bc19bcd1c35d1c499e8&"
+                  src={samyan.src}
                 />
               </Link>
               <Link
@@ -1020,7 +1121,7 @@ const Home = ({ params: { lng } }: { params: { lng: any } }) => {
                   t={t}
                   title={t("central_title")}
                   description={t("central_description")}
-                  src="https://cdn.discordapp.com/attachments/457166097230069773/1186563062765994074/cover_10.jpg?ex=6593b3f7&is=65813ef7&hm=f5f92e930efdb887607c71c735b500194e2c94122db327962c261c387538292b&"
+                  src={central.src}
                 />
               </Link>
             </Slider>
