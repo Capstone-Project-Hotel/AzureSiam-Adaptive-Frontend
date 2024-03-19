@@ -618,7 +618,7 @@ const Home = ({ params: { lng } }: { params: { lng: any } }) => {
                 description={t("std_description")}
                 src={stdroom.src}
               >
-                <div>{t("std_description")}</div>
+                <div>{t("standard_room_desc")}</div>
                 <div>
                   <div className="font-bold mb-1">{t("amenities")}</div>
                   <div>
@@ -706,7 +706,7 @@ const Home = ({ params: { lng } }: { params: { lng: any } }) => {
                 description={t("dlx_description")}
                 src={dlxroom.src}
               >
-                <div>{t("dlx_description")}</div>
+                <div>{t("deluxe_room_desc")}</div>
                 <div>
                   <div className="font-bold mb-1">{t("amenities")}</div>
                   <div>
@@ -796,7 +796,7 @@ const Home = ({ params: { lng } }: { params: { lng: any } }) => {
                 description={t("fml_description")}
                 src={famroom.src}
               >
-                <div>{t("fml_description")}</div>
+                <div>{t("family_room_desc")}</div>
                 <div>
                   <div className="font-bold mb-1">{t("amenities")}</div>
                   <div>
@@ -888,7 +888,7 @@ const Home = ({ params: { lng } }: { params: { lng: any } }) => {
                 description={t("s_description")}
                 src={suiteroom.src}
               >
-                <div>{t("s_description")}</div>
+                <div>{t("suite_room_desc")}</div>
                 <div>
                   <div className="font-bold mb-1">{t("amenities")}</div>
                   <div>
@@ -990,7 +990,7 @@ const Home = ({ params: { lng } }: { params: { lng: any } }) => {
                 description={t("ex_description")}
                 src={exroom.src}
               >
-                <div>{t("ex_description")}</div>
+                <div>{t("executive_room_desc")}</div>
                 <div>
                   <div className="font-bold mb-1">{t("amenities")}</div>
                   <div>
