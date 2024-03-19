@@ -207,15 +207,15 @@ export default function SummaryCard({
     2500 * bookingDetail.suiteRoomNumber +
     3000 * bookingDetail.executiveRoomNumber;
 
-  let mondayAndFridaySale =
-    200 * mondayAndFridayNightCount * totalRooms * exchangeRate * dayDuration;
+  let mondayAndFridayDiscount =
+    200 * mondayAndFridayNightCount * totalRooms * exchangeRate;
   let saturdayAdditionalCost =
-    200 * saturdayNightCount * totalRooms * exchangeRate * dayDuration;
+    200 * saturdayNightCount * totalRooms * exchangeRate;
 
   let subTotal =
     (totalRoomPrice * reducedRate * dayDuration +
       saturdayAdditionalCost -
-      mondayAndFridaySale) *
+      mondayAndFridayDiscount) *
     exchangeRate;
 
   if (bookingDetail.packageOne === true)
@@ -872,15 +872,15 @@ export default function SummaryCard({
       <div className="flex flex-col gap-y-[1vh] mt-[1vh]">
         <div className="flex justify-between">
           <div className="text-body text-slate-400 mobile:text-h4-mobile">
-            {t("monday_and_friday_sale")}
+            {t("monday_and_friday_discount")}
           </div>
           <div className="text-body text-slate-400 mobile:text-h4-mobile">
-            {currency}{" "}
+            {currency} {mondayAndFridayDiscount > 0 ? "-" : ""}
             {new Intl.NumberFormat("th-TH", {
               style: "decimal",
               minimumFractionDigits: 2,
               maximumFractionDigits: 2,
-            }).format(mondayAndFridaySale)}
+            }).format(mondayAndFridayDiscount)}
           </div>
         </div>
         <div className="flex justify-between">

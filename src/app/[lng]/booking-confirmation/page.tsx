@@ -201,7 +201,7 @@ const BookingConfirmation: React.FC<ReservationAndGuestDetailProps> = ({
                 {t("booking_detail_label")}
               </div>
               <SummaryCard
-                page="summary-booking-detail"
+                page="booking-confirmation"
                 isDisabledConfirm={true}
                 t={t}
                 lng={lng}
