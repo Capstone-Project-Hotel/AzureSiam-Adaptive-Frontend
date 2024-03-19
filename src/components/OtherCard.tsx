@@ -72,6 +72,7 @@ const Othercard: React.FC<React.PropsWithChildren<OthercardProps>> = ({
         </div>
       )}
       <Modal
+        className="top-[50px] mobile:top-[200px]"
         title={title}
         open={isModalOpen}
         onOk={handleOk}

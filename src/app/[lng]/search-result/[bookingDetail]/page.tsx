@@ -143,6 +143,62 @@ export default function SearchResultPage({
     "28/01/2024",
   ];
 
+  // eslint-disable-next-line arrow-body-style
+  const standardDisabledDate: DatePickerProps["disabledDate"] = (current) => {
+    const disabledDates = standardUnavailableDateList.map((dateString) =>
+      dayjs(dateString, "DD/MM/YYYY")
+    );
+    return (
+      current &&
+      (current < dayjs().endOf("day") ||
+        disabledDates.some((date) => current.isSame(date, "day")))
+    );
+  };
+
+  const deluxeDisabledDate: DatePickerProps["disabledDate"] = (current) => {
+    const disabledDates = deluxeUnavailableDateList.map((dateString) =>
+      dayjs(dateString, "DD/MM/YYYY")
+    );
+    return (
+      current &&
+      (current < dayjs().endOf("day") ||
+        disabledDates.some((date) => current.isSame(date, "day")))
+    );
+  };
+
+  const familyDisabledDate: DatePickerProps["disabledDate"] = (current) => {
+    const disabledDates = familyUnavailableDateList.map((dateString) =>
+      dayjs(dateString, "DD/MM/YYYY")
+    );
+    return (
+      current &&
+      (current < dayjs().endOf("day") ||
+        disabledDates.some((date) => current.isSame(date, "day")))
+    );
+  };
+
+  const suiteDisabledDate: DatePickerProps["disabledDate"] = (current) => {
+    const disabledDates = suiteUnavailableDateList.map((dateString) =>
+      dayjs(dateString, "DD/MM/YYYY")
+    );
+    return (
+      current &&
+      (current < dayjs().endOf("day") ||
+        disabledDates.some((date) => current.isSame(date, "day")))
+    );
+  };
+
+  const executiveDisabledDate: DatePickerProps["disabledDate"] = (current) => {
+    const disabledDates = executiveUnavailableDateList.map((dateString) =>
+      dayjs(dateString, "DD/MM/YYYY")
+    );
+    return (
+      current &&
+      (current < dayjs().endOf("day") ||
+        disabledDates.some((date) => current.isSame(date, "day")))
+    );
+  };
+
   const mockStandardRoomInformation = {
     roomName: t("std_title"),
     maxGuest: 1,
@@ -151,14 +207,16 @@ export default function SearchResultPage({
     roomPrice: 1200,
     roomImage: stdroom.src,
     roomAmenities: [
+      t("non_smoking"),
+      t("mini_fridge"),
       t("television"),
       t("air_conditioner"),
-      t("mini_fridge"),
       t("hairdryer"),
       t("wireless_internet"),
       t("desk"),
+      t("private_bath"),
       t("cable"),
-      t("non_smoking"),
+      t("safe"),
     ],
     roomDetail: t("standard_room_desc"),
     roomType: "standard",
@@ -170,7 +228,7 @@ export default function SearchResultPage({
     isAvailable: generatedDates.every(
       (date) => !standardUnavailableDateList.includes(date)
     ),
-    disabledDate: disabledDate,
+    disabledDate: standardDisabledDate,
   };
 
   const mockDeluxeRoomInformation = {
@@ -181,15 +239,17 @@ export default function SearchResultPage({
     roomPrice: 1800,
     roomImage: dlxroom.src,
     roomAmenities: [
-      t("television"),
-      t("air_conditioner"),
+      t("non_smoking"),
       t("mini_fridge"),
       t("hairdryer"),
+      t("television"),
+      t("air_conditioner"),
       t("wireless_internet"),
       t("desk"),
+      t("private_bath"),
       t("cable"),
+      t("safe"),
       t("balcony"),
-      t("non_smoking"),
     ],
     roomDetail: t("deluxe_room_desc"),
     roomType: "deluxe",
@@ -201,7 +261,7 @@ export default function SearchResultPage({
     isAvailable: generatedDates.every(
       (date) => !deluxeUnavailableDateList.includes(date)
     ),
-    disabledDate: disabledDate,
+    disabledDate: deluxeDisabledDate,
   };
 
   const mockFamilyRoomInformation = {
@@ -212,15 +272,17 @@ export default function SearchResultPage({
     roomPrice: 2200,
     roomImage: famroom.src,
     roomAmenities: [
+      t("non_smoking"),
+      t("fridge"),
+      t("hairdryer"),
       t("television"),
       t("air_conditioner"),
-      t("compact_fridge"),
-      t("hairdryer"),
       t("wireless_internet"),
       t("desk"),
+      t("private_bath"),
       t("cable"),
+      t("safe"),
       t("balcony"),
-      t("non_smoking"),
     ],
     roomDetail: t("family_room_desc"),
     roomType: "family",
@@ -233,7 +295,7 @@ export default function SearchResultPage({
     isAvailable: generatedDates.every(
       (date) => !familyUnavailableDateList.includes(date)
     ),
-    disabledDate: disabledDate,
+    disabledDate: familyDisabledDate,
   };
 
   const mockSuiteRoomInformation = {
@@ -244,15 +306,16 @@ export default function SearchResultPage({
     roomPrice: 2500,
     roomImage: suiteroom.src,
     roomAmenities: [
-      t("television"),
-      t("air_conditioner"),
+      t("non_smoking"),
       t("mini_fridge"),
       t("hairdryer"),
+      t("television"),
+      t("air_conditioner"),
       t("wireless_internet"),
-      t("non_smoking"),
       t("desk"),
       t("jacuzzi"),
       t("cable"),
+      t("safe"),
       t("balcony"),
       t("parlor"),
       t("dinner"),
@@ -266,7 +329,7 @@ export default function SearchResultPage({
     isAvailable: generatedDates.every(
       (date) => !suiteUnavailableDateList.includes(date)
     ),
-    disabledDate: disabledDate,
+    disabledDate: suiteDisabledDate,
   };
 
   const mockExecutiveRoomInformation = {
@@ -277,15 +340,16 @@ export default function SearchResultPage({
     roomPrice: 3000,
     roomImage: exroom.src,
     roomAmenities: [
+      t("non_smoking"),
+      t("fridge"),
+      t("hairdryer"),
       t("television"),
       t("air_conditioner"),
-      t("mini_fridge"),
-      t("hairdryer"),
       t("wireless_internet"),
-      t("non_smoking"),
       t("desk"),
       t("jacuzzi"),
       t("cable"),
+      t("safe"),
       t("balcony"),
       t("parlor"),
       t("dinner"),
@@ -300,7 +364,7 @@ export default function SearchResultPage({
     isAvailable: generatedDates.every(
       (date) => !executiveUnavailableDateList.includes(date)
     ),
-    disabledDate: disabledDate,
+    disabledDate: executiveDisabledDate,
   };
 
   const mockRoomInformation = [
