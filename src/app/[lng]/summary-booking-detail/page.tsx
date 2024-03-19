@@ -352,7 +352,7 @@ const GuestDetailInputContainer: React.FC<GuestDetailInputContainerProps> = ({
       {/* Row 2 */}
       <div className="flex flex-wrap">
         {/* Gender */}
-        <Field fieldName={t("gender")} value={guest.gender} />
+        <Field fieldName={t("gender")} value={t(guest.gender)} />
 
         {/* Birth Date */}
         <Field fieldName={t("birthdate")} value={guest.birthDate} />
