@@ -990,11 +990,11 @@ const GuestDetailInputContainer: React.FC<GuestDetailInputContainerProps> = ({
         {/* City */}
         <div className="flex-1 mobile:flex-none mobile:w-full">
           <div className="text-description mobile:text-h3-mobile">
-            {t("city")}
+            {t("city_state")}
           </div>
           <Select
             className="w-full"
-            placeholder={t("city_default")}
+            placeholder={t("city_state_default")}
             options={city}
             onChange={handleChange}
             defaultValue={guest.city ? guest.city : ""}
