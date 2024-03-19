@@ -555,11 +555,20 @@ const ReservationAndGuestDetail: React.FC<ReservationAndGuestDetailProps> = ({
                 {t("cancel_policy")}
               </div>
               <div className="w-full text-description mobile:text-h3-mobile">
-                <div>{t("cancel_policy_description_header")}</div>
-                <br />
-                <div>{t("cancel_policy_description")}</div>
-                <div>{t("cancel_policy_description2")} </div>
-                <div>{t("cancel_policy_description3")}</div>
+                <div className="w-full text-description mobile:text-h3-mobile">
+                  <div>{t("cancel_policy_description_header")}</div>
+                  <br />
+                  <div>{t("cancel_policy_description")}</div>
+                  <div>{t("cancel_policy_description2")} </div>
+                  <div>{t("cancel_policy_description3")}</div>
+                  <br />
+                  <div>{t("cancel_policy_description_header2")}</div>
+                  <br />
+                  <div>{t("cancel_policy_description4")}</div>
+                  <div>{t("cancel_policy_description5")} </div>
+                  <div>{t("cancel_policy_description6")}</div>
+                  <div>{t("cancel_policy_description7")}</div>
+                </div>
               </div>
             </div>
 
