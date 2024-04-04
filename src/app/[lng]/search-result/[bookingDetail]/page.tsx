@@ -141,6 +141,12 @@ export default function SearchResultPage({
     "25/01/2024",
     "26/01/2024",
     "28/01/2024",
+    "02/05/2024",
+    "04/05/2024",
+    "05/05/2024",
+    "06/05/2024",
+    "11/05/2024",
+    "12/05/2024",
   ];
 
   // eslint-disable-next-line arrow-body-style
