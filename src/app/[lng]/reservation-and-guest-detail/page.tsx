@@ -1079,7 +1079,6 @@ const GuestDetailInputContainer: React.FC<GuestDetailInputContainerProps> = ({
             <div className="flex-1 mobile:flex-none mobile:w-full">
               <Input
                 disabled={!guest.idType}
-                type="number"
                 className="w-full"
                 placeholder={
                   guest["idType"]
