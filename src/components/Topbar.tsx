@@ -50,7 +50,7 @@ export default function Topbar({ lng }: { lng: any }) {
     "USD",
     "AUD",
     "JPY",
-    "CNH",
+    "CNY",
     "HKD",
     "CAD",
     "INR",
@@ -70,21 +70,17 @@ export default function Topbar({ lng }: { lng: any }) {
     try {
       if (value && value !== "THB") {
         const response = await axios.get(
-          "https://currency-exchange.p.rapidapi.com/exchange",
+          "https://exchangerate-api.p.rapidapi.com/rapid/latest/THB",
           {
-            params: {
-              from: "THB",
-              to: value,
-            },
             headers: {
               "X-RapidAPI-Key":
                 "32978adf6emsh766e865f3b81f21p11aafajsnb354410acc8c",
-              "X-RapidAPI-Host": "currency-exchange.p.rapidapi.com",
+              "X-RapidAPI-Host": "exchangerate-api.p.rapidapi.com",
             },
           }
         );
         setCurrency(value);
-        setExchangeRate(response.data);
+        setExchangeRate(response.data.rates[value]);
       } else {
         setCurrency("THB");
         setExchangeRate(1);
