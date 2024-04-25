@@ -10,7 +10,6 @@ import "primeicons/primeicons.css";
 import useStore from "@/hooks/useStore";
 import { InputNumber, Button } from "antd";
 import Link from "next/link";
-import { AntAnchor } from "antd/es/anchor/Anchor";
 
 import { ToastContainer, toast, Bounce } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
