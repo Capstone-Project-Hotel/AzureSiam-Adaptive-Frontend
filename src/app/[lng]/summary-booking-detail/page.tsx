@@ -2,7 +2,6 @@
 
 import React from "react";
 import useStore from "@/hooks/useStore";
-import { gu } from "date-fns/locale";
 import { redirect } from "next/navigation";
 import SummaryCard from "@/components/SummaryCard";
 import Topbar from "@/components/Topbar";
