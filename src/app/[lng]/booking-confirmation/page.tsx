@@ -2,13 +2,11 @@
 
 import React from "react";
 import useStore from "@/hooks/useStore";
-import { gu } from "date-fns/locale";
 import { redirect } from "next/navigation";
 import SummaryCard from "@/components/SummaryCard";
 import Topbar from "@/components/Topbar";
 import { useTranslation } from "@/app/i18n/client";
-import { CheckCircleFilled, CiCircleFilled } from "@ant-design/icons";
-import { green } from "@mui/material/colors";
+import { CheckCircleFilled } from "@ant-design/icons";
 import Footer from "@/components/Footer";
 import { useMediaQuery } from "react-responsive";
 interface Guest {

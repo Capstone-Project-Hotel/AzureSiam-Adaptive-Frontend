@@ -1,9 +1,7 @@
 "use client";
-import Image from "next/image";
 import Topbar from "@/components/Topbar";
 import Footer from "@/components/Footer";
 import { PhoneOutlined, MailOutlined } from "@ant-design/icons";
-import LandingTopbar from "@/components/LandingTopbar";
 import { useTranslation } from "@/app/i18n/client";
 import { useMediaQuery } from "react-responsive";
 
